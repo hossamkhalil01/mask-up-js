@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="css/authen.css"/>
+
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="buttons-container">
+                <button class="button form-header-section" id="loginSection" autofocus>Login</button>
+                <button class="button form-header-section" id="registerSection">Register</button>
+            </div>
+            <form action="php/login.php" id="loginForm" class="form">
+
+                <table>
+                    <tr>
+                        <td><label for="username">Username</label></td>
+                        <td><input type="text" name="username" id="username"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password</label></td>
+                        <td><input type="password" name="password" id="password"/></td>
+                    </tr>    
+                    <br>
+                    <tr>
+                        <td colspan="2"><input class="button" type="submit" value="Sign in" name="signin" id="signin"></td>
+                    </tr>
+                </table>
+            </form>
+            <form action="php/register.php" id="registerForm" class="form">
+                <table>
+                    <tr>
+                        <td><label for="username">Username</label></td>
+                            <td><input type="text" name="username" id="username"/></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="password">Password</label></td>
+                        <td><input type="password" name="password" id="password"/></td>
+                    <br>
+                </tr>
+
+                <tr>
+                    <td><label for="cpassword">Confirm Password</label></td>
+                   <td> <input type="password" name="cpassword" id="cpassword"/></td>
+                </tr>
+
+                <tr>
+                <td><label for="nickname">Nickname</label></td>
+                <td><input type="text" name="nickname" id="nickname"/></td>
+                </tr>
+
+                <tr>
+                    <td><label for="avatar">Avatar</label></td>
+                    <td><input type="file" name="avatar" id="avatar"/></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><input class="button" type="submit" value="Sign Up" name="signup" id="signup"></td>
+                </tr>
+            </table>
+
+
+            </form>
+
+        </div>
+
+        <script src="js/authen.js"></script>
+    </body>
+
+</html>

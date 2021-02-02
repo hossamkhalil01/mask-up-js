@@ -1,0 +1,75 @@
+body{
+    background: url("../images/homeBG.jpeg");
+    background-size: cover;
+    
+}
+
+.container{
+    width: 50%;
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+    border: #09c 1px solid;
+    border-radius: 50px;
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+
+table{
+    margin: auto;
+}
+
+input{
+    margin: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    border: #09c 1px solid;
+}
+
+input[type="file"]{
+    border: none;
+}
+
+.button{
+    width: 100px;
+    padding: 2%;
+    margin: 2%;
+    border: none;
+    border-radius: 10%;
+  
+}
+
+.form-header-section{
+    width: 49.7%;
+    margin: 0px;
+    border: none;
+    display: inline;
+    background-color:rgba(66, 21, 228, 0.8);
+    color: #FFF;
+    border-radius: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+#registerForm{
+    display: none;
+}
+
+.buttons-container{
+    margin: auto;
+}
+
+button:focus, input:focus{
+    outline: none;
+}
+
+.form-header-section:hover{
+    /* background-color:rgba(66, 21, 228, 0.4); */
+    cursor: pointer;
+}
+
+.highlighted{
+    background-color:transparent;
+    box-shadow: unset;
+    color: black;
+}
