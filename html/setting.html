@@ -16,26 +16,31 @@
         <div class="accountForm" id="accountForm" style="display: none" >
             <div class="formGroup">
             <label class="formElement" >Username</label>
-            <input class="formElement" type="text" value="your username">
+            <input class="formElement"  id="userName" type="text" value="">
             </div>
 
 
             <div class="formGroup">
                 <label class="formElement" >Nickname</label>
-                <input class="formElement" type="text" value="your nickname">
+                <input class="formElement"  id="nickname" type="text" value="">
             </div>
 
             <div class="formGroup">
                 <label class="formElement" >Password</label>
-                <input class="formElement" type="password">
+                <input class="formElement"  id="password" type="password">
             </div>
 
             <div class="formGroup">
                 <label class="formElement" >Confirm Password</label>
-                <input class="formElement" type="password">
+                <input class="formElement" id="cPassword" type="password">
             </div>
+            <div class="formErrors">
+                <ul class="errors" id="error-messages" style="display:none">
+                </ul>
+            </div>
+
             <div class="formGroup">
-                <input class="formButton" type="submit" value="update">
+                <input  class="formButton" type="submit" id="update" value="update">
             </div>
         </div>
         <div class="musicForm" id="musicForm">

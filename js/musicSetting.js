@@ -1,101 +1,113 @@
-
-var music = document.getElementById("music");
-var account = document.getElementById("accunt");
-var accountForm = document.getElementById("accountForm");
-var musicForm =  document.getElementById("musicForm");
-var play = document.getElementById("play");
-var repeat = document.getElementById("repeat");
-var shuffle = document.getElementById("shuffle");
-play.addEventListener("click",playSong)
-repeat.addEventListener("click",repeatSong);
-shuffle.addEventListener("click",shuffleSong)
-music.addEventListener("click",musicClicked);
-var audio = document.getElementById("theAud");
-audio.addEventListener("ended",chooseSong)
-var buttonType ="";
-var currentSong = document.getElementById("currentSong");
-var musicAlbum = document.getElementById("musicAlbum");
-document.addEventListener("DOMContentLoaded", initializeSongs);
-var pauseResume = document.getElementById("pause-reusme");
-pauseResume.addEventListener("click",pauseOrResume)
-
-function pauseOrResume() {
-    console.log("weseltHna");
-    console.log()
-    if (pauseResume.getAttribute("currentType" ) =="pause")
-    {
-        console.log("holaa")
-        pauseResume.setAttribute("currentType","resume")
-        pauseResume.textContent="Resume"
-        Album.pauseResume("pause");
+class MusicSetting{
+    static  audio = document.getElementById("theAud");
+    static currentSong = document.getElementById("currentSong");
+    static getAudio() {
+        return this.audio;
     }
-    else {
-        pauseResume.setAttribute("currentType","pause")
-        pauseResume.textContent="Pause"
-    }
-    Album.pauseResume("resume");
-}
-function chooseSong() {
 
-    if(buttonType == "play")
-    {
-        console.log("play")
-        Album.playSong();
+    static getCurrentSong() {
+        return this.currentSong;
     }
-    else if (buttonType == "repeat")
-    {
-        console.log("repeat")
-        Album.repeatSong();
+    constructor() {
+        this.music =document.getElementById("music");
+        this.account = document.getElementById("accunt");
+        this.accountForm = document.getElementById("accountForm");
+        this.musicForm =  document.getElementById("musicForm");
+        this.play = document.getElementById("play");
+        this.repeat = document.getElementById("repeat");
+        this.shuffle = document.getElementById("shuffle");
+        this.audio = document.getElementById("theAud");
+        this.buttonType ="";
+        this.musicAlbum = document.getElementById("musicAlbum");
+        this.pauseResume = document.getElementById("pause-reusme");
+        console.log(this.pauseResume)
     }
-    else if (buttonType == "shuffle")
-    {
-        console.log("second shuffle")
-        Album.shuffleSong();
-    }
-}
-function musicClicked(e) {
-    accountForm.style.display="none"
-    musicForm.style.display=""
+    addEventListeners() {
+        this.play.addEventListener("click",this.playSong)
+        this.repeat.addEventListener("click",this.repeatSong);
+        this.shuffle.addEventListener("click",this.shuffleSong)
+        this.music.addEventListener("click",this.musicClicked);
+        this.audio.addEventListener("ended",this.chooseSong);
+        this.pauseResume.addEventListener("click",this.pauseOrResume);
+        document.addEventListener("DOMContentLoaded", this.initializeSongs);
 
-}
-
-function mapAlbumToDom() {
-    if(Album.getSongs().length >0 )
-    {
-        var li = "";
-        for (var song  in  Album.getSongs())
+    }
+     pauseOrResume() {
+        console.log("weseltHna");
+         console.log(this.tmp)
+        if (document.getElementById("pause-reusme").getAttribute("currentType" ) =="pause")
         {
-            li = document.createElement("li")
-            li.innerHTML = `<li class="musicLi"> <span> ${Album.getSongs()[song]}</span> 
-<!--    <img id="${song}" name="play" src="../images/play.png" width="50px" height="50px" alt=""> -->
-</li>`
-            musicAlbum.appendChild(li);
+            console.log("holaa")
+            document.getElementById("pause-reusme").setAttribute("currentType","resume")
+            document.getElementById("pause-reusme").textContent="Resume"
+            Album.pauseResume("pause");
+        }
+        else {
+            document.getElementById("pause-reusme").setAttribute("currentType","pause")
+            document.getElementById("pause-reusme").textContent="Pause"
+        }
+        Album.pauseResume("resume");
+    }
+     chooseSong() {
+
+        if(this.buttonType == "play")
+        {
+            console.log("play")
+            Album.playSong();
+        }
+        else if (this.buttonType == "repeat")
+        {
+            console.log("repeat")
+            Album.repeatSong();
+        }
+        else if (this.buttonType == "shuffle")
+        {
+            console.log("second shuffle")
+            Album.shuffleSong();
         }
     }
-    // play.click();
-}
-function initializeSongs() {
+     musicClicked(e) {
+         document.getElementById("accountForm").style.display="none"
+         document.getElementById("musicForm").style.display=""
 
+    }
+
+
+        initializeSongs() {
         Album.addSong("01_AlbyEtmannah.mp3");
         Album.addSong("02_AmarEah.mp3");
         Album.addSong("03_AhHabibi.mp3");
         Album.addSong("04_Awelkolhaga.mp3");
+            if(Album.getSongs().length >0 )
+            {
+                var li = "";
+                for (var song  in  Album.getSongs())
+                {
+                    li = document.createElement("li");
+                    li.innerHTML = `<li class="musicLi"> <span> ${Album.getSongs()[song]}</span> 
+<!--    <img id="${song}" name="play" src="../images/play.png" width="50px" height="50px" alt=""> -->
+                    </li>`;
+                    musicAlbum.appendChild(li);
+                }
+            }
+    }
+    // mapAlbumToDom() {
+    //
+    // }
+     playSong() {
+        this.buttonType = "play";
+        Album.playSong();
+    }
+     repeatSong() {
+        this.buttonType = "repeat";
+        Album.repeatSong();
+    }
+     shuffleSong() {
+        this.buttonType = "shuffle";
+        Album.shuffleSong();
 
-    mapAlbumToDom();
+    }
 
-
-}
-function playSong() {
-    buttonType = "play";
-    Album.playSong();
-}
-function repeatSong() {
-    buttonType = "repeat";
-    Album.repeatSong();
-}
-function shuffleSong() {
-    buttonType = "shuffle";
-    Album.shuffleSong();
 
 }
 class Album {
@@ -125,10 +137,10 @@ class Album {
         if (status =="pause")
         {
             console.log("ana ha paaaaaaaaaause")
-            console.log(audio);
-            audio.currentTime = 0;
-            audio.pause();
-            var oldSrc = audio.src;
+            // console.log(audio);
+            MusicSetting.getAudio().currentTime = 0;
+            MusicSetting.getAudio().pause();
+            // var oldSrc = audio.src;
             // console.log(oldSrc)
             // currentSong.            // currentSong.src = "";
             // currentSong.src= oldSrc;
@@ -139,10 +151,10 @@ class Album {
             {
                 console.log("mmust be here")
                 this.index=0;
-                currentSong.src = `../audio/${Album.getSongs()[this.index]}`;
-                audio.load();
+                MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
+                MusicSetting.getAudio().load();
             }
-            audio.play();
+            MusicSetting.getAudio().play();
         }
     }
     static repeatSong()
@@ -155,9 +167,9 @@ class Album {
         }
         console.log("index is "+this.index);
 
-        currentSong.src = `../audio/${Album.getSongs()[this.index]}`;
-        audio.load();
-        audio.play();
+        MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
+        MusicSetting.getAudio().load();
+        MusicSetting.getAudio().play();
     }
     static shuffleSong() {
         var  min = Math.ceil(0);
@@ -165,9 +177,9 @@ class Album {
 
 
         this.index =(Math.floor(Math.random() * (max - min + 1)) + min);
-        currentSong.src = `../audio/${Album.getSongs()[this.index]}`;
-        audio.load();
-        audio.play();
+        MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
+        MusicSetting.getAudio().load();
+        MusicSetting.getAudio().play();
 
 
     }
@@ -187,11 +199,12 @@ class Album {
             console.log("are you heeereee ");
             this.index++;
         }
-        currentSong.src = `../audio/${Album.getSongs()[this.index]}`;
-            audio.load();
-            audio.play();
+        MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
+        MusicSetting.getAudio().load();
+        MusicSetting.getAudio().play();
 
     }
 
 }
-
+var music = new MusicSetting();
+music.addEventListeners();

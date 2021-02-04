@@ -93,3 +93,15 @@ audio{
     display: inline-block;
     width: 50px;
 }
+.errors{
+    background:pink;
+    border:1px solid red;
+    width: 300px;
+}
+.formErrors {
+    padding: 20px;
+    font-size: 25px;
+    width: 460px;
+
+    margin-left: 90px;
+}
