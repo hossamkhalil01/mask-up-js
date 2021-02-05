@@ -13,16 +13,6 @@ function query($query){
     return $result;
 }
 
-// function fetchRecords($result){
-//     return mysqli_fetch_array($result);
-// }
-
-// function ifItIsMethod($method=null){
-//     if ($_SERVER['REQUEST_METHOD'] == strtoupper($method)){
-//         return true;
-//     }
-//     return false;
-// }
 
 function escape($data){
     $data = trim($data);
@@ -44,8 +34,6 @@ function username_exists($username){
 }
 
 
-
-
 function register_user($username, $password, $nickname, $avatar){
     global $connection;
 
@@ -57,7 +45,6 @@ function register_user($username, $password, $nickname, $avatar){
     
 
 }
-
 
 
 function login_user($username, $password){
@@ -83,31 +70,18 @@ function login_user($username, $password){
         $db_user_level = $row['level'];
         $db_user_avatar = $row['avatar'];
 
-        
-        // $password = crypt($password, $db_user_password);
-
-        echo $password;
-
-        if(password_verify($password, $db_user_password)){
-            echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        }else{
-            echo "bbbbbbbbbbbbbbbbbbbbb";
-        }
-
-        // if password_verify($password, $db_user_password);
-
-
-
         if(password_verify($password, $db_user_password)){
             $_SESSION['username'] = $db_username;
             $_SESSION['nickname'] = $db_user_nickname;
             $_SESSION['score'] = $db_user_score;
             $_SESSION['level'] = $db_user_level;
             $_SESSION['avatar'] = $db_user_avatar;
-            redirect('/JSProject/home.php');
+            
+            return true;
         }
     }
 
+    return false;
 }
 
 
@@ -150,8 +124,4 @@ function validateRegister($error, $username, $password, $cpassword, $nickname, $
     }
     return $error;
 }
-
-
-
-
 ?>
