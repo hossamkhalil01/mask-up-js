@@ -203,7 +203,6 @@ class Album {
         this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
         this.audio_var.play();
     }
-
 }
 var music = new MusicSetting();
 music.addEventListeners();
