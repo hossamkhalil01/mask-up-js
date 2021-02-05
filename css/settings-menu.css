@@ -1,0 +1,107 @@
+.container{
+    margin: auto;
+    margin-top: 5px;
+}
+.iconsContainer{
+    border: 2px solid black;
+    margin:auto;
+    background: lightgray;
+    width: 604px;
+    height: 200px;
+}
+.musicContainer{
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    background: cadetblue;
+}
+.accountContainer{
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    background: cadetblue;
+}
+
+.musicIcon, .accountIcon {
+    width: 300px;
+    height: 200px;
+    cursor: pointer;
+}
+
+.accountForm{
+    /*display: none;*/
+    border: 2px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin:auto;
+    background: lightgray;
+    width: 604px;
+}
+.musicForm{
+    border: 2px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin:auto;
+    background: lightgray;
+    width: 604px;
+}
+.musicItem{
+    margin-left: 90px;
+    width: 400px;
+}
+.musicButtonsContainer{
+    padding-left: 25px;
+}
+.musicButtons{
+    margin-top: 20px;
+    height: 50px;
+    width: 134px;
+    cursor: pointer;
+}
+.formElement{
+    margin-top: 10px;
+    font-size: 30px;
+    padding-left: 15px;
+    border-radius: 5px;
+    display: inline-block;
+    width: 280px;
+    height: 50px;
+}
+.formButton{
+    margin-top: 10px;
+    margin-left: 170px;
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 30px;
+
+}
+audio{
+    display: none;
+}
+.musicLi{
+    margin-top: 20px;
+}
+.musicLi span{
+    font-size: 40px;
+    display: inline-block;
+    width: 460px;
+}
+.musicLi img{
+    margin-left: 20px;
+    margin-top: 10px;
+    display: inline-block;
+    width: 50px;
+}
+.errors{
+    background:pink;
+    border:1px solid red;
+    width: 300px;
+}
+.formErrors {
+    padding: 20px;
+    font-size: 25px;
+    width: 460px;
+
+    margin-left: 90px;
+}
