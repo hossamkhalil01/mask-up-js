@@ -21,13 +21,30 @@ table{
 
 input{
     margin: 20px;
+    margin-bottom: 10px;
+
     padding: 10px;
     border-radius: 20px;
     border: #09c 1px solid;
 }
+/*  */
 
 input[type="file"]{
     border: none;
+}
+
+
+.submit-container{
+    text-align: center;
+}
+
+input[type="submit"]{
+    background-color: #09c;
+}
+
+input[type="submit"]:hover{
+    background-color: rgba(21, 152, 228, 0.6);
+    cursor: pointer;
 }
 
 .button{
@@ -73,3 +90,13 @@ button:focus, input:focus{
     box-shadow: unset;
     color: black;
 }
+
+
+.errorMsg{
+    background-color: tomato;
+    padding: 2px;
+    border: solid red 2px;
+    border-radius: 10px;
+}
+
+

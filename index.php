@@ -1,55 +1,42 @@
-<?php include "includes/db.php"; ?>
-<?php  include "includes/header.php"; ?>
+<?php  include "includes/functions.php"; ?>
 
 <?php
 
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['signup'])){
 
     $username = escape($_POST['username']);
-    $email = escape($_POST['email']);
     $password = escape($_POST['password']);
+    $cpassword = escape($_POST['cpassword']);
+    $nickname = escape($_POST['nickname']);
+    $avatar = escape($_POST['avatar']);
+    
 
     $error = [
         'username' =>  '',
-        'email' =>  '',
         'password' =>  '',
+        'cpassword' =>  '',
+        'nickname' =>  '',
+        'avatar' =>  '',
     ];
 
-    if(strlen($username) < 4){
-        $error['username'] = 'Username needs to be longer';
-    }
-    if($username === ''){
-        $error['username'] = 'Username cannot be empty';
-    }
-    if(username_exists($username)){
-        $error['username'] = 'Username already exists, pick another one';
-    }
-
-
-    if($email === ''){
-        $error['email'] = 'Email cannot be empty';
-    }
-    if(email_exists($email)){
-        $error['email'] = 'Email already exists, <a href="index.php">Please login </a>';
-    }
-
-
-    if($password === ''){
-        $error['password'] = 'Password cannot be empty';
-    }
-
-    foreach ($error as $key => $value){
-        if (empty($value)){
-            unset($error[$key]);
-        }
-    } // end foreach
+    $error = validateRegister($error, $username, $password, $cpassword, $nickname, $avatar);    
 
     if (empty($error)){
-        register_user($username, $email, $password);
-        $data['message'] = $username;
-        $pusher->trigger('notifications', 'new_user', $data);
-        login_user($username, $password);
+        register_user($username, $password, $nickname, $avatar);
+        
+        redirect('/JSProject/home.php');
+
+        // login_user($username, $password);
     }
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['signin'])){
+    
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        login_user($_POST['username'], $_POST['password']);
+    } else {
+        redirect('index.php');
+    }
+
+
 
 }
 
@@ -74,13 +61,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         <td><label for="username">Username</label></td>
                         <td><input type="text" name="username" id="username"/></td>
                     </tr>
+                    <tr><td colspan="2"> <p <?php if(isset ($error['username'])){echo 'class="errorMsg"';} ?>><?php echo isset($error['username']) ? $error['username'] : '' ?></p></td></tr>
                     <tr>
                         <td><label for="password">Password</label></td>
                         <td><input type="password" name="password" id="password"/></td>
-                    </tr>    
-                    <br>
+                    </tr>
+                    <tr><td colspan="2"><p <?php if(isset ($error['password'])){echo 'class="errorMsg"';} ?>> <?php echo isset($error['password']) ? $error['password'] : '' ?> </p></td></tr>
                     <tr>
-                        <td colspan="2"><input class="button" type="submit" value="Sign in" name="signin" id="signin"></td>
+                        <td class="submit-container" colspan="2"><input class="button" type="submit" value="Sign in" name="signin" id="signin" class="submit-button"></td>
                     </tr>
                 </table>
             </form>
@@ -90,30 +78,35 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         <td><label for="username">Username</label></td>
                             <td><input type="text" name="username" id="username"/></td>
                     </tr>
-
+                    
+                    <tr><td colspan="2"> <p <?php if(isset ($error['username'])){echo 'class="errorMsg"';} ?>><?php echo isset($error['username']) ? $error['username'] : '' ?></p></td></tr>
                     <tr>
                         <td><label for="password">Password</label></td>
                         <td><input type="password" name="password" id="password"/></td>
-                    <br>
-                </tr>
+                    </tr>
+                    <tr><td colspan="2"><p <?php if(isset ($error['password'])){echo 'class="errorMsg"';} ?>> <?php echo isset($error['password']) ? $error['password'] : '' ?> </p></td></tr>
 
-                <tr>
-                    <td><label for="cpassword">Confirm Password</label></td>
-                   <td> <input type="password" name="cpassword" id="cpassword"/></td>
-                </tr>
+                    <tr>
+                        <td><label for="cpassword">Confirm Password</label></td>
+                    <td> <input type="password" name="cpassword" id="cpassword"/></td>
+                    </tr>
+                    <tr><td colspan="2"><p <?php if(isset ($error['cpassword'])){echo 'class="errorMsg"';} ?>> <?php echo isset($error['cpassword']) ? $error['cpassword'] : '' ?> </p></td></tr>
+
 
                 <tr>
                 <td><label for="nickname">Nickname</label></td>
                 <td><input type="text" name="nickname" id="nickname"/></td>
                 </tr>
+                <tr><td colspan="2"><p <?php if(isset ($error['nickname'])){echo 'class="errorMsg"';} ?>> <?php echo isset($error['nickname']) ? $error['nickname'] : '' ?> </p></td></tr>
 
                 <tr>
                     <td><label for="avatar">Avatar</label></td>
                     <td><input type="file" name="avatar" id="avatar"/></td>
                 </tr>
-
+                <tr><td colspan="2"><p <?php if(isset ($error['avatar'])){echo 'class="errorMsg"';} ?>> <?php echo isset($error['avatar']) ? $error['avatar'] : '' ?> </p></td></tr>
+         
                 <tr>
-                    <td colspan="2"><input class="button" type="submit" value="Sign Up" name="signup" id="signup"></td>
+                    <td class="submit-container" colspan="2"><input class="button" type="submit" value="Sign Up" name="signup" id="signup"></td>
                 </tr>
             </table>
 
