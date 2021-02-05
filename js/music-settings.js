@@ -20,7 +20,6 @@ class MusicSetting{
         this.buttonType ="";
         this.musicAlbum = document.getElementById("musicAlbum");
         this.pauseResume = document.getElementById("pause-reusme");
-        console.log(this.pauseResume)
     }
     addEventListeners() {
         this.play.addEventListener("click",this.playSong)
@@ -33,11 +32,9 @@ class MusicSetting{
 
     }
      pauseOrResume() {
-        console.log("weseltHna");
-         console.log(this.tmp)
+
         if (document.getElementById("pause-reusme").getAttribute("currentType" ) =="pause")
         {
-            console.log("holaa")
             document.getElementById("pause-reusme").setAttribute("currentType","resume")
             document.getElementById("pause-reusme").textContent="Resume"
             Album.pauseResume("pause");
@@ -52,17 +49,16 @@ class MusicSetting{
      chooseSong() {
         if(this.buttonType == "play")
         {
-            console.log("play")
+
             Album.playSong();
         }
         else if (this.buttonType == "repeat")
         {
-            console.log("repeat")
+
             Album.repeatSong();
         }
         else if (this.buttonType == "shuffle")
         {
-            console.log("second shuffle")
             Album.shuffleSong();
         }
     }
@@ -130,16 +126,15 @@ class Album {
     {
         if (status =="pause")
         {
-            console.log("ana ha paaaaaaaaaause")
             this.audio_var.pause();
         }
         else {
             if (isNaN(this.index))
             {
                 this.index=0;
-                this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
-                this.audio_var.play();
             }
+            this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+            this.audio_var.play();
         }
     }
     static repeatSong()
@@ -147,13 +142,13 @@ class Album {
         document.getElementById("pause-reusme").setAttribute("currentType","pause")
         document.getElementById("pause-reusme").textContent="Pause";
 
-        console.log("logaia")
+
         if (isNaN(this.index))
         {
-            console.log("mmust be here")
+
             this.index=0;
         }
-        console.log("index is "+this.index);
+
         if (this.audio_var != null )
         {
             this.audio_var.pause();
@@ -182,10 +177,10 @@ class Album {
         document.getElementById("pause-reusme").setAttribute("currentType","pause")
         document.getElementById("pause-reusme").textContent="Pause";
 
-        console.log("Mr log");
+
         if (isNaN(this.index))
         {
-            console.log("mmust be here")
+
             this.index=0;
         }
         else if(this.index == this.songs.length-1)
@@ -193,7 +188,6 @@ class Album {
             this.index=0;
         }
         else{
-            console.log("are you heeereee ");
             this.index++;
         }
         if (this.audio_var != null )
