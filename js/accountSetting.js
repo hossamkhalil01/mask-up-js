@@ -4,30 +4,38 @@ class AccountSetting {
         this.formErrors= formErrors;
     }
     constructor() {
+        this.errorMessages = document.getElementById("errorMessage");
         this.userName = document.getElementById("userName");
         this.account = document.getElementById("accunt");
         this.accountForm = document.getElementById("accountForm");
         this.musicForm =  document.getElementById("musicForm");
         this.update = document.getElementById("update");
     }
+    getErrorMessages() {
+        return this.errorMessages;
+    }
     defineListeners( ) {
         this.account.addEventListener("click",this.accountClicked)
-        this.update.addEventListener("click",this.validateContact)
+        this.update.addEventListener("click",this.validateContact.bind(this));
     }
       accountClicked(e)
     {
+        console.log("hello" + this );
         document.getElementById("musicForm").style.display="none"
         document.getElementById("accountForm").style.display=""
     }
      resetRegestirationErrors() {
          console.log('there')
-        document.getElementById("error-messages").innerHTML="";
-        document.getElementById("error-messages").style.display = "none";
+         errorMessages.innerHTML="";
+         errorMessages.style.display = "none";
     }
-     validateContact (event) {
-         document.getElementById("error-messages").innerHTML="";
-         document.getElementById("error-messages").style.display = "none";         var formErrors = {};
-        if(userName.value == ""  )
+     validateContact () {
+         console.log("what is this now " + this);
+         console.log(this.errorMessages);
+         this.errorMessages.innerHTML="";
+         this.errorMessages.style.display = "none";
+         var formErrors = {};
+        if(this.userName.value == ""  )
         {
             formErrors.nameError = " please enter userName";
         }
@@ -49,16 +57,16 @@ class AccountSetting {
             AccountSetting.setformErrors(formErrors);
             console.log("heeeeeeeereeeeeeeeee")
             console.log(formErrors)
-            var errorsUl = document.getElementById("error-messages");
-            errorsUl.style.display = "block";
+            this.errorMessages.style.display = "block";
             var liError;
             var textnode;
             for (var k in formErrors) {
                 liError= document.createElement("li")
                 textnode = document.createTextNode(formErrors[k]);
                 liError.appendChild(textnode);
-                errorsUl.appendChild(liError)
-            }            event.preventDefault();
+                this.errorMessages.appendChild(liError)
+            }
+            event.preventDefault();
         }
         else {
            alert("Not working yet")
@@ -69,4 +77,6 @@ class AccountSetting {
 }
 var accountSetting = new AccountSetting();
 accountSetting.defineListeners();
-// console.log(accountSetting)
+// document.getElementById("accunt").click();
+// console.log(accountSetting.getErrorMessages());
+// document.getElementById("update").click();

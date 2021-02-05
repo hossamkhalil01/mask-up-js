@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../css/setting.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
 
@@ -16,7 +17,7 @@
         <div class="accountForm" id="accountForm" style="display: none" >
             <div class="formGroup">
             <label class="formElement" >Username</label>
-            <input class="formElement"  id="userName" type="text" value="">
+            <input class="formElement" disabled  id="userName" type="text" value="Mahmoud">
             </div>
 
 
@@ -35,7 +36,7 @@
                 <input class="formElement" id="cPassword" type="password">
             </div>
             <div class="formErrors">
-                <ul class="errors" id="error-messages" style="display:none">
+                <ul class="errors" id="errorMessage" style="display:none">
                 </ul>
             </div>
 

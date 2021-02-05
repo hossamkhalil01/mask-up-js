@@ -44,12 +44,12 @@ class MusicSetting{
         }
         else {
             document.getElementById("pause-reusme").setAttribute("currentType","pause")
-            document.getElementById("pause-reusme").textContent="Pause"
+            document.getElementById("pause-reusme").textContent="Pause";
+            Album.pauseResume("resume");
+
         }
-        Album.pauseResume("resume");
     }
      chooseSong() {
-
         if(this.buttonType == "play")
         {
             console.log("play")
@@ -91,9 +91,7 @@ class MusicSetting{
                 }
             }
     }
-    // mapAlbumToDom() {
-    //
-    // }
+
      playSong() {
         this.buttonType = "play";
         Album.playSong();
@@ -107,12 +105,11 @@ class MusicSetting{
         Album.shuffleSong();
 
     }
-
-
 }
 class Album {
     static songs=[];
     static index ;
+    static audio_var;
 
     static getSongs() {
         return this.songs;
@@ -121,9 +118,6 @@ class Album {
     {
         this.songs.push(song);
     }
-
-
-
     static setIndex(index)
     {
         this.index= index;
@@ -137,28 +131,22 @@ class Album {
         if (status =="pause")
         {
             console.log("ana ha paaaaaaaaaause")
-            // console.log(audio);
-            MusicSetting.getAudio().currentTime = 0;
-            MusicSetting.getAudio().pause();
-            // var oldSrc = audio.src;
-            // console.log(oldSrc)
-            // currentSong.            // currentSong.src = "";
-            // currentSong.src= oldSrc;
-            // console.log(audio)
+            this.audio_var.pause();
         }
         else {
             if (isNaN(this.index))
             {
-                console.log("mmust be here")
                 this.index=0;
-                MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
-                MusicSetting.getAudio().load();
+                this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+                this.audio_var.play();
             }
-            MusicSetting.getAudio().play();
         }
     }
     static repeatSong()
     {
+        document.getElementById("pause-reusme").setAttribute("currentType","pause")
+        document.getElementById("pause-reusme").textContent="Pause";
+
         console.log("logaia")
         if (isNaN(this.index))
         {
@@ -166,25 +154,34 @@ class Album {
             this.index=0;
         }
         console.log("index is "+this.index);
-
-        MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
-        MusicSetting.getAudio().load();
-        MusicSetting.getAudio().play();
+        if (this.audio_var != null )
+        {
+            this.audio_var.pause();
+        }
+        this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+        this.audio_var.play();
     }
     static shuffleSong() {
+        document.getElementById("pause-reusme").setAttribute("currentType","pause")
+        document.getElementById("pause-reusme").textContent="Pause";
         var  min = Math.ceil(0);
         var  max = Math.floor(this.songs.length-1);
-
-
         this.index =(Math.floor(Math.random() * (max - min + 1)) + min);
-        MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
-        MusicSetting.getAudio().load();
-        MusicSetting.getAudio().play();
+
+        if (this.audio_var != null )
+        {
+            this.audio_var.pause();
+        }
+        this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+        this.audio_var.play();
 
 
     }
     static playSong()
     {
+        document.getElementById("pause-reusme").setAttribute("currentType","pause")
+        document.getElementById("pause-reusme").textContent="Pause";
+
         console.log("Mr log");
         if (isNaN(this.index))
         {
@@ -199,10 +196,12 @@ class Album {
             console.log("are you heeereee ");
             this.index++;
         }
-        MusicSetting.getCurrentSong().src = `../audio/${Album.getSongs()[this.index]}`;
-        MusicSetting.getAudio().load();
-        MusicSetting.getAudio().play();
-
+        if (this.audio_var != null )
+        {
+            this.audio_var.pause();
+        }
+        this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+        this.audio_var.play();
     }
 
 }
