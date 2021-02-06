@@ -14,6 +14,7 @@ const logoutOption = document.getElementById("logoutOption");
 
 //define the back to home button
 const backBtn = document.getElementById("backBtn");
+console.log(backBtn) ;
 
 //attach listeners
 playOption.addEventListener("click", function (){
@@ -34,7 +35,9 @@ creditsOption.addEventListener("click", function(){
 
 logoutOption.addEventListener("click", logout);
 
-//backBtn.addEventListener("click", backToMainMenu);
+// backBtn.addEventListener("click", backToMainMenu);
+backBtn.addEventListener("click", fromCurrentToMainMenu);
+
 
 
 //variable to keep track of the current window
@@ -53,7 +56,7 @@ function fromMainMenuTo (otherWindow)
     currWindow = otherWindow;
 
     //display the back button
-    //backBtn.style.display = "block";
+    backBtn.style.display = "block";
 }
 
 //change from current back to main menu
@@ -68,7 +71,7 @@ function fromCurrentToMainMenu()
     currWindow = mainMenuSection;
 
     //hide the back button
-    //backBtn.style.display = "none";
+    backBtn.style.display = "none";
 }
 
 //perform logout action

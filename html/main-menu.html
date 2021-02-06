@@ -22,7 +22,10 @@
 
             <div id="headerSection" class="header-section">
                 <img id="avatarImg" class="avatar-img" src="../images/default-avatar.png"  draggable = false>
-                <h2>Protect Yourself and Mask Up!!</h2>
+                <div>
+                    <input type="button" value="back" id="backBtn"   style="display: none;">
+                    <h2>Protect Yourself and Mask Up!!</h2>
+                </div>
                 <div class="animatediv"> 
                     <img class ="covid-icon" src="https://atheistiran.com/wp-content/uploads/2020/03/corona-virus.png"  draggable = false>
                 </div>
@@ -67,14 +70,21 @@
                         <label class="formElement" >Confirm Password</label>
                         <input class="formElement" id="cPassword" type="password">
                     </div>
-                    <div class="formErrors">
-                        <ul class="errors" id="errorMessage" style="display:none">
-                        </ul>
+                    <div class="parent">
+
+                        <div class="formGroup" class="updatebtn">
+                            <input  class="formButton" type="submit" id="update" value="update">
+                        </div>
+                        <div class="formErrors">
+                            <ul class="errors" id="errorMessage" style="display:none">
+                            </ul>
+                     </div>
+            
+
+
                     </div>
-        
-                    <div class="formGroup">
-                        <input  class="formButton" type="submit" id="update" value="update">
-                    </div>
+                   
+                    
                 </div>
 
                 <div class="musicForm" id="musicForm">
@@ -98,10 +108,33 @@
                 
             </div>
 
-            <div id="instructionsSection" class="instructions-section" style="display: none;">>
+            <div id="instructionsSection" class="instructions-section" style="display: none;">
     
             </div>
-            <div id="creditsSection" class="credits-section" style="display: none;">>
+            <div id="creditsSection" class="credits-section" style="display: none;">
+                <div id= "credits_s">
+                    <h1>Credits</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Donec lacinia at sem nec porttitor.
+                        Ut gravida dui in mauris congue imperdiet. Vestibulum a quam tempor, 
+                        suscipit erat sed, mattis arcu. Sed consequat dapibus eros eu consectetur.
+                         Nulla facilisi. Morbi tellus nibh, maximus sit amet erat vel, pulvinar pharetra elit.
+                         Mauris porta leo nisi, ac condimentum nulla volutpat ut.
+                        Aliquam egestas eget neque eget laoreet. Sed non consequat diam, nec sagittis sem.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Donec lacinia at sem nec porttitor.
+                        Ut gravida dui in mauris congue imperdiet. Vestibulum a quam tempor, 
+                        suscipit erat sed, mattis arcu. Sed consequat dapibus eros eu consectetur.
+                        Nulla facilisi. Morbi tellus nibh, maximus sit amet erat vel, pulvinar pharetra elit.
+                        Mauris porta leo nisi, ac condimentum nulla volutpat ut.
+                        Aliquam egestas eget neque eget laoreet. Sed non consequat diam, nec sagittis sem.</p>
+       
+
+                            
+
+
+
+                </div >
     
             </div>
             

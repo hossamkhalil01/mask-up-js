@@ -70,11 +70,12 @@
 }
 .formButton{
     margin-top: 10px;
-    margin-left: 170px;
-    width: 250px;
+    margin-left: 5px;
+    width: 200px;
     height: 50px;
     border-radius: 10px;
     font-size: 30px;
+    display: inline-block ; 
 
 }
 audio{
@@ -97,17 +98,26 @@ audio{
 .errors{
     background:pink;
     border:1px solid red;
-    width: 300px;
+    width: 280px;
 }
 .formErrors {
-    padding: 20px;
+    padding: 0px;
     font-size: 25px;
-    width: 460px;
-
-    margin-left: 90px;
+    width: 400px;
+    margin-left: 20px;
+    display: inline;
 }
 #musicAlbum{
 
 font : 10px ; 
+
+}
+/* .updatebtn{
+
+display: none;
+
+} */
+.parent{
+    display: flex;
 
 }
