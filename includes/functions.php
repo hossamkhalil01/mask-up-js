@@ -1,5 +1,6 @@
+<?php session_start(); ?>
 <?php
-include("includes/db.php");
+include("db.php");
 
 function redirect($location){
     header("Location: ".$location);
@@ -34,16 +35,27 @@ function username_exists($username){
 }
 
 
-function register_user($username, $password, $nickname, $avatar){
+function register_user($username, $password, $nickname){
     global $connection;
+
+     $fileName = "default-avatar.png";
+
+     empty($_FILES["image"]["name"]) ? $image = "images/" . $fileName  : $image = $_FILES['image']['tmp_name'];
+
+     echo $image;
+        
+     $imgContent = addslashes(file_get_contents($image));
 
     $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
-    $query = "INSERT INTO `player`(`username`, `password`, `nickname`, `score`, `level`) VALUES ('$username', '$password', '$nickname', 0, 0)";
+    $query = "INSERT INTO `player`(`username`, `password`, `nickname`, `score`, `level`, `avatar`, `created_at`) VALUES ('$username', '$password', '$nickname', 0, 0, '$imgContent', NOW())";
 
     $register_user_query = query($query);
     
-
+    if($register_user_query){
+        return true;
+    }
+    return false;
 }
 
 
@@ -92,7 +104,7 @@ function confirmQuery($result){
 	}
 }
 
-function validateRegister($error, $username, $password, $cpassword, $nickname, $avatar){
+function validateRegister($error, $username, $password, $cpassword, $nickname){
     if(strlen($username) < 4){
         $error['username'] = 'Username needs to be longer';
     }
@@ -112,8 +124,21 @@ function validateRegister($error, $username, $password, $cpassword, $nickname, $
         $error['email'] = 'passord should be minimum 6 characters';
     }
     
-    if($password !== $cpassword){
+    if($password !== $cpassword && strlen($password) >= 6){
         $error['cpassword'] = 'Passwords do not match';
+    }
+
+    if(!empty($_FILES["image"]["name"])) {
+         // Get file info 
+         $fileName = basename($_FILES["image"]["name"]);
+         $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        // Allow certain file formats 
+        $allowTypes = array('jpg','png','jpeg','gif');
+        
+        if(! in_array($fileType, $allowTypes)){
+            $error['image'] = "Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.";
+        }
     }
 
 
@@ -123,5 +148,29 @@ function validateRegister($error, $username, $password, $cpassword, $nickname, $
         }
     }
     return $error;
+}
+
+
+function validateLogin($errorSignIn, $username, $password){
+
+    if($username === ''){
+        $errorSignIn['username'] = 'Username cannot be empty';
+    }else if(!username_exists($username)){
+        $errorSignIn['username'] = 'Username can not be found';
+    }
+
+    if($password === ''){
+        $errorSignIn['password'] = 'Password cannot be empty';
+    }else if(username_exists($username)){
+        $errorSignIn['password'] = 'Password is wrong';
+    }
+
+    foreach ($errorSignIn as $key => $value){
+        if (empty($value)){
+            unset($errorSignIn[$key]);
+        }
+    }
+    return $errorSignIn;
+
 }
 ?>

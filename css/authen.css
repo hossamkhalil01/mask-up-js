@@ -100,4 +100,21 @@ button:focus, input:focus{
     border-radius: 10px;
 }
 
+body span{
+    position: absolute;
+    top: 3;
+    left: 2;
 
+    margin: 5px;
+    padding: 10px;
+}
+
+.success{
+    background-color: rgb(58, 255, 101);
+    border: green solid 1px;
+}
+
+.failed{
+    background-color: tomato;
+    border: red solid 1px;
+}
