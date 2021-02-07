@@ -7,35 +7,36 @@
     margin:auto;
     background: lightgray;
     width: 604px;
-    height: 200px;
+    height: 80px;
 }
 .musicContainer{
     display: inline-block;
     width: 300px;
-    height: 200px;
+    height: 80px;
     background: cadetblue;
 }
 .accountContainer{
     display: inline-block;
     width: 300px;
-    height: 200px;
+    height: 80px;
     background: cadetblue;
 }
 
 .musicIcon, .accountIcon {
     width: 300px;
-    height: 200px;
+    height: 80px;
     cursor: pointer;
 }
 
 .accountForm{
     /*display: none;*/
     border: 2px solid black;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     padding-bottom: 20px;
     margin:auto;
     background: lightgray;
     width: 604px;
+    height : 350px ;
 }
 .musicForm{
     border: 2px solid black;
@@ -69,11 +70,12 @@
 }
 .formButton{
     margin-top: 10px;
-    margin-left: 170px;
-    width: 250px;
+    margin-left: 5px;
+    width: 200px;
     height: 50px;
     border-radius: 10px;
     font-size: 30px;
+    display: inline-block ; 
 
 }
 audio{
@@ -83,7 +85,7 @@ audio{
     margin-top: 20px;
 }
 .musicLi span{
-    font-size: 40px;
+    font-size: 30px;
     display: inline-block;
     width: 460px;
 }
@@ -96,12 +98,26 @@ audio{
 .errors{
     background:pink;
     border:1px solid red;
-    width: 300px;
+    width: 280px;
 }
 .formErrors {
-    padding: 20px;
+    padding: 0px;
     font-size: 25px;
-    width: 460px;
+    width: 400px;
+    margin-left: 20px;
+    display: inline;
+}
+#musicAlbum{
 
-    margin-left: 90px;
+font : 10px ; 
+
+}
+/* .updatebtn{
+
+display: none;
+
+} */
+.parent{
+    display: flex;
+
 }

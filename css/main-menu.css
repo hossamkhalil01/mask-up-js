@@ -19,6 +19,7 @@ nav{
     top:0;
 }
 footer{
+    display:none  ;
     bottom:0;
 }
 
@@ -38,7 +39,7 @@ footer{
     margin-left: 2%;
     border: 3px solid rgb(73, 11, 9);
     cursor: pointer;
-    margin-bottom: 7%;
+    margin-bottom: 2%;
     display: inline;
 
 }
@@ -107,4 +108,38 @@ h2{
     color:#fff;
     text-shadow: 0px 1px 2px #000;
     
+  }
+  .header-section {
+
+    /* height : 200px ;  */
+
+  }
+
+  #credits_s{
+    border:3px   solid black;
+   width: 860px; 
+   height: 400px;
+   margin-left: 10px;
+   margin-top: 50px ;
+
+  }
+  #credits_s h1 {
+    text-align: center;
+
+  }
+  #credits_s p {
+    padding-left: 4px;
+
+  }
+  #backBtn{
+ 
+margin-left: 20px;
+
+ /* height: 30px ;  */
+  width: 50px ;
+  background-color: black;
+  border-radius: 50%;
+  color: #fff;
+  margin-left: 45px;
+
   }
