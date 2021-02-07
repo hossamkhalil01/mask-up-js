@@ -1,3 +1,24 @@
+<?php// ob_start();?>
+<?php include '../includes/functions.php';?>
+
+<?php 
+	if(!isset($_SESSION['username']))
+			header("Location: ../index.php");
+?>
+
+<?php 
+
+$username = $_SESSION['username'];
+// Get image data from database
+$query = "SELECT * FROM `player` WHERE `username` = '$username'"; 
+$select_img_query = query($query);
+
+
+
+?>
+
+
+
 <!Doctype html>
 
 <html lang="en">
@@ -21,7 +42,10 @@
         <section id="mainWindow" class="main-window">
 
             <div id="headerSection" class="header-section">
-                <img id="avatarImg" class="avatar-img" src="../images/default-avatar.png"  draggable = false>
+            <?php
+            if(mysqli_num_rows($select_img_query) == 1){$row = mysqli_fetch_assoc($select_img_query);?>
+                <img id="avatarImg" class="avatar-img" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['avatar']); ?>"  draggable = false>
+                <?php }?>
                 <div>
                     <input type="button" value="back" id="backBtn"   style="display: none;">
                     <h2>Protect Yourself and Mask Up!!</h2>
@@ -156,7 +180,7 @@
                 </div>
 
                 <div id="logoutOption" class="option">
-					Logout
+                    <a href="../includes/logout.php">Logout</a>
 				</div>
 
 
