@@ -3,11 +3,11 @@ class Controller {
     //define keys object
     static keysCodes = {left:37, up:38, right:39, down:40};
 
-    constructor (viewObj , modelObj)
+    constructor (viewObj , modelObj )
     {
         //define the view and the model objects
-        this.view = viewObj;
         this.model = modelObj;
+        this.view = viewObj;
 
         //define thee flags
         this.isUpPressed = false;
@@ -20,6 +20,7 @@ class Controller {
         document.addEventListener('keyup', this.keyUpHandler.bind(this), false);
 
         //init the character position
+        console.log("ana hna ")
         this.updatePlayerView();
     }
 
@@ -99,16 +100,18 @@ class Controller {
     {
         //update the player object in model
         modelObj.moveRight();
-
+        modelObj.getPlayer().xFrame=0;
+        modelObj.getPlayer().yFrame=0;
         //update the player drawing in view
         this.updatePlayerView();
     }
 
     moveLeft()
-    {
+     {
         //update the player object in model
         modelObj.moveLeft();
-
+         modelObj.getPlayer().xFrame=2;
+         modelObj.getPlayer().yFrame=0;
         //update the player drawing in view
         this.updatePlayerView();
     }
@@ -116,6 +119,6 @@ class Controller {
     updatePlayerView()
     {
         //update the player drawing in view
-        viewObj.drawPlayer(modelObj.getPlayer().xPos, modelObj.getPlayer().yPos);
+        viewObj.drawPlayer(modelObj.getPlayer().xPos, modelObj.getPlayer().yPos ,modelObj.getPlayer().xFrame,modelObj.getPlayer().yFrame);
     }
 }

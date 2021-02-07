@@ -3,12 +3,16 @@ class Model
     static xMove = 10;
     static yMove = 5;
 
-    constructor(initPlayerX, initPlayerY, maxX)
+    constructor(initPlayerX, initPlayerY, maxX ,xFrame =3 ,yFrame =0 )
     {
+        console.log(initPlayerX);
+        console.log(initPlayerY);
         //init the player object to hold player data
         this.player = {
             xPos : initPlayerX,
             yPos : initPlayerY,
+            xFrame:xFrame ,
+            yFrame: yFrame,
             isFacingRight : true,
             isJumping: false,
             isDown: false
