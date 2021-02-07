@@ -143,3 +143,13 @@ margin-left: 20px;
   margin-left: 45px;
 
   }
+
+#logoutOption>a{
+  text-decoration: none;
+}
+
+
+#logoutOption>a:visited{
+  text-decoration: none;
+  color: white;
+}
