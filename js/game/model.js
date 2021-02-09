@@ -2,8 +2,17 @@ class Model
 {
     static xMove = 10;
     static yMove = 5;
-
-    constructor(initPlayerX, initPlayerY, maxX ,xFrame =3 ,yFrame =0 )
+    static canvasWidtht=1900;
+    static canvasHeight =800;
+    static getCanvasWidth()
+    {
+        return this.canvasWidtht;
+    }
+    static getCanvasHeight()
+    {
+        return this.canvasHeight;
+    }
+    constructor(initPlayerX, initPlayerY, maxX ,xFrame =0 ,yFrame =0 )
     {
         console.log(initPlayerX);
         console.log(initPlayerY);
@@ -17,9 +26,14 @@ class Model
             isJumping: false,
             isDown: false
         }
+
+
+
         this.xMaxPos = maxX;
         this.xMinPos = initPlayerX;
     }
+
+
 
     moveRight()
     {
@@ -69,5 +83,33 @@ class Model
     setPlayerY(yPos)
     {
         this.player.yPos = yPos;
+    }
+}
+class Virus {
+    constructor() {
+        this.x =Model.getCanvasWidth();
+        this.y = Model.getCanvasHeight()*0.8;
+        this.speed = Math.random()*5+1;
+        this.radius= 50;
+        this.distance;
+    }
+    getX() {
+        return this.x;
+    }
+
+    getY() {
+        return this.y;
+    }
+    update(){
+        this.x-=10;
+    }
+    draw(ctx) {
+        // ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        ctx.fillStyle='green';
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+        ctx.fill();
+        // ctx.closePath();
+        ctx.stroke();
     }
 }

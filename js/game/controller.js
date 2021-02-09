@@ -22,11 +22,14 @@ class Controller {
         //init the character position
         console.log("ana hna ")
         this.updatePlayerView();
+        this.addVirus(modelObj);
     }
-
+    getModel()
+    {
+        return this.model;
+    }
     //handle key presses
     keyDownHandler(event){
-
         switch (event.keyCode)
         {
             case Controller.keysCodes.right:
@@ -50,7 +53,6 @@ class Controller {
         //call the update function
         this.updatePlayerPosition();
     }
-
     keyUpHandler(event)
     {
         switch (event.keyCode)
@@ -77,7 +79,6 @@ class Controller {
         //call the update function
         this.updatePlayerPosition();
     }
-
     //update the state
     updatePlayerPosition()
     {
@@ -95,7 +96,6 @@ class Controller {
             this.moveRight();
         }
     }
-
     moveRight()
     {
         //update the player object in model
@@ -105,7 +105,6 @@ class Controller {
         //update the player drawing in view
         this.updatePlayerView();
     }
-
     moveLeft()
      {
         //update the player object in model
@@ -115,10 +114,28 @@ class Controller {
         //update the player drawing in view
         this.updatePlayerView();
     }
-
     updatePlayerView()
     {
+        viewObj.setPlayer(modelObj.getPlayer().xPos, modelObj.getPlayer().yPos ,modelObj.getPlayer().xFrame,modelObj.getPlayer().yFrame);
         //update the player drawing in view
-        viewObj.drawPlayer(modelObj.getPlayer().xPos, modelObj.getPlayer().yPos ,modelObj.getPlayer().xFrame,modelObj.getPlayer().yFrame);
+        // viewObj.drawPlayer(modelObj.getPlayer().xPos, modelObj.getPlayer().yPos ,modelObj.getPlayer().xFrame,modelObj.getPlayer().yFrame);
+        // viewObj.drawGame();
+    }
+
+    addVirus() {
+        var that = this;
+        var count =0;
+        setInterval(function(){
+            count++;
+            if (count% 50 ==0)
+            {
+               viewObj.addVirus();
+            }
+                viewObj.handleViruses(that.view.getCanvas());
+                viewObj.drawGame()
+
+            }
+        , 60);
+
     }
 }
