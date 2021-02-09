@@ -14,74 +14,94 @@ class Model
     }
     constructor(initPlayerX, initPlayerY, maxX ,xFrame =0 ,yFrame =0 )
     {
-        console.log(initPlayerX);
-        console.log(initPlayerY);
-        //init the player object to hold player data
-        this.player = {
-            xPos : initPlayerX,
-            yPos : initPlayerY,
-            xFrame:xFrame ,
-            yFrame: yFrame,
-            isFacingRight : true,
-            isJumping: false,
-            isDown: false
-        }
 
-        this.xMaxPos = maxX;
-        this.xMinPos = initPlayerX;
+        this.virusArray=[]
+        this.virus = {
+
+        }
+        //init the player object to hold player data
+        this.player = new Player(initPlayerX, initPlayerY ,maxX,xFrame ,yFrame );
+
     }
 
+    addVirus() {
+        this.virusArray.push( new Virus());
+    }
+    handleViruses() {
+        for( var index = 0 ; index < this.virusArray.length; index++)
+        {
+            this.virusArray[index].update();
+        }
+    }
+    getViruses() {
+        return this.virusArray;
+    }
+    getPlayer() {
+        return this.player;
+    }
 
+}
+class Player{
+    constructor(initPlayerX, initPlayerY , maxX,xFrame =0 ,yFrame =0 ) {
+            this.xPos = initPlayerX;
+            this.yPos =initPlayerY;
+            this.xFrame=xFrame ;
+            this.yFrame =yFrame;
+            this.dy = 0 ; // speed
+            this.drag = 0.99; // the drag is 0.01
+            this.grav = 0.1;
+            this.isFacingRight = true;
+            this.isJumping= false;
+            this.isDown= false;
+            this.xMaxPos = maxX;
+            this.xMinPos = initPlayerX;
+    }
 
     moveRight()
     {
-        this.player.xPos += Model.xMove;
-
+        this.xPos += Model.xMove;
         //check the boundires
-        if (this.player.xPos > this.xMaxPos)
+        if (this.xPos > this.xMaxPos)
         {
-            this.player.xPos = this.xMaxPos;
+            this.xPos = this.xMaxPos;
         }
 
-        this.player.isFacingRight = true;
+        this.isFacingRight = true;
     }
     moveLeft()
     {
-        this.player.xPos -= Model.xMove;
+        this.xPos -= Model.xMove;
 
         //check the boundires
-        if (this.player.xPos < this.xMinPos)
+        if (this.xPos < this.xMinPos)
         {
-            this.player.xPos = this.xMinPos;
+            this.xPos = this.xMinPos;
         }
 
-        this.player.isFacingRight = false;
+        this.isFacingRight = false;
 
     }
     moveUp()
     {
-        this.player.isJumping = true;
-        this.player.isDown = false;
+        this.dy = -5;
+        this.dy *= this.drag;
+
     }
     moveDown()
     {
-        this.player.isDown = true;
-        this.player.isJumping = false;
+        this.yPos-=1;
+        this.isDown = true;
+        this.isJumping = false;
     }
-    getPlayer()
-    {
-        return this.player;
-    }
-    
     setPlayerX(xPos)
     {
-        this.player.xPos = xPos;
+        this.xPos = xPos;
     }
-
     setPlayerY(yPos)
     {
-        this.player.yPos = yPos;
+        this.yPos = yPos;
     }
+
 }
 class Virus {
     constructor() {

@@ -5,12 +5,10 @@ class View
     static playerWidth = 603;
     static gameFrame =0;
 
-
     getCanvas() {
         return canvas.getContext("2d");
     }
-
-    constructor(canvasElement , xPos,yPos ,xFrame,yFrame)
+    constructor(canvasElement , xPos,yPos ,xFrame,yFrame ,player)
     {
         this.virusArray= [];
         this.canvas = canvasElement;
@@ -21,23 +19,16 @@ class View
         //define player dimensions
         this.playerHeight = this.canvasHeight*0.3;
         this.playerWidth = this.canvasWidth*0.2;
-        this.xFrame=xFrame;
-        this.yFrame=yFrame;
-        this.xPos=xPos;
-        this.yPos=yPos;
+        this.player=player;
+        this.img = new Image();
+        this.img.src="../images/girlS.png";
+
     }
-    
-    addVirus() {
-        this.virusArray.push( new Virus());
-        console.log(this.virusArray.length);
-    }
-    setPlayer(xPos, yPos ,xFrame ,yFrame)
+    setPlayer(player)
     {
-        this.xFrame=xFrame;
-        this.yFrame=yFrame;
-        this.xPos=xPos;
-        this.yPos=yPos;
+        this.player=player;
     }
+
 
     drawGame() {
         this.clearScreen();
@@ -46,12 +37,7 @@ class View
     }
     drawPlayer()
     {
-        var img = new Image();
-        img.src="../images/girlS.png";
-        console.log("xpos"+this.xPos + "yPos"+this.yPos);
-        console.log(View.playerWidth*this.xFrame);
-        this.context.drawImage(img,View.playerWidth*this.xFrame,View.playerHeight*this.yFrame, View.playerWidth ,View.playerHeight  ,this.xPos,this.yPos, this.playerWidth,this.playerHeight);
-        console.log("why you here ");
+        this.context.drawImage(this.img,View.playerWidth*this.player.xFrame,View.playerHeight*this.player.yFrame, View.playerWidth ,View.playerHeight  ,this.player.xPos,this.player.yPos, this.playerWidth,this.playerHeight);
     }
 
     drawVirus(virus){
@@ -62,12 +48,8 @@ class View
         this.context.closePath();
         this.context.stroke();
     }
-
-    handleViruses() {
-        for( var index = 0 ; index < this.virusArray.length; index++)
-        {
-            this.virusArray[index].update();
-        }
+    setViruses(viruses) {
+        this.virusArray =viruses
     }
     drawViruses() {
         for( var index = 0 ; index < this.virusArray.length; index++)

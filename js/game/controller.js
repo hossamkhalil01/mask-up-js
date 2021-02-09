@@ -30,6 +30,7 @@ class Controller {
 
     //handle key presses
     keyDownHandler(event){
+        console.log(event.keyCode);
         switch (event.keyCode)
         {
             case Controller.keysCodes.right:
@@ -85,6 +86,7 @@ class Controller {
         //jump action
         if(this.isUpPressed){
 
+            this.moveup()
         }
         else if (this.isDownPressed){
 
@@ -96,10 +98,13 @@ class Controller {
             this.moveRight();
         }
     }
+    moveup() {
+        this.model.getPlayer().moveUp();
+    }
     moveRight()
     {
         //update the player object in model
-        this.model.moveRight();
+        this.model.getPlayer().moveRight();
         this.model.getPlayer().xFrame=0;
         this.model.getPlayer().yFrame=0;
         //update the player drawing in view
@@ -108,34 +113,38 @@ class Controller {
     moveLeft()
      {
         //update the player object in model
-        this.model.moveLeft();
+        this.model.getPlayer().moveLeft();
         this.model.getPlayer().xFrame=2;
         this.model.getPlayer().yFrame=0;
-
         //update the player drawing in view
         this.updatePlayerView();
     }
     updatePlayerView()
     {
-        this.view.setPlayer(this.model.getPlayer().xPos, this.model.getPlayer().yPos ,this.model.getPlayer().xFrame,this.model.getPlayer().yFrame);
-        //update the player drawing in view
-        // this.view.drawPlayer(this.model.getPlayer().xPos, this.model.getPlayer().yPos ,this.model.getPlayer().xFrame,this.model.getPlayer().yFrame);
-        // this.view.drawGame();
+        this.view.setPlayer(this.model.getPlayer());
+
     }
 
     addVirus() {
 
         let count =0;
         setInterval(function(){
+
             count++;
+
             if (count% 50 ==0)
             {
-                this.view.addVirus();
+                this.model.addVirus();
             }
-                this.view.handleViruses(this.view.getCanvas());
-                this.view.drawGame()
 
-            }.bind(this)
-        , 60);
+            this.model.getPlayer().dy += this.model.getPlayer().grav;
+            this.model.getPlayer().yPos += this.model.getPlayer().dy;
+
+            this.model.handleViruses(this.view.getCanvas());
+            this.view.setViruses(this.model.getViruses())
+            this.view.drawGame()
+            
+        }.bind(this)
+        , 30);
     }
 }
