@@ -20,14 +20,14 @@ class Controller {
         document.addEventListener('keyup', this.keyUpHandler.bind(this), false);
 
         //init the character position
-        console.log("ana hna ")
         this.updatePlayerView();
-        this.addVirus(modelObj);
+        this.addVirus(this.model);
     }
     getModel()
     {
         return this.model;
     }
+
     //handle key presses
     keyDownHandler(event){
         switch (event.keyCode)
@@ -99,43 +99,43 @@ class Controller {
     moveRight()
     {
         //update the player object in model
-        modelObj.moveRight();
-        modelObj.getPlayer().xFrame=0;
-        modelObj.getPlayer().yFrame=0;
+        this.model.moveRight();
+        this.model.getPlayer().xFrame=0;
+        this.model.getPlayer().yFrame=0;
         //update the player drawing in view
         this.updatePlayerView();
     }
     moveLeft()
      {
         //update the player object in model
-        modelObj.moveLeft();
-         modelObj.getPlayer().xFrame=2;
-         modelObj.getPlayer().yFrame=0;
+        this.model.moveLeft();
+        this.model.getPlayer().xFrame=2;
+        this.model.getPlayer().yFrame=0;
+
         //update the player drawing in view
         this.updatePlayerView();
     }
     updatePlayerView()
     {
-        viewObj.setPlayer(modelObj.getPlayer().xPos, modelObj.getPlayer().yPos ,modelObj.getPlayer().xFrame,modelObj.getPlayer().yFrame);
+        this.view.setPlayer(this.model.getPlayer().xPos, this.model.getPlayer().yPos ,this.model.getPlayer().xFrame,this.model.getPlayer().yFrame);
         //update the player drawing in view
-        // viewObj.drawPlayer(modelObj.getPlayer().xPos, modelObj.getPlayer().yPos ,modelObj.getPlayer().xFrame,modelObj.getPlayer().yFrame);
-        // viewObj.drawGame();
+        // this.view.drawPlayer(this.model.getPlayer().xPos, this.model.getPlayer().yPos ,this.model.getPlayer().xFrame,this.model.getPlayer().yFrame);
+        // this.view.drawGame();
     }
 
     addVirus() {
-        var that = this;
-        var count =0;
+
+        let count =0;
         setInterval(function(){
             count++;
             if (count% 50 ==0)
             {
-               viewObj.addVirus();
+                this.view.addVirus();
             }
-                viewObj.handleViruses(that.view.getCanvas());
-                viewObj.drawGame()
+                this.view.handleViruses(this.view.getCanvas());
+                this.view.drawGame()
 
-            }
+            }.bind(this)
         , 60);
-
     }
 }

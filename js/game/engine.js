@@ -1,7 +1,14 @@
 class Engine{
-    constructor()
+
+    constructor(refreshRate)
     {
+        this.mainInterval = setInterval(update);
+
     }
 
+    update()
+    {
+        
+    }
 }
 

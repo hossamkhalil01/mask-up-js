@@ -27,8 +27,6 @@ class Model
             isDown: false
         }
 
-
-
         this.xMaxPos = maxX;
         this.xMinPos = initPlayerX;
     }
@@ -102,14 +100,5 @@ class Virus {
     }
     update(){
         this.x-=10;
-    }
-    draw(ctx) {
-        // ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        ctx.fillStyle='green';
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
-        ctx.fill();
-        // ctx.closePath();
-        ctx.stroke();
     }
 }
