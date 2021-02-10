@@ -4,6 +4,7 @@ class Model
     static yMove = 5;
     static canvasWidtht=1900;
     static canvasHeight =800;
+    
     static getCanvasWidth()
     {
         return this.canvasWidtht;

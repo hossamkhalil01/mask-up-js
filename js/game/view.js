@@ -1,7 +1,5 @@
 class View
 {
-    static canvas = document.getElementById("mainCanvas");
-
     getCanvas() {
         return canvas.getContext("2d");
     }
@@ -10,35 +8,22 @@ class View
     {
         this.virusArray= [];
         this.canvas = canvasElement;
-        this.context = canvas.getContext("2d");
+        this.context = this.canvas.getContext("2d");
 
         //define canvas dimensions
-        this.canvasWidth = View.canvas.width;
-        this.canvasHeight = View.canvas.height;
-
-        //define player dimensions
-        this.playerHeight = this.canvasHeight*0.3;
-        this.playerWidth = this.canvasWidth*0.2;
+        this.canvasWidth = this.canvas.width;
+        this.canvasHeight = this.canvas.height;
 
         this.player = player;
-
 
         //define frame dimensions
         this.character = character;
 
+        //define character dimensions
+        this.character.setCharacterWidth(this.canvasWidth*0.15);
+        this.character.setCharacterHeight(this.canvasHeight*0.25);
+
         this.character.loadIdleRightState();
-
-        this.playerFrameObj =this.character.getCurrStateObj()
-        this.frameHeight = this.playerFrameObj.charHeight;
-        this.frameWidth = this.playerFrameObj.charWidth;
-
-        //define current character frame
-        this.currXFrame = 0 ;
-        this.currYFrame = 0 ;
-
-        //load the init image
-        this.charImg = new Image();
-        this.charImg.src = this.playerFrameObj.spritePath;
 
         this.playerFrameWaitCount = 0;
 
@@ -46,8 +31,8 @@ class View
         this.virusImg = new Image();
         this.virusImg.src = "../images/game/virus/level1.png";
 
-        this.virusWidth = 150;
-        this.virusHeight = 150;
+        this.virusWidth = 100;
+        this.virusHeight = 100;
     }
 
     setPlayer(player)
@@ -58,9 +43,6 @@ class View
 
     updatePlayerDirection()
     {
-        let prevState = this.character.getLoadedState();
-        let currState;
-
         if (this.player.isIdle){
 
             if (this.player.isFacingRight){
@@ -94,25 +76,6 @@ class View
                 this.character.loadRunLeftState();
             }
         }
-
-   
-        currState = this.character.getLoadedState();
-
-        //check if state is changed
-        if(prevState !== currState)
-        {
-            //reset the frame count
-            this.currXFrame = 0;
-            this.currYFrame = 0;
-
-            //load the new object
-            this.playerFrameObj = this.character.getCurrStateObj();
-            //update image source
-            this.charImg.src = this.playerFrameObj.spritePath;
-
-            this.changePlayerFrame();
-        }
-
     }
 
     render() {
@@ -123,10 +86,7 @@ class View
 
     drawPlayer()
     {
-
-        this.context.drawImage(this.charImg,this.playerFrameObj.charWidth*this.currXFrame,this.playerFrameObj.charHeight*this.currYFrame, this.playerFrameObj.charWidth
-             ,this.playerFrameObj.charHeight  ,this.player.xPos,this.player.yPos, this.playerWidth,this.playerHeight);
-
+        this.character.draw(this.player.xPos,this.player.yPos);
         this.checkPlayerFrameWaitCount();
     }
 
@@ -135,7 +95,7 @@ class View
         //check to change the player frame or wait
         if(this.playerFrameWaitCount > 10)
         {
-            this.changePlayerFrame();
+            this.character.loadNextFrame();
             this.playerFrameWaitCount = 0;
         }
         else{
@@ -143,27 +103,9 @@ class View
         }
     }
 
-    changePlayerFrame()
-    {
-        this.currXFrame = (this.currXFrame + 1)% (this.playerFrameObj.colsCount);
-
-        if(this.currXFrame === 0)
-        {
-            this.currYFrame = (this.currYFrame + 1)% (this.playerFrameObj.rowsCount);
-        }
-    }
-
     drawVirus(virus){
 
-        // this.context.fillStyle='green';
-        // this.context.beginPath();
-        // this.context.arc(virus.getX(),virus.getY(),50,0,Math.PI*2);
-        // this.context.fill();
-        // this.context.closePath();
-        // this.context.stroke();
-
         this.context.drawImage(this.virusImg,0,0,350,350,virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
-
     }
 
     setViruses(viruses) {
@@ -190,19 +132,86 @@ class Character {
     {idleRight:"idleRight", idleLeft: "idleLeft", runRight: "runRight", 
     runLeft: "runLeft", jumpLeft:"jumpLeft", jumpRight:"jumpRight", dead: "dead"};
 
-    constructor()
+    constructor(canvas)
     {
         //load the base path for the images
         this.basePath = "../images/game/characters/";
 
+        //save the canvas object
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+
         //init the current state
-        this.loadedState;
+        this.currState = Character.idleRight;
+        this.rowsCount;
+        this.colsCount;
 
-        this.currStateObj = {
+        this.frameWidth;
+        this.frameHeight;
 
-            rowsCount: 0 , colsCount: 0, spritePath:"", 
-            charWidth: 0, charHeight: 0
+        //put default values for character width and height
+        this.charWidth = 150;
+        this.charHeight = 150;
+
+        this.spritePath;
+
+        this.currXFrame = 0 ;
+        this.currYFrame = 0;
+
+        this.spriteImg = new Image();
+
+    }
+
+    setCharacterWidth(width)
+    {
+        this.charWidth = width;
+    }
+
+    setCharacterHeight(height)
+    {
+        this.charHeight = height;
+    }
+
+    getCharacterWidth()
+    {
+        return this.charWidth;
+    }
+
+    getCharacterHeight()
+    {
+        return this.charHeight;
+    }
+
+    setCanvas(canvas)
+    {
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+    }
+
+    draw(xPos,yPos)
+    {
+        this.ctx.drawImage(this.spriteImg, this.frameWidth*this.currXFrame, this.frameHeight*this.currYFrame, this.frameWidth,this.frameHeight
+        , xPos,yPos,this.charWidth,this.charHeight); 
+    }
+
+    getCurrentFrame()
+    {
+        return this.frameImg;
+    }
+
+    loadNextFrame()
+    {
+        this.currXFrame = (this.currXFrame + 1)% (this.colsCount);
+
+        if(this.currXFrame === 0)
+        {
+            this.currYFrame = (this.currYFrame + 1)% (this.rowsCount);
         }
+    }
+
+    isStateChanged(state)
+    {
+        return state !== this.currState;
     }
 
     loadIdleRightState()
@@ -242,37 +251,38 @@ class Character {
 
     loadState(state)
     {
-        //change the current state
-        this.loadedState = state;
+        //if state is changed reset variables
+        if(this.isStateChanged(state))
+        {
+            //load the new state
+            this.currState = state;
 
-        //load the current sprite path
-        this.currStateObj.spritePath = this.basePath + "/" + this.loadedState+".png";
-    }
+            //load the new sprite path
+            this.spritePath = this.basePath + "/" + this.currState+".png";
+            //load the sprite image
+            this.spriteImg.src = this.spritePath;
 
-    getCurrStateObj()
-    {
-        return this.currStateObj;
-    }
-
-    getLoadedState()
-    {
-        return this.loadedState;
+            //reset variables
+            this.currXFrame = 0;
+            this.currYFrame = 0;
+        }
     }
 }
 
+
 class Boy extends Character{
 
-    constructor()
+    constructor(canvas)
     {
-        super();
+        super(canvas);
         this.basePath +="boy";
 
         //init sprite variables
         //set the state object
-        this.currStateObj.rowsCount = 5;
-        this.currStateObj.colsCount = 3;
-        this.currStateObj.charWidth = 614;
-        this.currStateObj.charHeight = 564;
+        this.rowsCount = 5;
+        this.colsCount = 3;
+        this.frameWidth = 614;
+        this.frameHeight = 564;
     }
 }
 
@@ -284,16 +294,28 @@ class Girl extends Character{
     static deadWidth = 450;
     static deadHeight = 502;
 
-    constructor()
+    constructor(canvas)
     {
-        super();
+        super(canvas);
         this.basePath +="girl";
 
         //init sprite variables
         //set the state object
-        this.currStateObj.rowsCount = 4;
-        this.currStateObj.colsCount = 4;
+        this.rowsCount = 4;
+        this.colsCount = 4;
+
     }
+
+    setCharacterWidth(width)
+    {
+        this.charWidth = 0.6*width;
+    }
+
+    setCharacterHeight(height)
+    {
+        this.charHeight = 0.9*height;
+    }
+
     loadIdleRightState()
     {
         super.loadIdleRightState();
@@ -333,7 +355,7 @@ class Girl extends Character{
     }
     setCharacterDimensions(width = Girl.normalWidth , height = Girl.normalHeight)
     {
-        this.currStateObj.charWidth = width;
-        this.currStateObj.charHeight = height;
+        this.frameWidth = width;
+        this.frameHeight = height;
     }
 }
