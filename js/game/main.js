@@ -1,13 +1,17 @@
 let canvas = document.getElementById("mainCanvas");
 
 //create model object
-let modelObj = new Model(canvas.width*0.05,canvas.height*0.6, canvas.width*0.85);
+let model = new Model(canvas.width*0.05,canvas.height*0.6, canvas.width*0.85);
 
 //create view object
-let viewObj = new View(canvas ,modelObj.getPlayer()) ;
+let view = new View(canvas ,model.getPlayer(), new Girl()) ;
 
 //create controller object
-let controllerObj = new Controller(viewObj,modelObj);
+let controller = new Controller(model);
+
+
+//create game object 
+let game = new Game(model, view);
 
 //create engine object
-let engineObj = new Engine();
+let engine = new Engine(60, game);
