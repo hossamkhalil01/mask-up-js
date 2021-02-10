@@ -15,25 +15,36 @@ class Game
         //render the view
         this.view.render();
     }
-
+    updatePlayerJump() {
+        this.model.getPlayer().dy += this.model.getPlayer().grav;
+        this.model.getPlayer().dy *= this.model.getPlayer().drag;
+        // this.model.getPlayer().yPos += this.model.getPlayer().dy;
+        this.model.getPlayer().yPos += 1;
+        if (this.model.getPlayer().yPos > 480) {
+            this.model.getPlayer().yPos =480;
+            this.model.getPlayer().dy = 0;
+            this.model.getPlayer().onGround = true;
+        } else {
+            this.model.getPlayer().onGround = false;
+        }
+    }
     updateLogic()
     {
         this.updateModel();
         this.updateView();
+        this.updatePlayerJump();
     }
 
     updateView()
     {
         //update the player state
         this.view.setPlayer(this.model.getPlayer());
-
         //update the particles state
         this.addVirus();
-
     }
-    
     updateModel()
     {
+
     }
 
     updateGame()
@@ -56,13 +67,12 @@ class Game
     // }
 
     addVirus() {
-
         this.virusWaitCount ++;
 
         if (this.virusWaitCount% 250 == 0)
         {
-            this.model.addVirus();
-
+            if(!this.model.virusArray.length ==1)
+                this.model.addVirus();
         }
 
         this.model.handleViruses(this.view.getCanvas());
@@ -74,4 +84,5 @@ class Game
         }
         
     }
+
 }

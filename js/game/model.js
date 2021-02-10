@@ -15,11 +15,8 @@ class Model
     }
     constructor(initPlayerX, initPlayerY, maxX )
     {
-
         this.virusArray=[];
-    
         this.virus;
-
         //init the player object to hold player data
         this.player = new Player(initPlayerX, initPlayerY ,maxX);
 
@@ -29,12 +26,22 @@ class Model
  
         this.virusArray.push( new Virus());
     }
+    updateVirusesArray(virusIndex) {
+        console.log("the xpos is :"+this.virusArray[virusIndex].xPos);
+        if(this.virusArray[virusIndex].xPos<=0)
+        {
+            console.log("remove from array")
+            this.virusArray.splice(virusIndex,1);
+        }
+    }
     
     handleViruses() {
         for( var index = 0 ; index < this.virusArray.length; index++)
         {
-            this.virusArray[index].update();
+            this.virusArray[index].updateXPos();
+            this.updateVirusesArray(index);
         }
+        console.log("virus index :" + this.virusArray.length);
     }
     getViruses() {
         return this.virusArray;
@@ -47,9 +54,10 @@ class Model
 class Player{
 
     constructor(initPlayerX, initPlayerY , maxX) {
-        
+
         this.xPos = initPlayerX;
         this.yPos =initPlayerY;
+
         this.dx = 15//speed in x direction
         this.dy = 0 ; // speed
         this.drag = 0.99; // the drag is 0.01
@@ -60,6 +68,27 @@ class Player{
         this.xMaxPos = maxX;
         this.xMinPos = initPlayerX;
         this.isIdle = true;
+        this.onGround = true;
+
+
+        /*
+        constructor(initPlayerX, initPlayerY , maxX,xFrame =0 ,yFrame =0 ) {
+        console.log("init ypos in constructr"+initPlayerY)
+        this.xPos = initPlayerX;
+        this.yPos =initPlayerY;
+
+        this.dy = 0 ; // speed
+        this.drag = 0.99; // the drag is 0.01
+        this.grav = 0.1;
+        this.isFacingRight = true;
+        this.isJumping= false;
+        this.isDown= false;
+        this.xMaxPos = maxX;
+        this.xMinPos = initPlayerX;
+        this.onGround = true;
+         */
+
+
     }
 
     moveRight()
@@ -86,13 +115,18 @@ class Player{
         this.isFacingRight = false;
 
     }
-
     moveUp()
     {
-        this.dy = -5;
-        this.dy *= this.drag;
-        this.isJumping = true;
+        console.log(`this.onGround +${this.onGround}`)
+        console.log(this.yPos + " yyyyyyyyyyyy")
+        if ( this.onGround )
+        {
+            console.log("upp")
+            this.yPos -=180;
+            this.onGround=false;
+        }
     }
+
 
     moveDown()
     {
@@ -131,13 +165,15 @@ class Virus {
         this.distance;
     }
     getX() {
+
         return this.x;
     }
 
     getY() {
         return this.y;
     }
-    update(){
+    updateXPos(){
+        console.log("virus"+this.x)
         this.x-=(this.speed) /2;
     }
 }
