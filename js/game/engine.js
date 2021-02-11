@@ -31,6 +31,7 @@ class Engine{
             this.renderInterval = setInterval(this.updateFrame.bind(this), this.renderInterval);
             this.logicInterval = setInterval(this.updateLogic.bind(this), this.logicInterval);
             
+ 
             this.isEngineOn = true;
         }
 
@@ -45,7 +46,6 @@ class Engine{
 
             this.isEngineOn = false;
         }
-
     }
 }
 

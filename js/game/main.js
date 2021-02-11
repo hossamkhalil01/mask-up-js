@@ -9,7 +9,6 @@ let view = new View(canvas ,model.getPlayer(), new Girl(canvas)) ;
 //create controller object
 let controller = new Controller(model);
 
-
 //create game object 
 let game = new Game(model, view);
 

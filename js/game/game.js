@@ -7,23 +7,28 @@ class Game
         this.view = view;
         this.virusWaitCount = 0;
         // this.playerFrameWaitCount = 0;
+        this.gameOver = false;
     }
 
     updateFrame()
     {
-
         //render the view
         this.view.render();
     }
+
     updatePlayerJump() {
+
         this.model.getPlayer().dy += this.model.getPlayer().grav;
         this.model.getPlayer().dy *= this.model.getPlayer().drag;
         // this.model.getPlayer().yPos += this.model.getPlayer().dy;
         this.model.getPlayer().yPos += 1;
+
         if (this.model.getPlayer().yPos > 480) {
+
             this.model.getPlayer().yPos =480;
             this.model.getPlayer().dy = 0;
             this.model.getPlayer().onGround = true;
+
         } else {
             this.model.getPlayer().onGround = false;
         }
@@ -33,6 +38,12 @@ class Game
         this.updateModel();
         this.updateView();
         this.updatePlayerJump();
+        this.checkGameOver();
+        
+    }
+    checkGameOver()
+    {
+        this.gameOver = (model.isCharHit); 
     }
 
     updateView()
@@ -41,6 +52,11 @@ class Game
         this.view.setPlayer(this.model.getPlayer());
         //update the particles state
         this.addVirus();
+        if (this.gameOver)
+        {
+            alert("gameOver")
+        }
+        
     }
     updateModel()
     {
@@ -52,27 +68,12 @@ class Game
 
     }
 
-    // updatePlayerPosition()
-    // {
-    //     //check to change the player frame or wait
-    //     if(this.playerFrameWaitCount > 10)
-    //     {
-    //         view.changePlayerFrame();
-    //         this.playerFrameWaitCount = 0;
-    //     }
-    //     else{
-    //         this.playerFrameWaitCount++;
-    //     }
-        
-    // }
-
     addVirus() {
         this.virusWaitCount ++;
 
         if (this.virusWaitCount% 250 == 0)
         {
-            if(!this.model.virusArray.length ==1)
-                this.model.addVirus();
+            this.model.addVirus();
         }
 
         this.model.handleViruses(this.view.getCanvas());

@@ -1,8 +1,9 @@
 class View
 {
-    getCanvas() {
-        return canvas.getContext("2d");
-    }
+    static charHeight;
+    static charWidht;
+    static virusHeight;
+    static virusWidth;
 
     constructor(canvasElement ,player, character)
     {
@@ -20,8 +21,16 @@ class View
         this.character = character;
 
         //define character dimensions
-        this.character.setCharacterWidth(this.canvasWidth*0.15);
-        this.character.setCharacterHeight(this.canvasHeight*0.25);
+        this.playerHeight = this.canvasHeight*0.25;
+        this.playerWidth = this.canvasWidth*0.1;
+
+        View.charHeight = this.playerHeight;
+        View.charWidth = this.playerWidth;
+
+
+        this.character.setCharacterWidth(this.playerHeight);
+        this.character.setCharacterHeight(this.playerWidth);
+        
 
         this.character.loadIdleRightState();
 
@@ -31,8 +40,25 @@ class View
         this.virusImg = new Image();
         this.virusImg.src = "../images/game/virus/level1.png";
 
-        this.virusWidth = 100;
-        this.virusHeight = 100;
+        this.virusWidth = 80;   
+        this.virusHeight = 80;
+
+        View.virusHeight = this.virusHeight;
+        View.virusWidth = this.virusWidth;
+    }
+
+    getCanvas() {
+        return canvas.getContext("2d");
+    }
+
+    getPlayerHeight()
+    {
+        return this.playerHeight;
+    }
+
+    getPlayerWidth()
+    {
+        return this.playerWidth;
     }
 
     setPlayer(player)
@@ -279,10 +305,10 @@ class Boy extends Character{
 
         //init sprite variables
         //set the state object
-        this.rowsCount = 5;
-        this.colsCount = 3;
-        this.frameWidth = 614;
-        this.frameHeight = 564;
+        this.rowsCount = 3;
+        this.colsCount = 5;
+        this.frameWidth = 390;
+        this.frameHeight = 565;
     }
 }
 
@@ -308,7 +334,7 @@ class Girl extends Character{
 
     setCharacterWidth(width)
     {
-        this.charWidth = 0.6*width;
+        this.charWidth = 0.8*width;
     }
 
     setCharacterHeight(height)

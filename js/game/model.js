@@ -4,7 +4,7 @@ class Model
     static yMove = 5;
     static canvasWidtht=1900;
     static canvasHeight =800;
-    
+
     static getCanvasWidth()
     {
         return this.canvasWidtht;
@@ -20,32 +20,104 @@ class Model
         //init the player object to hold player data
         this.player = new Player(initPlayerX, initPlayerY ,maxX);
 
+        this.isCharHit = false;
     }
 
     addVirus() {
  
         this.virusArray.push( new Virus());
     }
-    updateVirusesArray(virusIndex) {
-        console.log("the xpos is :"+this.virusArray[virusIndex].xPos);
-        if(this.virusArray[virusIndex].xPos<=0)
+
+    removeFromVirusesArray(virusIndex) {
+
+        if(this.virusArray[virusIndex].x < -View.virusWidth )
         {
-            console.log("remove from array")
             this.virusArray.splice(virusIndex,1);
         }
     }
     
+    detectVirusesCollision(virusIndex)
+    {
+       let xDistanceFromPlayer = this.virusArray[virusIndex].x - (this.player.xPos + View.charWidth)
+       this.virusArray[virusIndex].y >= this.player.yPos 
+
+       if (this.isCharHit)
+       {
+           return;
+       }
+       if(this.isVirusPlayerCollision(this.virusArray[virusIndex].x, this.virusArray[virusIndex].y 
+                                , this.player.xPos, this.player.yPos))
+                                
+        {
+            this.isCharHit = true;                
+        }
+        
+    //    if(xDistanceFromPlayer <= -View.virusWidth)
+    //     {
+    //         if (this.virusArray[virusIndex].y  >= this.player.yPos  && 
+    //             this.virusArray[virusIndex].y + View.virusHeight  <= this.player.yPos+View.charHeight)
+    //             {
+
+    //                 this.isCharHit = true;
+    //                 console.log("virus y: "+this.virusArray[virusIndex].y);
+    //                 console.log("virus hieght: "+ View.virusHeight);
+    //                 console.log("char y: "+this.player.yPos);
+    //                 console.log("char hieght: "+ View.charHeight);
+    //             }
+    //     }
+    
+    }
+
+    calcDistanceBetweenTwoPoints(point1, point2)
+    {
+
+        let tmp = Math.pow((point1.x - point2.x),2) + Math.pow((point1.y - point2.y),2);
+        return Math.sqrt(tmp);
+    }
+
+    getCenterPoint(xPos,yPos,width,height)
+    {
+        return {
+            x: xPos + 0.5 * width,
+            y: yPos + 0.5 * height
+        }
+    }
+
+    isVirusPlayerCollision(virusXPos, virusYPos, playerXPos, playerYPos)
+    {
+        
+        let playerCenter =this.getCenterPoint(playerXPos,playerYPos,View.charWidth,View.charHeight);
+        let virusCenter = this.getCenterPoint(virusXPos,virusYPos,View.virusWidth,View.virusHeight);
+
+        let playerHalfDiagonal = this.calcDistanceBetweenTwoPoints(playerCenter,{x:playerXPos,y:playerYPos});
+        let virusHalfDiagonal = this.calcDistanceBetweenTwoPoints(virusCenter,{x:virusXPos,y:virusYPos});
+
+        let fromPlayerToVirus = this.calcDistanceBetweenTwoPoints(virusCenter,playerCenter);
+        
+
+
+        if (fromPlayerToVirus-(playerHalfDiagonal+virusHalfDiagonal) <= -150)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     handleViruses() {
         for( var index = 0 ; index < this.virusArray.length; index++)
         {
             this.virusArray[index].updateXPos();
-            this.updateVirusesArray(index);
+            this.detectVirusesCollision(index);
+            this.removeFromVirusesArray(index);
         }
-        console.log("virus index :" + this.virusArray.length);
     }
+
     getViruses() {
         return this.virusArray;
     }
+
     getPlayer() {
         return this.player;
     }
@@ -69,26 +141,6 @@ class Player{
         this.xMinPos = initPlayerX;
         this.isIdle = true;
         this.onGround = true;
-
-
-        /*
-        constructor(initPlayerX, initPlayerY , maxX,xFrame =0 ,yFrame =0 ) {
-        console.log("init ypos in constructr"+initPlayerY)
-        this.xPos = initPlayerX;
-        this.yPos =initPlayerY;
-
-        this.dy = 0 ; // speed
-        this.drag = 0.99; // the drag is 0.01
-        this.grav = 0.1;
-        this.isFacingRight = true;
-        this.isJumping= false;
-        this.isDown= false;
-        this.xMaxPos = maxX;
-        this.xMinPos = initPlayerX;
-        this.onGround = true;
-         */
-
-
     }
 
     moveRight()
@@ -117,12 +169,9 @@ class Player{
     }
     moveUp()
     {
-        console.log(`this.onGround +${this.onGround}`)
-        console.log(this.yPos + " yyyyyyyyyyyy")
         if ( this.onGround )
         {
-            console.log("upp")
-            this.yPos -=180;
+            this.yPos -=300;
             this.onGround=false;
         }
     }
@@ -173,7 +222,6 @@ class Virus {
         return this.y;
     }
     updateXPos(){
-        console.log("virus"+this.x)
         this.x-=(this.speed) /2;
     }
 }
