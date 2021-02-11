@@ -4,6 +4,8 @@ const playSection = document.getElementById("playSection");
 const settingsSection = document.getElementById("settingsSection");
 const instructionsSection = document.getElementById("instructionsSection");
 const creditsSection = document.getElementById("creditsSection");
+//-------
+const selectCharactersection = document.getElementById("selectCharactersection");
 
 //define the main menu options
 const playOption = document.getElementById("playOption");
@@ -11,10 +13,17 @@ const settingssOption = document.getElementById("settingsOption");
 const instructionsOption = document.getElementById("instructionsOption");
 const creditsOption = document.getElementById("creditsOption");
 const logoutOption = document.getElementById("logoutOption");
+//define the  options inside play option 
+const newGameOption = document.getElementById("newGameOption");
+const selectCharacterOtion = document.getElementById("selectCharacterOtion");
 
 //define the back to home button
 const backBtn = document.getElementById("backBtn");
 console.log(backBtn) ;
+
+selectCharacterOtion.addEventListener("click", function (){
+    fromGameOptionsTo(selectCharactersection);
+});
 
 //attach listeners
 playOption.addEventListener("click", function (){
@@ -59,6 +68,20 @@ function fromMainMenuTo (otherWindow)
     backBtn.style.display = "block";
 }
 
+function fromGameOptionsTo (otherWindow)
+{    
+     //hide the main menu
+    //  mainMenuSection.style.display = "none";
+     //hide playsection 
+     playSection.style.display = "none";
+
+     //display the other window
+     otherWindow.style.display = "block";
+   
+      currWindow = otherWindow;
+     //display the back button
+     backBtn.style.display = "block";
+}
 //change from current back to main menu
 function fromCurrentToMainMenu()
 {

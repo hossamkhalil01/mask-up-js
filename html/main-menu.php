@@ -1,4 +1,4 @@
-<?php// ob_start();?>
+
 <?php include '../includes/functions.php';?>
 
 <?php 
@@ -61,7 +61,46 @@ $select_img_query = query($query);
 
             <div id="playSection" class="play-section" style="display: none;">
 
+                 <div id="newGameOption" class="insideGame" >
+					 new game 
+                 </div>
+                <div id="selectCharacterOtion" class="insideGame" >
+                    select your character
+                </div> 
+
             </div>
+
+            <div id="selectCharactersection" class="selectCharacter-section" style="display: none;">
+
+                 
+
+                    <!-- <h1  class="glitch" >Choose your Character</h1> -->
+            <svg viewBox="0 0 1000 400">
+                    <symbol id="s-text">
+                    <text text-anchor="middle" x="50%" y="80%">choose your character</text>
+                    </symbol>
+
+                    <g class = "g-ants">
+                            <use xlink:href="#s-text" class="text-copy"></use>
+                            <use xlink:href="#s-text" class="text-copy"></use>
+                            <use xlink:href="#s-text" class="text-copy"></use>
+                            <use xlink:href="#s-text" class="text-copy"></use>
+                            <use xlink:href="#s-text" class="text-copy"></use>
+                    </g>
+            </svg>
+
+                    <div id="aliaadiv"  class="">
+                    <a href=""><img src="../images/girl.png" class="character" id="aliaa"></a>
+                    </div>
+                    <div id="alidiv"   class="">
+                    <a href=""><img src="../images/boy.png" class="character" id="ali"></a>
+                    </div>
+
+             
+
+            </div>
+            
+            
 
             <div id="settingsSection" class="settings-section" style="display: none;">
 
