@@ -126,7 +126,7 @@ class Model
 class Player{
 
     constructor(initPlayerX, initPlayerY , maxX) {
-
+        Model.initPlayerY=initPlayerY;
         this.xPos = initPlayerX;
         this.yPos =initPlayerY;
 
@@ -140,7 +140,7 @@ class Player{
         this.xMaxPos = maxX;
         this.xMinPos = initPlayerX;
         this.isIdle = true;
-        this.onGround = true;
+        this.onGround = false;
     }
 
     moveRight()
@@ -169,10 +169,11 @@ class Player{
     }
     moveUp()
     {
-        if ( this.onGround )
+
+            console.log("here to be tru");
+        if (this.yPos >=480)
         {
-            this.yPos -=300;
-            this.onGround=false;
+            this.isJumping=true;
         }
     }
 

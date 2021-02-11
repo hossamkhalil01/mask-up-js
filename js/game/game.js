@@ -18,20 +18,30 @@ class Game
 
     updatePlayerJump() {
 
+        if (this.model.getPlayer().isJumping == false )
+        {
         this.model.getPlayer().dy += this.model.getPlayer().grav;
         this.model.getPlayer().dy *= this.model.getPlayer().drag;
         // this.model.getPlayer().yPos += this.model.getPlayer().dy;
         this.model.getPlayer().yPos += 1;
-
+        }
+        else
+        {
+            console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+            // this.model.getPlayer().dy += this.model.getPlayer().grav;
+            // this.model.getPlayer().dy *= this.model.getPlayer().drag;
+            // this.model.getPlayer().yPos += this.model.getPlayer().dy;
+            this.model.getPlayer().yPos -= 1;
+            console.log(this.model.getPlayer().yPos + "ypos")
+            if(this.model.getPlayer().yPos <= 200 )
+            {
+                this.model.getPlayer().isJumping=false;
+            }
+        }
         if (this.model.getPlayer().yPos > 480) {
-
             this.model.getPlayer().yPos =480;
             this.model.getPlayer().dy = 0;
-            this.model.getPlayer().onGround = true;
-
-        } else {
-            this.model.getPlayer().onGround = false;
-        }
+        } 
     }
     updateLogic()
     {
