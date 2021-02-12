@@ -4,10 +4,11 @@ class View
     static charWidht;
     static virusHeight;
     static virusWidth;
+    static score;
 
-    constructor(canvasElement ,player, character)
+    constructor(canvasElement ,player, character, level)
     {
-        this.virusArray= [];
+
         this.canvas = canvasElement;
         this.context = this.canvas.getContext("2d");
 
@@ -17,34 +18,31 @@ class View
 
         this.player = player;
 
-        //define frame dimensions
-        this.character = character;
+        //create character object
 
+        this.character = character;
         //define character dimensions
-        this.playerHeight = this.canvasHeight*0.25;
+        this.playerHeight = this.canvasHeight*0.15;
         this.playerWidth = this.canvasWidth*0.1;
 
         View.charHeight = this.playerHeight;
         View.charWidth = this.playerWidth;
 
-
-        this.character.setCharacterWidth(this.playerHeight);
-        this.character.setCharacterHeight(this.playerWidth);
+        this.character.setCharacterWidth(View.charHeight);
+        this.character.setCharacterHeight(View.charWidth);
         
-
         this.character.loadIdleRightState();
 
         this.playerFrameWaitCount = 0;
 
-        //load the covid image
-        this.virusImg = new Image();
-        this.virusImg.src = "../images/game/virus/level1.png";
+        //create viruses object
+        View.virusHeight = this.canvasHeight*0.07;
+        View.virusWidth = this.canvasWidth*0.05;
 
-        this.virusWidth = 80;   
-        this.virusHeight = 80;
-
-        View.virusHeight = this.virusHeight;
-        View.virusWidth = this.virusWidth;
+        this.viruses = new VirusesHandler(this.canvas,View.virusWidth , View.virusHeight, level);
+    
+        //create background object
+        this.BGImg = new Background(this.canvas, level, 0.25);
     }
 
     getCanvas() {
@@ -73,7 +71,18 @@ class View
 
     updatePlayerDirection()
     {
-        if (this.player.isIdle){
+
+        if(this.player.isDead && this.player.isFacingRight)
+        {
+            this.character.loadDeadRightState();
+        }
+
+        else if(this.player.isDead && ! this.player.isFacingRight)
+        {
+            this.character.loadDeadLeftState();
+        }
+
+        else if (this.player.isIdle){
 
             if (this.player.isFacingRight){
                 this.character.loadIdleRightState();
@@ -95,6 +104,7 @@ class View
                 this.character.loadJumpLeftState();
             }
         }
+
         else{
 
             if (this.player.isFacingRight){
@@ -107,17 +117,24 @@ class View
             }
         }
     }
-
+    /*
+     */
     render() {
         this.clearScreen();
+        this.BGImg.update();
         this.drawPlayer();
-        this.drawViruses();
+        this.viruses.draw();
+        this.drawScore();
+
     }
 
     drawPlayer()
     {
         this.character.draw(this.player.xPos,this.player.yPos);
         this.checkPlayerFrameWaitCount();
+    }
+    drawScore() {
+        this.character.drawScore();
     }
 
     checkPlayerFrameWaitCount()
@@ -132,27 +149,10 @@ class View
             this.playerFrameWaitCount++;
         }
     }
-
-    drawVirus(virus){
-
-        this.context.drawImage(this.virusImg,0,0,350,350,virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
-    }
-
-    setViruses(viruses) {
-        this.virusArray =viruses
-    }
-
-    drawViruses() {
-        for( let index = 0 ; index < this.virusArray.length; index++)
-        {
-            this.drawVirus(this.virusArray[index]);
-        }
-    }
     clearScreen()
     {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     }
-
 }
 
 // Class to deal with the character's sprite sheets 
@@ -160,7 +160,8 @@ class Character {
 
     static charState =
     {idleRight:"idleRight", idleLeft: "idleLeft", runRight: "runRight", 
-    runLeft: "runLeft", jumpLeft:"jumpLeft", jumpRight:"jumpRight", dead: "dead"};
+     runLeft: "runLeft", jumpLeft:"jumpLeft", jumpRight:"jumpRight",
+     deadLeft: "deadLeft", deadRight: "deadRight"};
 
     constructor(canvas)
     {
@@ -171,23 +172,25 @@ class Character {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");
 
-        //init the current state
-        this.currState = Character.idleRight;
-        this.rowsCount;
-        this.colsCount;
+        //init the states sheets dimensions
+        this.deadSheetDim = {width: 0, height: 0, rows:0 , cols:0};
+        this.idleSheetDim = {width: 0, height: 0, rows:0 , cols:0};
+        this.jumpSheetDim = {width: 0, height: 0, rows:0 , cols:0};
+        this.runSheetDim  = {width: 0, height: 0, rows:0 , cols:0};
 
-        this.frameWidth;
-        this.frameHeight;
+
+        //init the current state
+        this.currState;
+        this.currSheetDim;
+
+        this.currXFrame = 0 ;
+        this.currYFrame = 0;
 
         //put default values for character width and height
         this.charWidth = 150;
         this.charHeight = 150;
 
         this.spritePath;
-
-        this.currXFrame = 0 ;
-        this.currYFrame = 0;
-
         this.spriteImg = new Image();
 
     }
@@ -217,29 +220,30 @@ class Character {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");
     }
+    
 
     draw(xPos,yPos)
     {
+        this.ctx.drawImage(this.spriteImg, this.currSheetDim.width*this.currXFrame, this.currSheetDim.height*this.currYFrame, 
+            this.currSheetDim.width,this.currSheetDim.height, xPos,yPos,this.charWidth,this.charHeight); 
+    }
+    drawScore() {
+        
         this.ctx.beginPath();
         this.ctx.rect(70, 20, 250, 100);
         this.ctx.stroke();
         this.ctx.fillStyle = "red";
         this.ctx.font = "25px Arial";
-        this.ctx.fillText(`Your score:  ${model.getPlayer().getScore()}`, 110, 70);
-        this.ctx.drawImage(this.spriteImg, this.frameWidth*this.currXFrame, this.frameHeight*this.currYFrame, this.frameWidth,this.frameHeight
-        , xPos,yPos,this.charWidth,this.charHeight); 
+        this.ctx.fillText(`Your score:  ${View.score}`, 110, 70);
     }
-    getCurrentFrame()
-    {
-        return this.frameImg;
-    }
+  
     loadNextFrame()
     {
-        this.currXFrame = (this.currXFrame + 1)% (this.colsCount);
+        this.currXFrame = (this.currXFrame + 1) % (this.currSheetDim.cols);
 
         if(this.currXFrame === 0)
         {
-            this.currYFrame = (this.currYFrame + 1)% (this.rowsCount);
+            this.currYFrame = (this.currYFrame + 1) % (this.currSheetDim.rows);
         }
     }
 
@@ -250,146 +254,195 @@ class Character {
 
     loadIdleRightState()
     {
-        this.loadState(Character.charState.idleRight);
+        //load the state
+        this.loadState(Character.charState.idleRight, this.idleSheetDim);
     }
 
     loadIdleLeftState()
     {
-        this.loadState(Character.charState.idleLeft);
+        this.loadState(Character.charState.idleLeft, this.idleSheetDim);
     }
 
     loadRunRightState()
     {
-        this.loadState(Character.charState.runRight);
+        this.loadState(Character.charState.runRight, this.runSheetDim);
     }
 
     loadRunLeftState()
     {
-        this.loadState(Character.charState.runLeft);
+        this.loadState(Character.charState.runLeft, this.runSheetDim);
     }
 
     loadJumpRightState()
     {
-        this.loadState(Character.charState.jumpRight);
+        this.loadState(Character.charState.jumpRight, this.jumpSheetDim);
     }
 
     loadJumpLeftState()
     {
-        this.loadState(Character.charState.jumpLeft);
+        this.loadState(Character.charState.jumpLeft, this.jumpSheetDim);
     }
 
-    loadDeadState()
+    loadDeadLeftState()
     {
-        this.loadState(Character.charState.dead);
+        this.loadState(Character.charState.deadLeft, this.deadSheetDim);
     }
 
-    loadState(state)
+    loadDeadRightState()
+    {
+        this.loadState(Character.charState.deadRight, this.deadSheetDim);
+    }
+
+    loadState(state , newStateDim)
     {
         //if state is changed reset variables
         if(this.isStateChanged(state))
         {
             //load the new state
             this.currState = state;
+            this.currSheetDim = newStateDim;
+
+            //reset frames count
+            this.currXFrame = 0;
+            this.currYFrame = 0;
 
             //load the new sprite path
             this.spritePath = this.basePath + "/" + this.currState+".png";
             //load the sprite image
             this.spriteImg.src = this.spritePath;
-
-            //reset variables
-            this.currXFrame = 0;
-            this.currYFrame = 0;
         }
     }
 }
 
-
 class Boy extends Character{
+
 
     constructor(canvas)
     {
         super(canvas);
+        
         this.basePath +="boy";
 
-        //init sprite variables
-        //set the state object
-        this.rowsCount = 3;
-        this.colsCount = 5;
-        this.frameWidth = 390;
-        this.frameHeight = 565;
+        //set sheets dimensions
+        this.deadSheetDim = {width: 614 , height: 520, rows:3 , cols:5};
+        this.idleSheetDim = {width: 302, height: 477, rows:3 , cols:5};
+        this.jumpSheetDim = {width: 390, height: 501, rows:3 , cols:5};
+        this.runSheetDim = {width: 359, height: 502, rows:3 , cols:5};
+
+
     }
+
+    // setCharacterHeight(height)
+    // {
+    //     this.charHeight = 0.9*height;
+    // }
+
 }
 
 class Girl extends Character{
-
-    static normalWidth = 416 ;
-    static normalHeight = 454;
-
-    static deadWidth = 450;
-    static deadHeight = 502;
 
     constructor(canvas)
     {
         super(canvas);
         this.basePath +="girl";
 
-        //init sprite variables
-        //set the state object
-        this.rowsCount = 4;
-        this.colsCount = 4;
-
+        //set sheets dimensions
+        this.deadSheetDim = {width: 601 , height: 502, rows:3 , cols:5};
+        this.idleSheetDim = {width: 416, height: 454, rows:4 , cols:4};
+        this.jumpSheetDim = {width: 416, height: 454, rows:4 , cols:4};
+        this.runSheetDim = {width: 416, height: 454, rows:4 , cols:4};
     }
 
-    setCharacterWidth(width)
+    // setCharacterWidth(width)
+    // {
+    //     this.charWidth = 0.9*width;
+    // }
+
+}
+
+//class to deal with viruses
+class VirusesHandler{
+
+    constructor(canvas,virusWidth,vriusHeight,level)
     {
-        this.charWidth = 0.8*width;
+        //define canvas
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+
+        //load the covid image
+        this.virusImg = new Image();
+        this.virusImg.src = "../images/game/virus/"+level+".png";
+
+        this.virusWidth = virusWidth;   
+        this.virusHeight = vriusHeight;
+
+        this.virusArray= [];
     }
 
-    setCharacterHeight(height)
-    {
-        this.charHeight = 0.9*height;
+    drawVirus(virus){
+        this.ctx.drawImage(this.virusImg,0,0,350,350,virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
     }
 
-    loadIdleRightState()
-    {
-        super.loadIdleRightState();
-        this.setCharacterDimensions();
-    }
-    loadIdleLeftState()
-    {
-        super.loadIdleLeftState();
-        this.setCharacterDimensions();
-    }
-    loadRunRightState()
-    {
-        super.loadRunRightState();
-        this.setCharacterDimensions();
-    }
-    loadRunLeftState()
-    {
-        super.loadRunLeftState();
-        this.setCharacterDimensions();
-    }
-    loadJumpLeftState()
-    {
-        super.loadJumpLeftState();
-        this.setCharacterDimensions();
+    setVirusesArray(viruses) {
+        this.virusArray =viruses
     }
 
-    loadJumpRightState()
+    draw() {
+        for( let index = 0 ; index < this.virusArray.length; index++)
+        {
+            this.drawVirus(this.virusArray[index]);
+        }
+    }
+}
+//class infinite background
+class Background
+{
+
+    constructor(canvas, level, speed)
     {
-        super.loadJumpRightState();
-        this.setCharacterDimensions();
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+
+        this.img = new Image();
+        this.img.src = "../images/game/backgrounds/"+level+".jpg";
+        this.x1 = 0;
+        this.x2 = this.canvas.width;
+        this.y = 0;
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+        this.speed = speed;
     }
 
-    loadDeadState()
-    {
-        super.loadDeadState();
-        this.setCharacterDimensions(Girl.deadWidth, Girl.deadHeight);
+    //update background
+    update()
+    {   
+        //handle boundries for image 1 
+        if (this.x1 <= - this.width)
+        {
+            this.x1 = this.width;
+        }
+        else 
+        {
+            this.x1 -= this.speed;
+        }
+
+        //handle boundries for image 2
+        if (this.x2 <= -this.width)
+        {
+            this.x2 = this.width;
+        }
+        else
+        {
+            this.x2 -= this.speed;
+        }
+        this.draw();
     }
-    setCharacterDimensions(width = Girl.normalWidth , height = Girl.normalHeight)
+    draw()
     {
-        this.frameWidth = width;
-        this.frameHeight = height;
+        //draw image 1 
+        this.ctx.drawImage(this.img, this.x1 , this.y , this.width, this.height);
+
+        //draw image 2
+        this.ctx.drawImage(this.img, this.x2 , this.y , this.width, this.height);
     }
 }

@@ -25,7 +25,7 @@ class Engine{
     {
         if (game.getGameOver())
         {
-            this.stopEngine();
+         this.stopEngine();
           this.endGame();
         }
 
@@ -51,13 +51,17 @@ class Engine{
 
     }
 
+    stopLogicInterval()
+    {
+        clearInterval(this.logicInterval);
+    }
+
     stopEngine()
     {
         if(this.isEngineOn)
         {
             clearInterval(this.renderInterval);
             clearInterval(this.logicInterval);
-
             this.isEngineOn = false;
         }
     }

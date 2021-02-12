@@ -54,10 +54,9 @@ class Model
                                 , this.player.xPos, this.player.yPos))
                                 
         {
-            this.isCharHit = true;                
+            this.isCharHit = true; 
+            this.player.setIsDead();               
         }
-        
-
     
     }
 
@@ -76,25 +75,48 @@ class Model
         }
     }
 
+    // isVirusPlayerCollision(virusXPos, virusYPos, playerXPos, playerYPos)
+    // {
+        
+    //     let playerCenter =this.getCenterPoint(playerXPos,playerYPos,View.charWidth,View.charHeight);
+    //     let virusCenter = this.getCenterPoint(virusXPos,virusYPos,View.virusWidth,View.virusHeight);
+
+    //     let playerHalfDiagonal = this.calcDistanceBetweenTwoPoints(playerCenter,{x:playerXPos,y:playerYPos});
+    //     let virusHalfDiagonal = this.calcDistanceBetweenTwoPoints(virusCenter,{x:virusXPos,y:virusYPos});
+
+    //     let fromPlayerToVirus = this.calcDistanceBetweenTwoPoints(virusCenter,playerCenter);
+        
+
+
+    //     if (fromPlayerToVirus-(playerHalfDiagonal+virusHalfDiagonal) <= -150)
+    //     {
+    //         return true;
+    //     }
+    //     else {
+    //         return false;
+    //     }
+    // }
+
     isVirusPlayerCollision(virusXPos, virusYPos, playerXPos, playerYPos)
     {
-        
-        let playerCenter =this.getCenterPoint(playerXPos,playerYPos,View.charWidth,View.charHeight);
-        let virusCenter = this.getCenterPoint(virusXPos,virusYPos,View.virusWidth,View.virusHeight);
-
-        let playerHalfDiagonal = this.calcDistanceBetweenTwoPoints(playerCenter,{x:playerXPos,y:playerYPos});
-        let virusHalfDiagonal = this.calcDistanceBetweenTwoPoints(virusCenter,{x:virusXPos,y:virusYPos});
-
-        let fromPlayerToVirus = this.calcDistanceBetweenTwoPoints(virusCenter,playerCenter);
-        
+        //define margins for collision
+        let widthMargin = View.charWidth*0.6;
+        let heightMargin = View.charHeight*0.2;
 
 
-        if (fromPlayerToVirus-(playerHalfDiagonal+virusHalfDiagonal) <= -150)
+        //all measures are relative to the player's position
+        let topSideDistance  = playerYPos - (virusYPos + View.virusHeight);
+        let rightSideDistance = virusXPos - (playerXPos + View.charWidth);
+        let bottomSideDistance = virusYPos - (playerYPos + View.charHeight);
+        let leftSideDistance = playerXPos - (virusXPos + View.virusWidth);
+
+        if (topSideDistance > -heightMargin || rightSideDistance > -widthMargin || bottomSideDistance > -heightMargin 
+            || leftSideDistance > -widthMargin )
         {
-            return true;
+            return false;
         }
         else {
-            return false;
+            return true;
         }
     }
 
@@ -129,7 +151,8 @@ class Player{
         this.grav = 0.1;
         this.isFacingRight = true;
         this.isJumping= false;
-        this.isDown= false;
+        this.isDown = false;
+        this.isDead = false;
         this.xMaxPos = maxX;
         this.xMinPos = initPlayerX;
         this.isIdle = true;
@@ -195,6 +218,10 @@ class Player{
     setPlayerY(yPos)
     {
         this.yPos = yPos;
+    }
+    setIsDead()
+    {
+        this.isDead = true;
     }
 
 }

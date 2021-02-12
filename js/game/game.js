@@ -6,8 +6,11 @@ class Game
         this.model = model;
         this.view = view;
         this.virusWaitCount = 0;
-        // this.playerFrameWaitCount = 0;
+
         this.gameOver = false;
+
+        //start the game engine
+        this.engine = new Engine(60, this);
     }
     getGameOver() {
         return this.gameOver;
@@ -46,11 +49,10 @@ class Game
     }
     updateLogic()
     {
+        this.checkGameOver();
         this.updateModel();
         this.updateView();
         this.updatePlayerJump();
-        this.checkGameOver();
-        
     }
     checkGameOver()
     {
@@ -59,8 +61,10 @@ class Game
 
     updateView()
     {
+        
         //update the player state
         this.view.setPlayer(this.model.getPlayer());
+        View.score = model.getPlayer().getScore()
         //update the particles state
         this.addVirus();
         if (this.gameOver)
@@ -71,7 +75,6 @@ class Game
     }
     updateModel()
     {
-
     }
 
     updateGame()
@@ -88,7 +91,7 @@ class Game
         }
 
         this.model.handleViruses(this.view.getCanvas());
-        this.view.setViruses(this.model.getViruses())
+        this.view.viruses.setVirusesArray(this.model.getViruses())
 
         if(this.virusWaitCount >= 1000000)
         {
@@ -96,5 +99,4 @@ class Game
         }
         
     }
-
 }
