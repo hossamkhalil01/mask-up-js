@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
     background: url("../images/main-menu/main-bg.jpeg");
     background-size: cover;
@@ -116,3 +117,126 @@ body span{
     background-color: tomato;
     border: red solid 1px;
 }
+||||||| d7e590c
+=======
+body{
+    background: url("../images/homeBG.jpeg");
+    background-size: cover;
+    
+}
+
+.container{
+    width: 50%;
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+    border: #09c 1px solid;
+    border-radius: 50px;
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+
+table{
+    margin: auto;
+}
+
+input{
+    margin: 20px;
+    margin-bottom: 10px;
+
+    padding: 10px;
+    border-radius: 20px;
+    border: #09c 1px solid;
+}
+/*  */
+
+input[type="file"]{
+    border: none;
+}
+
+
+.submit-container{
+    text-align: center;
+}
+
+input[type="submit"]{
+    background-color: #09c;
+}
+
+input[type="submit"]:hover{
+    background-color: rgba(21, 152, 228, 0.6);
+    cursor: pointer;
+}
+
+.button{
+    width: 100px;
+    padding: 2%;
+    margin: 2%;
+    border: none;
+    border-radius: 10%;
+  
+}
+
+.form-header-section{
+    width: 49.7%;
+    margin: 0px;
+    border: none;
+    display: inline;
+    background-color:rgba(66, 21, 228, 0.8);
+    color: #FFF;
+    border-radius: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+#registerForm{
+    display: none;
+}
+
+.buttons-container{
+    margin: auto;
+}
+
+button:focus, input:focus{
+    outline: none;
+}
+
+.form-header-section:hover{
+    /* background-color:rgba(66, 21, 228, 0.4); */
+    cursor: pointer;
+}
+
+.highlighted{
+    background-color:transparent;
+    box-shadow: unset;
+    color: black;
+}
+
+
+.errorMsg{
+    background-color: tomato;
+    color:white;
+    padding: 2px;
+    border: solid red 2px;
+    border-radius: 10px;
+}
+
+body span{
+    position: absolute;
+    top: 3;
+    left: 2;
+
+    margin: 5px;
+    padding: 10px;
+}
+
+.success{
+    background-color: rgb(58, 255, 101);
+    border: green solid 1px;
+}
+
+.failed{
+    background-color: tomato;
+    border: red solid 1px;
+}
+>>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392

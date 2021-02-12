@@ -1,3 +1,4 @@
+<<<<<<< HEAD:html/main-menu.php
 
 <?php include '../includes/functions.php';?>
 
@@ -15,6 +16,30 @@ $select_img_query = query($query);
 
 ?>
 
+||||||| d7e590c:html/main-menu.html
+=======
+
+<?php include '../includes/functions.php';?>
+
+<?php 
+	if(!isset($_SESSION['username']))
+			header("Location: ../index.php");
+?>
+
+<?php 
+
+$username = $_SESSION['username'];
+// Get image data from database
+$query = "SELECT * FROM `player` WHERE `username` = '$username'"; 
+$select_img_query = query($query);
+
+
+
+?>
+
+
+
+>>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392:html/main-menu.html
 <!Doctype html>
 
 <html lang="en">
@@ -57,6 +82,7 @@ $select_img_query = query($query);
 
             <div id="playSection" class="play-section" style="display: none;">
 
+<<<<<<< HEAD:html/main-menu.php
 
                 
             </div>
@@ -88,7 +114,56 @@ $select_img_query = query($query);
 
             <div id="selectlevel" style="display: none;" >
                 select your level
+||||||| d7e590c:html/main-menu.html
+=======
+
+                
+>>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392:html/main-menu.html
             </div>
+            <div id="selectCharactersection" class="selectCharacter-section"  style="display: none;">
+
+                 
+
+                 <svg viewBox="0 0 1000 400">
+                 <symbol id="s-text">
+                 <text text-anchor="middle" x="50%" y="80%">choose your character</text>
+                    </symbol>
+
+                 <g class = "g-ants">
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+              </g>
+              </svg>
+
+                <div id="aliaadiv"  class=""  draggable = false>
+                <!-- <a href=""><img src="../images/girl.png" class="character" id="aliaa" draggable = false ></a> -->
+                <img src="../images/girl.png" class="character" id="aliaa" draggable = false >
+
+                </div>
+                <div id="alidiv"   class="" draggable = false >
+                <!-- <a href=""><img src="../images/boy.png" class="character" id="ali" draggable = false ></a> -->
+                    <img src="../images/boy.png" class="character" id="ali" draggable = false >
+
+                </div>
+
+ 
+
+                </div>
+
+
+
+            <div id="selectlevel" style="display: none;" >
+            select your level
+            </div>
+            
+            
+
+           
+            
+            
 
             <div id="settingsSection" class="settings-section" style="display: none;">
 
