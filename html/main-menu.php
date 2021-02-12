@@ -1,4 +1,4 @@
-<?php// ob_start();?>
+
 <?php include '../includes/functions.php';?>
 
 <?php 
@@ -50,6 +50,7 @@ $select_img_query = query($query);
                     <input type="button" value="back" id="backBtn"   style="display: none;">
                     <h2>Protect Yourself and Mask Up!!</h2>
                 </div>
+                
                 <div class="animatediv"> 
                     <img class ="covid-icon" src="https://atheistiran.com/wp-content/uploads/2020/03/corona-virus.png"  draggable = false>
                 </div>
@@ -61,7 +62,53 @@ $select_img_query = query($query);
 
             <div id="playSection" class="play-section" style="display: none;">
 
+
+                
             </div>
+            <div id="selectCharactersection" class="selectCharacter-section"  style="display: none;">
+
+                 
+
+                 <svg viewBox="0 0 1000 400">
+                 <symbol id="s-text">
+                 <text text-anchor="middle" x="50%" y="80%">choose your character</text>
+                    </symbol>
+
+                 <g class = "g-ants">
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+              </g>
+              </svg>
+
+                <div id="aliaadiv"  class=""  draggable = false>
+                <!-- <a href=""><img src="../images/girl.png" class="character" id="aliaa" draggable = false ></a> -->
+                <img src="../images/girl.png" class="character" id="aliaa" draggable = false >
+
+                </div>
+                <div id="alidiv"   class="" draggable = false >
+                <!-- <a href=""><img src="../images/boy.png" class="character" id="ali" draggable = false ></a> -->
+                    <img src="../images/boy.png" class="character" id="ali" draggable = false >
+
+                </div>
+
+ 
+
+                </div>
+
+
+
+            <div id="selectlevel" style="display: none;" >
+            select your level
+            </div>
+            
+            
+
+           
+            
+            
 
             <div id="settingsSection" class="settings-section" style="display: none;">
 
@@ -133,6 +180,30 @@ $select_img_query = query($query);
             </div>
 
             <div id="instructionsSection" class="instructions-section" style="display: none;">
+            <div id= "instructions_s">
+                    <h1>instructions for playing </h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Donec lacinia at sem nec porttitor.
+                        Ut gravida dui in mauris congue imperdiet. Vestibulum a quam tempor, 
+                        suscipit erat sed, mattis arcu. Sed consequat dapibus eros eu consectetur.
+                         Nulla facilisi. Morbi tellus nibh, maximus sit amet erat vel, pulvinar pharetra elit.
+                         Mauris porta leo nisi, ac condimentum nulla volutpat ut.
+                        Aliquam egestas eget neque eget laoreet. Sed non consequat diam, nec sagittis sem.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Donec lacinia at sem nec porttitor.
+                        Ut gravida dui in mauris congue imperdiet. Vestibulum a quam tempor, 
+                        suscipit erat sed, mattis arcu. Sed consequat dapibus eros eu consectetur.
+                        Nulla facilisi. Morbi tellus nibh, maximus sit amet erat vel, pulvinar pharetra elit.
+                        Mauris porta leo nisi, ac condimentum nulla volutpat ut.
+                        Aliquam egestas eget neque eget laoreet. Sed non consequat diam, nec sagittis sem.</p>
+       
+
+                            
+
+
+
+                </div >
+    
     
             </div>
             <div id="creditsSection" class="credits-section" style="display: none;">
