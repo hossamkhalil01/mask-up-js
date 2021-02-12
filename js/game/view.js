@@ -50,6 +50,10 @@ class View
     getCanvas() {
         return canvas.getContext("2d");
     }
+    setContext(context)
+    {
+        this.context =context;
+    }
 
     getPlayerHeight()
     {
@@ -216,15 +220,19 @@ class Character {
 
     draw(xPos,yPos)
     {
+        this.ctx.beginPath();
+        this.ctx.rect(70, 20, 250, 100);
+        this.ctx.stroke();
+        this.ctx.fillStyle = "red";
+        this.ctx.font = "25px Arial";
+        this.ctx.fillText(`Your score:  ${model.getPlayer().getScore()}`, 110, 70);
         this.ctx.drawImage(this.spriteImg, this.frameWidth*this.currXFrame, this.frameHeight*this.currYFrame, this.frameWidth,this.frameHeight
         , xPos,yPos,this.charWidth,this.charHeight); 
     }
-
     getCurrentFrame()
     {
         return this.frameImg;
     }
-
     loadNextFrame()
     {
         this.currXFrame = (this.currXFrame + 1)% (this.colsCount);

@@ -30,7 +30,6 @@ class Controller {
 
     //handle key presses
     keyDownHandler(event){
-
         switch (event.keyCode)
         {
             case Controller.keysCodes.right:

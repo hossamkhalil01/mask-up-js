@@ -8,3 +8,11 @@
     image-rendering: pixelated;
     background: grey;
 }
+form{
+    margin: auto;
+    width: 500px;
+    height: 500px;
+}
+div{
+
+}

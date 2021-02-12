@@ -27,12 +27,17 @@ class Model
  
         this.virusArray.push( new Virus());
     }
+    increasePlayerScore(num) {
+        this.player.setScore(this.player.getScore()+num);
+    }
 
     removeFromVirusesArray(virusIndex) {
 
         if(this.virusArray[virusIndex].x < -View.virusWidth )
         {
+
             this.virusArray.splice(virusIndex,1);
+            this.increasePlayerScore(1);
         }
     }
     
@@ -52,19 +57,7 @@ class Model
             this.isCharHit = true;                
         }
         
-    //    if(xDistanceFromPlayer <= -View.virusWidth)
-    //     {
-    //         if (this.virusArray[virusIndex].y  >= this.player.yPos  && 
-    //             this.virusArray[virusIndex].y + View.virusHeight  <= this.player.yPos+View.charHeight)
-    //             {
 
-    //                 this.isCharHit = true;
-    //                 console.log("virus y: "+this.virusArray[virusIndex].y);
-    //                 console.log("virus hieght: "+ View.virusHeight);
-    //                 console.log("char y: "+this.player.yPos);
-    //                 console.log("char hieght: "+ View.charHeight);
-    //             }
-    //     }
     
     }
 
@@ -141,6 +134,13 @@ class Player{
         this.xMinPos = initPlayerX;
         this.isIdle = true;
         this.onGround = false;
+        this.score = 0;
+    }
+    setScore(score) {
+        this.score = score;
+    }
+    getScore(){
+        return this.score;
     }
 
     moveRight()
@@ -170,7 +170,6 @@ class Player{
     moveUp()
     {
 
-            console.log("here to be tru");
         if (this.yPos >=480)
         {
             this.isJumping=true;

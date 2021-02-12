@@ -9,6 +9,9 @@ class Game
         // this.playerFrameWaitCount = 0;
         this.gameOver = false;
     }
+    getGameOver() {
+        return this.gameOver;
+    }
 
     updateFrame()
     {
@@ -27,12 +30,10 @@ class Game
         }
         else
         {
-            console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
             // this.model.getPlayer().dy += this.model.getPlayer().grav;
             // this.model.getPlayer().dy *= this.model.getPlayer().drag;
             // this.model.getPlayer().yPos += this.model.getPlayer().dy;
             this.model.getPlayer().yPos -= 1;
-            console.log(this.model.getPlayer().yPos + "ypos")
             if(this.model.getPlayer().yPos <= 200 )
             {
                 this.model.getPlayer().isJumping=false;
@@ -41,7 +42,7 @@ class Game
         if (this.model.getPlayer().yPos > 480) {
             this.model.getPlayer().yPos =480;
             this.model.getPlayer().dy = 0;
-        } 
+        }
     }
     updateLogic()
     {
@@ -53,7 +54,7 @@ class Game
     }
     checkGameOver()
     {
-        this.gameOver = (model.isCharHit); 
+        this.gameOver = (model.isCharHit);
     }
 
     updateView()
@@ -64,7 +65,7 @@ class Game
         this.addVirus();
         if (this.gameOver)
         {
-            alert("gameOver")
+            this.view.setContext(null);
         }
         
     }
