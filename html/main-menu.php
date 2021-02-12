@@ -62,12 +62,6 @@ $select_img_query = query($query);
 
             <div id="playSection" class="play-section" style="display: none;">
 
-                 <!-- <div id="newGameOption" class="insideGame" >
-					 new game 
-                 </div>
-                <div id="selectCharacterOtion" class="insideGame" >
-                    select your character
-                </div>  -->
 
                 
             </div>
@@ -109,6 +103,8 @@ $select_img_query = query($query);
             <div id="selectlevel" style="display: none;" >
             select your level
             </div>
+            
+            
 
            
             
