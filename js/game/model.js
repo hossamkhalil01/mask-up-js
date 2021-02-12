@@ -94,7 +94,8 @@ class Model
     isVirusPlayerCollision(virusXPos, virusYPos, playerXPos, playerYPos)
     {
         //define margins for collision
-        let margin = 50;
+        let widthMargin = View.charWidth*0.6;
+        let heightMargin = View.charHeight*0.2;
 
 
         //all measures are relative to the player's position
@@ -103,8 +104,8 @@ class Model
         let bottomSideDistance = virusYPos - (playerYPos + View.charHeight);
         let leftSideDistance = playerXPos - (virusXPos + View.virusWidth);
 
-        if (topSideDistance > -margin || rightSideDistance > -margin || bottomSideDistance > -margin 
-            || leftSideDistance > -margin )
+        if (topSideDistance > -heightMargin || rightSideDistance > -widthMargin || bottomSideDistance > -heightMargin 
+            || leftSideDistance > -widthMargin )
         {
             return false;
         }

@@ -5,9 +5,9 @@ class View
     static virusHeight;
     static virusWidth;
 
-    constructor(canvasElement ,player, character)
+    constructor(canvasElement ,player, character, level)
     {
-        this.virusArray= [];
+
         this.canvas = canvasElement;
         this.context = this.canvas.getContext("2d");
 
@@ -17,34 +17,31 @@ class View
 
         this.player = player;
 
-        //define frame dimensions
-        this.character = character;
+        //create character object
 
+        this.character = character;
         //define character dimensions
-        this.playerHeight = this.canvasHeight*0.25;
+        this.playerHeight = this.canvasHeight*0.15;
         this.playerWidth = this.canvasWidth*0.1;
 
         View.charHeight = this.playerHeight;
         View.charWidth = this.playerWidth;
 
-
-        this.character.setCharacterWidth(this.playerHeight);
-        this.character.setCharacterHeight(this.playerWidth);
+        this.character.setCharacterWidth(View.charHeight);
+        this.character.setCharacterHeight(View.charWidth);
         
-
         this.character.loadIdleRightState();
 
         this.playerFrameWaitCount = 0;
 
-        //load the covid image
-        this.virusImg = new Image();
-        this.virusImg.src = "../images/game/virus/level1.png";
+        //create viruses object
+        View.virusHeight = this.canvasHeight*0.07;
+        View.virusWidth = this.canvasWidth*0.05;
 
-        this.virusWidth = 80;   
-        this.virusHeight = 80;
-
-        View.virusHeight = this.virusHeight;
-        View.virusWidth = this.virusWidth;
+        this.viruses = new VirusesHandler(this.canvas,View.virusWidth , View.virusHeight, level);
+    
+        //create background object
+        this.BGImg = new Background(this.canvas, level, 0.25);
     }
 
     getCanvas() {
@@ -115,11 +112,11 @@ class View
             }
         }
     }
-
     render() {
         this.clearScreen();
+        this.BGImg.update();
         this.drawPlayer();
-        this.drawViruses();
+        this.viruses.draw();
     }
 
     drawPlayer()
@@ -140,27 +137,10 @@ class View
             this.playerFrameWaitCount++;
         }
     }
-
-    drawVirus(virus){
-
-        this.context.drawImage(this.virusImg,0,0,350,350,virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
-    }
-
-    setViruses(viruses) {
-        this.virusArray =viruses
-    }
-
-    drawViruses() {
-        for( let index = 0 ; index < this.virusArray.length; index++)
-        {
-            this.drawVirus(this.virusArray[index]);
-        }
-    }
     clearScreen()
     {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     }
-
 }
 
 // Class to deal with the character's sprite sheets 
@@ -312,7 +292,6 @@ class Character {
     }
 }
 
-
 class Boy extends Character{
 
 
@@ -359,15 +338,89 @@ class Girl extends Character{
 
 }
 
+//class to deal with viruses
+class VirusesHandler{
+
+    constructor(canvas,virusWidth,vriusHeight,level)
+    {
+        //define canvas
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+
+        //load the covid image
+        this.virusImg = new Image();
+        this.virusImg.src = "../images/game/virus/"+level+".png";
+
+        this.virusWidth = virusWidth;   
+        this.virusHeight = vriusHeight;
+
+        this.virusArray= [];
+    }
+
+    drawVirus(virus){
+        this.ctx.drawImage(this.virusImg,0,0,350,350,virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
+    }
+
+    setVirusesArray(viruses) {
+        this.virusArray =viruses
+    }
+
+    draw() {
+        for( let index = 0 ; index < this.virusArray.length; index++)
+        {
+            this.drawVirus(this.virusArray[index]);
+        }
+    }
+}
 //class infinite background
 class Background
 {
 
-    constructor(imgPath)
+    constructor(canvas, level, speed)
     {
-        this.BGImg = new Image();
-        this.BGImg.src = imgPath;
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
 
-        this.curr
+        this.img = new Image();
+        this.img.src = "../images/game/backgrounds/"+level+".jpg";
+        this.x1 = 0;
+        this.x2 = this.canvas.width;
+        this.y = 0;
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+        this.speed = speed;
+    }
+
+    //update background
+    update()
+    {   
+        //handle boundries for image 1 
+        if (this.x1 <= - this.width)
+        {
+            this.x1 = this.width;
+        }
+        else 
+        {
+            this.x1 -= this.speed;
+        }
+
+        //handle boundries for image 2
+        if (this.x2 <= -this.width)
+        {
+            this.x2 = this.width;
+        }
+        else
+        {
+            this.x2 -= this.speed;
+        }
+        this.draw();
+    }
+    draw()
+    {
+        //draw image 1 
+        this.ctx.drawImage(this.img, this.x1 , this.y , this.width, this.height);
+
+        //draw image 2
+        this.ctx.drawImage(this.img, this.x2 , this.y , this.width, this.height);
     }
 }

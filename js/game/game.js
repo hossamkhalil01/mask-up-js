@@ -90,7 +90,7 @@ class Game
         }
 
         this.model.handleViruses(this.view.getCanvas());
-        this.view.setViruses(this.model.getViruses())
+        this.view.viruses.setVirusesArray(this.model.getViruses())
 
         if(this.virusWaitCount >= 1000000)
         {
@@ -98,5 +98,4 @@ class Game
         }
         
     }
-
 }
