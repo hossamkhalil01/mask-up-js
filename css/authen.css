@@ -1,7 +1,6 @@
 body{
-    background: url("../images/homeBG.jpeg");
+    background: url("../images/main-menu/main-bg.jpeg");
     background-size: cover;
-    
 }
 
 .container{
@@ -81,7 +80,6 @@ button:focus, input:focus{
 }
 
 .form-header-section:hover{
-    /* background-color:rgba(66, 21, 228, 0.4); */
     cursor: pointer;
 }
 

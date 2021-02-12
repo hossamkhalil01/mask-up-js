@@ -60,6 +60,7 @@ function validate(e){
     
     
     if(regitserUsername === "" || regitserUsername.length < 4 || registerPassword === "" || registerPassword.length < 6  || registerPassword !== confirmPassword){
+        
         e.preventDefault();
 
         let registerUsernameErrBlock = document.getElementById("registerUsernameErr");
@@ -74,18 +75,30 @@ function validate(e){
 
         
         if (regitserUsername === "") {
-           registerUsernameErrBlock.innerHTML = `<p class="errorMsg"> Username cannot be empty </p>`;
-        }else if (regitserUsername.length < 4) {
+
+            registerUsernameErrBlock.innerHTML = `<p class="errorMsg"> Username cannot be empty </p>`;
+
+        }
+        else if (regitserUsername.length < 4) {
+
             registerUsernameErrBlock.innerHTML = `<p class="errorMsg"> Username length must be more than 4 chars </p>`;
         }
+
         if (registerPassword.length == "") {
+
             registerPasswordErrBlock.innerHTML = `<p class="errorMsg"> Password cannot be empty </p>`;
-        }else if (registerPassword.length < 6) {
-            registerPasswordErrBlock.innerHTML = `<p class="errorMsg"> Password must be 6 chars at least </p>`;
-        }if (registerPassword.length >= 6 && registerPassword !== confirmPassword) {
-            cpassword.innerHTML = `<p class="errorMsg"> Passwords do not match </p>`;
         }
 
+        else if (registerPassword.length < 6) {
+
+            registerPasswordErrBlock.innerHTML = `<p class="errorMsg"> Password must be 6 chars at least </p>`;
+        }
+
+        if (registerPassword.length >= 6 && registerPassword !== confirmPassword) {
+
+            cpassword.innerHTML = `<p class="errorMsg"> Passwords do not match </p>`;
+
+        }
     }
 }
 

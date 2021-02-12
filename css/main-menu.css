@@ -1,136 +1,138 @@
 body{
-    margin: unset;
-    padding: unset;
-    background: url("../images/main-bg.jpeg");
-    background-size: cover;  
+  margin: unset;
+  padding: unset;
+  background: url("../images/main-menu/main-bg.jpeg");
+  background-size: cover;  
 }
 
 nav , footer{
-    position:absolute;
-    width:100%;
-    height: 4%;
-    padding-top: 0.5%;
-    background:rgba(47, 55, 63, 0.842);
-    text-align: center;
-    color: cornsilk;
-    font-size: larger;
+
+  position:absolute;
+  width:100%;
+  height: 4%;
+  padding-top: 0.5%;
+  background:rgba(47, 55, 63, 0.842);
+  text-align: center;
+  color: cornsilk;
+  font-size: larger;
 }
+
 nav{
-    top:0;
+  top:0;
 }
+
 footer{
-    display:none  ;
-    bottom:0;
+  display:none  ;
+  bottom:0;
 }
 
 .main-window{
 
-    margin: auto;
-    width: 900px;
-    height: 700px;
-    margin-top: 7%;
-    border: solid 3px white;
-    background-color:rgba(75, 75, 75, 0.44);
+  margin: auto;
+  width: 900px;
+  height: 700px;
+  margin-top: 7%;
+  border: solid 3px white;
+  background-color:rgba(75, 75, 75, 0.44);
 }
 .avatar-img{
-    width: 12%;
-    height: 13%;
-    margin-top: 2%;
-    margin-left: 2%;
-    border: 3px solid rgb(73, 11, 9);
-    cursor: pointer;
-    margin-bottom: 2%;
-    display: inline;
 
+  width: 12%;
+  height: 13%;
+  margin-top: 2%;
+  margin-left: 2%;
+  border: 3px solid rgb(73, 11, 9);
+  cursor: pointer;
+  margin-bottom: 2%;
+  display: inline;
 }
 
 
 .option{
-    text-align: center;
-    background-color:rgb(62, 206, 138,0.4);
-    padding: 2%;
-    margin-top: 3%;
-    font-size: larger;
-    font-family:sans-serif;
-    color: white;
-    font-style: italic;
-    cursor: pointer;
-    user-select: none;
+
+  text-align: center;
+  background-color:rgb(62, 206, 138,0.4);
+  padding: 2%;
+  margin-top: 3%;
+  font-size: larger;
+  font-family:sans-serif;
+  color: white;
+  font-style: italic;
+  cursor: pointer;
+  user-select: none;
 }
 .option:hover{
 
-    background-color:rgba(24, 11, 98, 0.8);
+  background-color:rgba(24, 11, 98, 0.8);
 }
 
 /* CoronaVirus Animation
 Default speed is: 10s
 MoveUpDown is a keyFrames that define the position*/
+
 .covid-icon{
-    width: 100px;
-    height:100px ;
+  width: 100px;
+  height:100px ;
 }
 .animatediv{
 
-    animation: MoveUpDown 5s linear infinite;
-    position: absolute;
-    right: 40%;
-    }
-  /* position of corona animation */
-  @keyframes MoveUpDown {
-    0%, 100% {
-      top: 20%;
-    }
-    50% {
-      top: 30%;
-    }
+  animation: MoveUpDown 5s linear infinite;
+  position: absolute;
+  right: 40%;
+}
+
+/* position of corona animation */
+@keyframes MoveUpDown {
+  0%, 100% {
+    top: 20%;
+  }
+  50% {
+    top: 30%;
+  }
 }
   
 .animatediv2{
 
-    animation: MoveUpDown 3s linear infinite;
-    position: absolute;
-    right: 60%;
-    }
-    /* position of corona animation */
-    @keyframes MoveUpDown {
-    0%, 100% {
-        top: 15%;
-    }
-    50% {
-        top: 25%;
-    }
+  animation: MoveUpDown 3s linear infinite;
+  position: absolute;
+  right: 60%;
 }
+
+/* position of corona animation */
+@keyframes MoveUpDown {
+  0%, 100% {
+    top: 15%;
+  }
+  50% {
+    top: 25%;
+  }
+}
+
 h2{
-    text-align:center;
-    font-size: xx-large;
-    margin-top: unset;
-    padding-top: unset;
-    color:#fff;
-    text-shadow: 0px 1px 2px #000;
-    
-  }
-   /* .header-section {
+  text-align:center;
+  font-size: xx-large;
+  margin-top: unset;
+  padding-top: unset;
+  color:#fff;
+  text-shadow: 0px 1px 2px #000;
+}
 
-    height : 200px ; 
+#credits_s,#instructions_s{
+  border:3px   solid black;
+  width: 860px; 
+  height: 400px;
+  margin-left: 10px;
+  margin-top: 50px ;
 
-  }  */
+}
+#credits_s h1,#instructions_s h1 {
+  text-align: center;
 
-  #credits_s,#instructions_s{
-    border:3px   solid black;
-   width: 860px; 
-   height: 400px;
-   margin-left: 10px;
-   margin-top: 50px ;
+}
+#credits_s p ,#instructions_s p {
+  padding-left: 4px;
 
-  }
-  #credits_s h1,#instructions_s h1 {
-    text-align: center;
-
-  }
-  #credits_s p ,#instructions_s p {
-    padding-left: 4px;
-
-  }
+}
   #backBtn{
  
 margin-left: 20px;
@@ -150,11 +152,11 @@ margin-left: 20px;
 
 
   }
-  #backBtn:hover {
-    color: hsl(210, 100%, 40%); 
-    background-color: rgb(55, 53, 61);
+#backBtn:hover {
 
-  }
+  color: hsl(210, 100%, 40%); 
+  background-color: rgb(55, 53, 61);
+}
 
 #logoutOption>a{
   text-decoration: none;
@@ -179,7 +181,6 @@ margin-left: 20px;
   user-select: none;
 }
 .insideGame:hover{
-
   background-color:rgba(24, 11, 98, 0.8);
 }
 .selectCharacter-section {text-align: center;
@@ -187,36 +188,29 @@ margin-left: 20px;
   font-size: 100%;
   font-family: 'Lora', serif;
   color: white;
-  background-image: url("");
-    background-size: 150px;
-    padding-left: 10%;
-  }
+  background-size: 150px;
+  padding-left: 10%;
+}
   
-  .selectCharacter-section div {
-    display: inline;
-    /* padding-bottom: 40px ; */
-  }
-  /* .selectCharacter-section h1 {
-    background-color: #000;
-    border-radius: 30%;
-    padding-top: 40px ;
-  } */
+.selectCharacter-section div {
+  display: inline;
+}
 
-  svg {
-    display: block;
-    font: 100px  'choose your character';
-    width: 720px;
-    height: 100px;
-    margin: 0 auto;
+svg {
+  display: block;
+  font: 100px  'Choose Your Character';
+  width: 720px;
+  height: 100px;
+  margin: 0 auto;
 }
 
 .text-copy {
-    fill: none;
-    stroke: white;
-    stroke-dasharray: 6% 29%;
-    stroke-width: 5px;
-    stroke-dashoffset: 0%;
-    animation: stroke-offset 5.5s infinite linear;
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 6% 29%;
+  stroke-width: 5px;
+  stroke-dashoffset: 0%;
+  animation: stroke-offset 5.5s infinite linear;
 }
 
 .text-copy:nth-child(1){
@@ -249,91 +243,41 @@ margin-left: 20px;
 }
 
 
-/*     
-  body {
+#ali {
+  width: 26%;
+  height: 25%;
+  margin-left: 15%;
+  margin-top: 20%;  
+  padding-bottom: 90px;
+
+  transition:transform 0.25s ease;
+}
+
+#aliaa {
+  width: 20%;
+  height: 21%;
+  margin-left: 10%;
+  margin-top: 17%;
+  padding-bottom: 100px;
+  transition:transform 0.25s ease;
+}
+
+#ali:hover{
     
-  } */
-  /* .character{
-    padding-bottom: ;
+  -webkit-transform:scale(1.5); /* or some other value */
+  transform:scale(1.5);
+  cursor: pointer ;
 
-
-  } */
-  
-  
-  #ali {
-    width: 26%;
-    height: 25%;
-    margin-left: 15%;
-    margin-top: 20%;  
-    padding-bottom: 90px;
-
+}
+#aliaa:hover{
     
+  -webkit-transform:scale(1.5); /* or some other value */
+  transform:scale(1.5);
+  cursor: pointer ;
+}
 
-    transition:transform 0.25s ease;
+#selectlevel{
 
-  }
-  
-  #aliaa {
-    width: 20%;
-    height: 21%;
-    margin-left: 10%;
-    margin-top: 17%;
-    padding-bottom: 100px;
-    transition:transform 0.25s ease;
-
-  }
-
-  #ali:hover{
-      
-      -webkit-transform:scale(1.5); /* or some other value */
-      transform:scale(1.5);
-      cursor: pointer ;
-
-  }
-  #aliaa:hover{
-      
-      -webkit-transform:scale(1.5); /* or some other value */
-      transform:scale(1.5);
-      cursor: pointer ;
-
-
-  }
-  /* #aliaadiv{
-      margin-left: 100px;
-
-  }
-
-  #aliaadiv{
-
-    margin-right: 120px;
-
-    
-  } */
-
-
-
-  #selectlevel{
-
-      text-align: center;
-      font-size: 30px;
-
-
-  }
- 
-/*   
-  @keyframes big {
-    0% {
-      width: 20%;
-    }
-    
-    50% {
-      width: 30%;
-    }
-    
-    100% {
-      width: 20%;
-    }
-    
-  } */
-
-  
+  text-align: center;
+  font-size: 30px;
+}

@@ -80,9 +80,7 @@ class MusicSetting{
                 for (var song  in  Album.getSongs())
                 {
                     li = document.createElement("li");
-                    li.innerHTML = `<li class="musicLi"> <span> ${Album.getSongs()[song]}</span> 
-<!--    <img id="${song}" name="play" src="../images/play.png" width="50px" height="50px" alt=""> -->
-                    </li>`;
+                    li.innerHTML = `<li class="musicLi"> <span> ${Album.getSongs()[song]}</span></li>`;
                     musicAlbum.appendChild(li);
                 }
             }

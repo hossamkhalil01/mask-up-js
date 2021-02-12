@@ -1,4 +1,5 @@
 class AccountSetting {
+
     static formErrors;
     static setformErrors(formErrors){
         this.formErrors= formErrors;
@@ -20,21 +21,21 @@ class AccountSetting {
     }
       accountClicked(e)
     {
-        console.log("hello" + this );
         document.getElementById("musicForm").style.display="none"
         document.getElementById("accountForm").style.display=""
     }
      resetRegestirationErrors() {
-         console.log('there')
-         errorMessages.innerHTML="";
-         errorMessages.style.display = "none";
+        errorMessages.innerHTML="";
+        errorMessages.style.display = "none";
     }
-     validateContact () {
-         console.log("what is this now " + this);
-         console.log(this.errorMessages);
-         this.errorMessages.innerHTML="";
-         this.errorMessages.style.display = "none";
-         var formErrors = {};
+
+    validateContact () 
+    {
+
+        this.errorMessages.innerHTML="";
+        this.errorMessages.style.display = "none";
+        var formErrors = {};
+            
         if(this.userName.value == ""  )
         {
             formErrors.nameError = " please enter userName";
@@ -43,20 +44,18 @@ class AccountSetting {
         {
             formErrors.emailError = " please enter nickname"
         }
-
-         if ( document.getElementById("password").value =="" )
-         {
-             formErrors.password = " please enter password"
-         }
-         if  ( document.getElementById("cPassword").value != document.getElementById("password").value )
-         {
-             formErrors.cPassword = " confirm password must be exact to password"
-         }
+        if ( document.getElementById("password").value =="" )
+        {
+            formErrors.password = " please enter password"
+        }
+        if  ( document.getElementById("cPassword").value != document.getElementById("password").value )
+        {
+            formErrors.cPassword = " confirm password must be exact to password"
+        }
         if (Object.keys(formErrors).length != 0 )
         {
             AccountSetting.setformErrors(formErrors);
-            console.log("heeeeeeeereeeeeeeeee")
-            console.log(formErrors)
+
             this.errorMessages.style.display = "block";
             var liError;
             var textnode;
@@ -68,15 +67,9 @@ class AccountSetting {
             }
             event.preventDefault();
         }
-        else {
-           alert("Not working yet")
-        }
 
     }
 
 }
 var accountSetting = new AccountSetting();
 accountSetting.defineListeners();
-// document.getElementById("accunt").click();
-// console.log(accountSetting.getErrorMessages());
-// document.getElementById("update").click();

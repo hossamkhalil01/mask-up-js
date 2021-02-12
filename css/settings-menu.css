@@ -1,8 +1,10 @@
 .container{
+
     margin: auto;
     margin-top: 5px;
 }
 .iconsContainer{
+
     border: 2px solid black;
     margin:auto;
     background: lightgray;
@@ -10,12 +12,14 @@
     height: 80px;
 }
 .musicContainer{
+
     display: inline-block;
     width: 300px;
     height: 80px;
     background: cadetblue;
 }
 .accountContainer{
+
     display: inline-block;
     width: 300px;
     height: 80px;
@@ -23,15 +27,15 @@
 }
 
 .musicIcon, .accountIcon {
+
     width: 300px;
     height: 80px;
     cursor: pointer;
 }
 
 .accountForm{
-    /*display: none;*/
+
     border: 2px solid black;
-    /* padding-top: 20px; */
     padding-bottom: 20px;
     margin:auto;
     background: lightgray;
@@ -39,6 +43,7 @@
     height : 350px ;
 }
 .musicForm{
+
     border: 2px solid black;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -47,19 +52,23 @@
     width: 604px;
 }
 .musicItem{
+
     margin-left: 90px;
     width: 400px;
 }
 .musicButtonsContainer{
+
     padding-left: 25px;
 }
 .musicButtons{
+
     margin-top: 20px;
     height: 50px;
     width: 134px;
     cursor: pointer;
 }
 .formElement{
+
     margin-top: 10px;
     font-size: 30px;
     padding-left: 15px;
@@ -69,6 +78,7 @@
     height: 50px;
 }
 .formButton{
+
     margin-top: 10px;
     margin-left: 5px;
     width: 200px;
@@ -76,31 +86,37 @@
     border-radius: 10px;
     font-size: 30px;
     display: inline-block ; 
-
 }
+
 audio{
+
     display: none;
 }
 .musicLi{
+
     margin-top: 20px;
 }
 .musicLi span{
+
     font-size: 30px;
     display: inline-block;
     width: 460px;
 }
 .musicLi img{
+
     margin-left: 20px;
     margin-top: 10px;
     display: inline-block;
     width: 50px;
 }
 .errors{
+
     background:pink;
     border:1px solid red;
     width: 280px;
 }
 .formErrors {
+
     padding: 0px;
     font-size: 25px;
     width: 400px;
@@ -109,15 +125,9 @@ audio{
 }
 #musicAlbum{
 
-font : 10px ; 
-
+    font : 10px ; 
 }
-/* .updatebtn{
 
-display: none;
-
-} */
 .parent{
     display: flex;
-
 }
