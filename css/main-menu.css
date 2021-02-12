@@ -97,36 +97,7 @@ MoveUpDown is a keyFrames that define the position*/
   position: absolute;
   right: 60%;
 }
-<<<<<<< HEAD
-||||||| d7e590c
-h2{
-    text-align:center;
-    font-size: xx-large;
-    margin-top: unset;
-    padding-top: unset;
-    color:#fff;
-    text-shadow: 0px 1px 2px #000;
-    
-  }
-  .header-section {
 
-    /* height : 200px ;  */
-=======
-h2{
-    text-align:center;
-    font-size: xx-large;
-    margin-top: unset;
-    padding-top: unset;
-    color:#fff;
-    text-shadow: 0px 1px 2px #000;
-    
-  }
-   /* .header-section {
-
-    height : 200px ; 
->>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392
-
-<<<<<<< HEAD
 /* position of corona animation */
 @keyframes MoveUpDown {
   0%, 100% {
@@ -136,13 +107,7 @@ h2{
     top: 25%;
   }
 }
-||||||| d7e590c
-  }
-=======
-  }  */
->>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392
 
-<<<<<<< HEAD
 h2{
   text-align:center;
   font-size: xx-large;
@@ -151,52 +116,17 @@ h2{
   color:#fff;
   text-shadow: 0px 1px 2px #000;
 }
-||||||| d7e590c
-  #credits_s{
-    border:3px   solid black;
-   width: 860px; 
-   height: 400px;
-   margin-left: 10px;
-   margin-top: 50px ;
-=======
-  #credits_s,#instructions_s{
-    border:3px   solid black;
-   width: 860px; 
-   height: 400px;
-   margin-left: 10px;
-   margin-top: 50px ;
->>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392
 
-<<<<<<< HEAD
 #credits_s,#instructions_s{
   border:3px   solid black;
   width: 860px; 
   height: 400px;
   margin-left: 10px;
   margin-top: 50px ;
-||||||| d7e590c
-  }
-  #credits_s h1 {
-    text-align: center;
-=======
-  }
-  #credits_s h1,#instructions_s h1 {
-    text-align: center;
->>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392
 
-<<<<<<< HEAD
 }
 #credits_s h1,#instructions_s h1 {
   text-align: center;
-||||||| d7e590c
-  }
-  #credits_s p {
-    padding-left: 4px;
-=======
-  }
-  #credits_s p ,#instructions_s p {
-    padding-left: 4px;
->>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392
 
 }
 #credits_s p ,#instructions_s p {
@@ -207,7 +137,6 @@ h2{
  
 margin-left: 20px;
 
-<<<<<<< HEAD
   width: 100px ;
   border-radius: 30%;
   font-family: helvetica, sans-serif;
@@ -238,137 +167,7 @@ margin-left: 20px;
   text-decoration: none;
   color: white;
 }
-||||||| d7e590c
- /* height: 30px ;  */
-  width: 50px ;
-  background-color: black;
-  border-radius: 50%;
-  color: #fff;
-  margin-left: 45px;
-=======
-  width: 100px ;
-  border-radius: 30%;
-  font-family: helvetica, sans-serif;
 
-  color: #888; 
-
-  margin-left: 30px;
-  font-size:15px;
-  border: 1px solid #bcbcbc;
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
-  background-color: rgba(239,239,239,1);
-
-
-
-  }
-  #backBtn:hover {
-    color: hsl(210, 100%, 40%); 
-    background-color: rgb(55, 53, 61);
-
-  }
-
-#logoutOption>a{
-  text-decoration: none;
-}
-
-
-#logoutOption>a:visited{
-  text-decoration: none;
-  color: white;
-}
-
-.insideGame{
-  text-align: center;
-  background-color:rgb(62, 206, 138,0.4);
-  padding: 2%;
-  margin-top: 3%;
-  font-size: larger;
-  font-family:sans-serif;
-  color: white;
-  font-style: italic;
-  cursor: pointer;
-  user-select: none;
-}
-.insideGame:hover{
-
-  background-color:rgba(24, 11, 98, 0.8);
-}
-.selectCharacter-section {text-align: center;
-  width: 80%;
-  font-size: 100%;
-  font-family: 'Lora', serif;
-  color: white;
-  background-image: url("");
-    background-size: 150px;
-    padding-left: 10%;
-  }
-  
-  .selectCharacter-section div {
-    display: inline;
-    /* padding-bottom: 40px ; */
-  }
-  /* .selectCharacter-section h1 {
-    background-color: #000;
-    border-radius: 30%;
-    padding-top: 40px ;
-  } */
-
-  svg {
-    display: block;
-    font: 100px  'choose your character';
-    width: 720px;
-    height: 100px;
-    margin: 0 auto;
-}
-
-.text-copy {
-    fill: none;
-    stroke: white;
-    stroke-dasharray: 6% 29%;
-    stroke-width: 5px;
-    stroke-dashoffset: 0%;
-    animation: stroke-offset 5.5s infinite linear;
-}
-
-.text-copy:nth-child(1){
-	stroke: #1b1616;
-	animation-delay: -1;
-}
-
-.text-copy:nth-child(2){
-	stroke: #220c0e;
-	animation-delay: -2s;
-}
-
-.text-copy:nth-child(3){
-	stroke: #a71338;
-	animation-delay: -3s;
-}
-
-.text-copy:nth-child(4){
-	stroke: #1e1f22;
-	animation-delay: -4s;
-}
-
-.text-copy:nth-child(5){
-	stroke: #cc861c;
-	animation-delay: -5s;
-}
-
-@keyframes stroke-offset{
-	100% {stroke-dashoffset: -35%;}
-}
-
-
-/*     
-  body {
-    
-  } */
-  /* .character{
-    padding-bottom: ;
->>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392
-
-<<<<<<< HEAD
 .insideGame{
   text-align: center;
   background-color:rgb(62, 206, 138,0.4);
@@ -482,88 +281,3 @@ svg {
   text-align: center;
   font-size: 30px;
 }
-||||||| d7e590c
-  }
-=======
-
-  } */
-  
-  
-  #ali {
-    width: 26%;
-    height: 25%;
-    margin-left: 15%;
-    margin-top: 20%;  
-    padding-bottom: 90px;
-
-    
-
-    transition:transform 0.25s ease;
-
-  }
-  
-  #aliaa {
-    width: 20%;
-    height: 21%;
-    margin-left: 10%;
-    margin-top: 17%;
-    padding-bottom: 100px;
-    transition:transform 0.25s ease;
-
-  }
-
-  #ali:hover{
-      
-      -webkit-transform:scale(1.5); /* or some other value */
-      transform:scale(1.5);
-      cursor: pointer ;
-
-  }
-  #aliaa:hover{
-      
-      -webkit-transform:scale(1.5); /* or some other value */
-      transform:scale(1.5);
-      cursor: pointer ;
-
-
-  }
-  /* #aliaadiv{
-      margin-left: 100px;
-
-  }
-
-  #aliaadiv{
-
-    margin-right: 120px;
-
-    
-  } */
-
-
-
-  #selectlevel{
-
-      text-align: center;
-      font-size: 30px;
-
-
-  }
- 
-/*   
-  @keyframes big {
-    0% {
-      width: 20%;
-    }
-    
-    50% {
-      width: 30%;
-    }
-    
-    100% {
-      width: 20%;
-    }
-    
-  } */
-
-  
->>>>>>> e43217b31966f3561cd78a571e4d6da2d570b392
