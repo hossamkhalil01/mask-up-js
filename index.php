@@ -57,6 +57,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['signup'])){
 
 <html>
     <head>
+        <meta charset="utf-8">
+        <title>Mask Up</title>
+        <meta name="description" content="Mask Up online game">
+        <meta name="author" content="Hossam Khalil">
         <link rel="stylesheet" href="css/authen.css"/>
     </head>
 
