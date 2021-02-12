@@ -12,7 +12,7 @@ const playOption = document.getElementById("playOption");
 const settingssOption = document.getElementById("settingsOption");
 const instructionsOption = document.getElementById("instructionsOption");
 const creditsOption = document.getElementById("creditsOption");
-const logoutOption = document.getElementById("logoutOption");
+
 //define the  options inside play option 
 const newGameOption = document.getElementById("newGameOption");
 const selectCharacterOtion = document.getElementById("selectCharacterOtion");
@@ -23,11 +23,6 @@ const selectlevel = document.getElementById("selectlevel");
 
 //define the back to home button
 const backBtn = document.getElementById("backBtn");
-console.log(backBtn) ;
-
-// selectCharacterOtion.addEventListener("click", function (){
-//     fromGameOptionsTo(selectCharactersection);
-// });
 
 //attach listeners
 playOption.addEventListener("click", function (){
@@ -46,26 +41,9 @@ creditsOption.addEventListener("click", function(){
     fromMainMenuTo(creditsSection);
 });
 
-logoutOption.addEventListener("click", logout);
 
 // backBtn.addEventListener("click", backToMainMenu);
 backBtn.addEventListener("click", fromCurrentToPrevious);
-// backBtn.addEventListener("click", function(event){
-//     if (currWindow = selectlevel ) 
-//     {
-        
-//         currWindow.style.display= "none" ;
-//         fromMainMenuTo(selectCharactersection) ;
-        
-
-//     }
-//     else 
-//     {
-
-//         fromCurrentToMainMenu ;
-//     }
-
-// } );
 
 
 //eventlistener on selecting the character 
@@ -77,9 +55,6 @@ selectCharactersection.addEventListener("click", function(event){
         fromselectCharacterTo (selectlevel) ;
 
     }
-
-    
-
 });
 
 
@@ -91,8 +66,6 @@ const stage1 = mainMenuSection ;
 const stage2 =  selectCharactersection ; 
 
 const stage3 = selectlevel ;  
-
-
 
 
 //change from main menu to another window
@@ -112,18 +85,17 @@ function fromMainMenuTo (otherWindow)
 
 function fromselectCharacterTo (otherWindow)
 {    
-     //hide the main menu
-    //  mainMenuSection.style.display = "none";
-     //hide playsection 
-     selectCharactersection.style.display = "none";
+    //hide playsection 
+    selectCharactersection.style.display = "none";
 
-     //display the other window
-     otherWindow.style.display = "block";
-   
-      currWindow = otherWindow;
-     //display the back button
-     backBtn.style.display = "block";
+    //display the other window
+    otherWindow.style.display = "block";
+
+    currWindow = otherWindow;
+    //display the back button
+    backBtn.style.display = "block";
 }
+
 //change from current back to main menu
 function fromCurrentToMainMenu()
 {
@@ -138,6 +110,7 @@ function fromCurrentToMainMenu()
     //hide the back button
     backBtn.style.display = "none";
 }
+
 function fromCurrentToPrevious()
 {
     //hide the current menu
@@ -166,22 +139,8 @@ function fromCurrentToPrevious()
     
     else
     {
-
         fromCurrentToMainMenu() ; 
-
     } 
-
-
-    
-    //hide the back button
-    // backBtn.style.display = "none";
-}
-
-
-//perform logout action
-function logout()
-{
-
 }
 
 

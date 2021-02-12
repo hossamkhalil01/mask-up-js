@@ -4,13 +4,10 @@
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['signup'])){
 
-    // $registered = false;
-
     $username = escape($_POST['registerUsername']);
     $password = escape($_POST['registerPassword']);
     $cpassword = escape($_POST['cpassword']);
     $nickname = escape($_POST['nickname']);
-    // $avatar = escape($_POST['image']);
     
 
     $errorSignUp = [

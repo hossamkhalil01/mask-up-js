@@ -13,11 +13,7 @@ $username = $_SESSION['username'];
 $query = "SELECT * FROM `player` WHERE `username` = '$username'"; 
 $select_img_query = query($query);
 
-
-
 ?>
-
-
 
 <!Doctype html>
 
@@ -35,7 +31,6 @@ $select_img_query = query($query);
 
     <body>
         <nav>
-
             Here's our nav bar
         </nav>
         
@@ -67,57 +62,42 @@ $select_img_query = query($query);
             </div>
             <div id="selectCharactersection" class="selectCharacter-section"  style="display: none;">
 
-                 
 
-                 <svg viewBox="0 0 1000 400">
-                 <symbol id="s-text">
-                 <text text-anchor="middle" x="50%" y="80%">choose your character</text>
-                    </symbol>
+                <svg viewBox="0 0 1000 400">
+                <symbol id="s-text"> <text text-anchor="middle" x="50%" y="80%">choose your character</text> </symbol>
 
-                 <g class = "g-ants">
+                <g class = "g-ants">
                 <use xlink:href="#s-text" class="text-copy"></use>
                 <use xlink:href="#s-text" class="text-copy"></use>
                 <use xlink:href="#s-text" class="text-copy"></use>
                 <use xlink:href="#s-text" class="text-copy"></use>
                 <use xlink:href="#s-text" class="text-copy"></use>
-              </g>
-              </svg>
+                    
+                </g>
+                </svg>
 
                 <div id="aliaadiv"  class=""  draggable = false>
-                <!-- <a href=""><img src="../images/girl.png" class="character" id="aliaa" draggable = false ></a> -->
-                <img src="../images/girl.png" class="character" id="aliaa" draggable = false >
+                <img src="../images/main-menu/girl.png" class="character" id="aliaa" draggable = false >
 
                 </div>
                 <div id="alidiv"   class="" draggable = false >
-                <!-- <a href=""><img src="../images/boy.png" class="character" id="ali" draggable = false ></a> -->
-                    <img src="../images/boy.png" class="character" id="ali" draggable = false >
-
+                    <img src="../images/main-menu/boy.png" class="character" id="ali" draggable = false >
                 </div>
-
- 
-
-                </div>
-
+            </div>
 
 
             <div id="selectlevel" style="display: none;" >
-            select your level
+                select your level
             </div>
-            
-            
-
-           
-            
-            
 
             <div id="settingsSection" class="settings-section" style="display: none;">
 
                 <div class="iconsContainer">
                 <div class="musicContainer" id="music">
-                    <img class="musicIcon" src="../images/music-512.png" alt="" draggable="false">
+                    <img class="musicIcon" src="../images/main-menu/music-icon.png" alt="" draggable="false">
                 </div>
                 <div class="accountContainer" id="accunt">
-                    <img class="accountIcon" src="../images/account3.png" alt="" draggable="false">
+                    <img class="accountIcon" src="../images/main-menu/account-icon.png" alt="" draggable="false">
                 </div>
                 </div>
                 <div class="accountForm" id="accountForm" style="display: none" >

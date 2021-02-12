@@ -3,11 +3,13 @@
 include("db.php");
 
 function redirect($location){
+    
     header("Location: ".$location);
     exit;
 }
 
 function query($query){
+
     global $connection;
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
@@ -16,6 +18,7 @@ function query($query){
 
 
 function escape($data){
+
     $data = trim($data);
 	$data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -36,15 +39,14 @@ function username_exists($username){
 
 
 function register_user($username, $password, $nickname){
+
     global $connection;
 
-     $fileName = "default-avatar.png";
+    $fileName = "default-avatar.png";
 
-     empty($_FILES["image"]["name"]) ? $image = "images/" . $fileName  : $image = $_FILES['image']['tmp_name'];
+    empty($_FILES["image"]["name"]) ? $image = "images/main-menu" . $fileName  : $image = $_FILES['image']['tmp_name'];
 
-     echo $image;
-        
-     $imgContent = addslashes(file_get_contents($image));
+    $imgContent = addslashes(file_get_contents($image));
 
     $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
