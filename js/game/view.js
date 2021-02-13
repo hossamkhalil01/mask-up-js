@@ -1,9 +1,11 @@
 class View
 {
     static charHeight;
-    static charWidht;
+    static charWidth;
     static virusHeight;
     static virusWidth;
+    static syringeWidth;
+    static syringeHeight;
     static score;
 
     constructor(canvasElement ,player, character, level)
@@ -40,6 +42,12 @@ class View
         View.virusWidth = this.canvasWidth*0.05;
 
         this.viruses = new VirusesHandler(this.canvas,View.virusWidth , View.virusHeight, level);
+
+        //create syinge object
+        View.syringeWidth = this.canvasWidth*0.04;
+        View.syringeHeight = this.canvasHeight*0.03;
+
+        this.syringes = new SyringesHandler(this.canvas, View.syringeWidth, View.syringeHeight);
     
         //create background object
         this.BGImg = new Background(this.canvas, level, 0.25);
@@ -117,13 +125,13 @@ class View
             }
         }
     }
-    /*
-     */
+
     render() {
         this.clearScreen();
         this.BGImg.update();
         this.drawPlayer();
         this.viruses.draw();
+        this.syringes.draw();
         this.drawScore();
 
     }
@@ -316,11 +324,9 @@ class Character {
 
 class Boy extends Character{
 
-
     constructor(canvas)
     {
         super(canvas);
-        
         this.basePath +="boy";
 
         //set sheets dimensions
@@ -328,15 +334,7 @@ class Boy extends Character{
         this.idleSheetDim = {width: 302, height: 477, rows:3 , cols:5};
         this.jumpSheetDim = {width: 390, height: 501, rows:3 , cols:5};
         this.runSheetDim = {width: 359, height: 502, rows:3 , cols:5};
-
-
     }
-
-    // setCharacterHeight(height)
-    // {
-    //     this.charHeight = 0.9*height;
-    // }
-
 }
 
 class Girl extends Character{
@@ -352,16 +350,13 @@ class Girl extends Character{
         this.jumpSheetDim = {width: 416, height: 454, rows:4 , cols:4};
         this.runSheetDim = {width: 416, height: 454, rows:4 , cols:4};
     }
-
-    // setCharacterWidth(width)
-    // {
-    //     this.charWidth = 0.9*width;
-    // }
-
 }
 
 //class to deal with viruses
 class VirusesHandler{
+
+    static frameWidth = 350;
+    static frameHeight = 350;
 
     constructor(canvas,virusWidth,vriusHeight,level)
     {
@@ -380,7 +375,8 @@ class VirusesHandler{
     }
 
     drawVirus(virus){
-        this.ctx.drawImage(this.virusImg,0,0,350,350,virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
+        this.ctx.drawImage(this.virusImg,0,0,VirusesHandler.frameWidth,VirusesHandler.frameHeight,
+            virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
     }
 
     setVirusesArray(viruses) {
@@ -394,6 +390,60 @@ class VirusesHandler{
         }
     }
 }
+
+//class to deal with syringes
+class SyringesHandler
+{
+    static frameWidth = 200;
+    static frameHeight= 61;
+
+    constructor(canvas,syringeWidth, syringeHeight)
+    {
+        //define canvas
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+
+        //load the covid image
+        this.syringeRightImg = new Image();
+        this.syringeRightImg.src = "../images/game/syringe/right.png";
+
+        this.syringeLeftImg = new Image();
+        this.syringeLeftImg.src = "../images/game/syringe/left.png";
+
+        this.syringeWidth = syringeWidth;   
+        this.syringeHeight = syringeHeight;
+
+        this.syringeArr= [];
+    }
+
+    drawSyringe(syringe){
+        //right direction
+        if (syringe.getDirection() == 1)
+        {
+            this.ctx.drawImage(this.syringeRightImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
+                ,syringe.getX(),syringe.getY(), this.syringeWidth,this.syringeHeight);
+        }
+        //left direction
+        else{
+            this.ctx.drawImage(this.syringeLeftImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
+                ,syringe.getX(),syringe.getY(), this.syringeWidth,this.syringeHeight);
+        }
+        
+    }
+
+    setSyringesArray(syringesArr) {
+        this.syringeArr = syringesArr;
+    }
+
+    draw() {
+        for( let index = 0 ; index < this.syringeArr.length; index++)
+        {
+            this.drawSyringe(this.syringeArr[index]);   
+        }
+    }
+}
+
+
 //class infinite background
 class Background
 {

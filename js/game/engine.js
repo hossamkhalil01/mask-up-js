@@ -3,7 +3,7 @@ class Engine{
     constructor(refreshRate ,gameObj)
     {
         this.renderInterval = 1/refreshRate;
-        this.logicInterval = 5 * this.renderInterval;
+        this.logicInterval = 1* this.renderInterval;
         this.game = gameObj;
 
         this.isEngineOn = false;

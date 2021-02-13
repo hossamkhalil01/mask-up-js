@@ -1,6 +1,5 @@
 class Game
 {
-
     constructor(model , view)
     {
         this.model = model;
@@ -10,7 +9,7 @@ class Game
         this.gameOver = false;
 
         //start the game engine
-        this.engine = new Engine(60, this);
+        this.engine = new Engine(20, this);
     }
     getGameOver() {
         return this.gameOver;
@@ -26,27 +25,24 @@ class Game
 
         if (this.model.getPlayer().isJumping == false )
         {
-        this.model.getPlayer().dy += this.model.getPlayer().grav;
-        this.model.getPlayer().dy *= this.model.getPlayer().drag;
-        // this.model.getPlayer().yPos += this.model.getPlayer().dy;
-        this.model.getPlayer().yPos += 1;
+            this.model.getPlayer().dy += this.model.getPlayer().grav;
+            this.model.getPlayer().dy *= this.model.getPlayer().drag;
+            this.model.getPlayer().yPos += 2;
         }
         else
         {
-            // this.model.getPlayer().dy += this.model.getPlayer().grav;
-            // this.model.getPlayer().dy *= this.model.getPlayer().drag;
-            // this.model.getPlayer().yPos += this.model.getPlayer().dy;
-            this.model.getPlayer().yPos -= 1;
-            if(this.model.getPlayer().yPos <= 200 )
+            this.model.getPlayer().yPos -= 2;
+            if(this.model.getPlayer().yPos <= 250)
             {
                 this.model.getPlayer().isJumping=false;
             }
         }
         if (this.model.getPlayer().yPos > 480) {
-            this.model.getPlayer().yPos =480;
+            this.model.getPlayer().yPos = 480;
             this.model.getPlayer().dy = 0;
         }
     }
+
     updateLogic()
     {
         this.checkGameOver();
@@ -56,25 +52,33 @@ class Game
     }
     checkGameOver()
     {
-        this.gameOver = (model.isCharHit);
+        this.gameOver = (this.model.isCharHit);
     }
 
     updateView()
     {
-        
         //update the player state
         this.view.setPlayer(this.model.getPlayer());
-        View.score = model.getPlayer().getScore()
-        //update the particles state
-        this.addVirus();
-        if (this.gameOver)
-        {
-            this.view.setContext(null);
-        }
-        
+
+        //update the score
+        View.score = model.getPlayer().getScore();
+
+        //update the viruses
+        this.view.viruses.setVirusesArray(this.model.getViruses());
+
+        //update the syignes
+        this.view.syringes.setSyringesArray(this.model.getSyringes());
     }
     updateModel()
     {
+        //add the particles
+        this.addVirus();
+
+        //update the viruses state
+        this.model.handleViruses();
+
+        //update the syringes state
+        this.model.handleSyringes()
     }
 
     updateGame()
@@ -89,14 +93,11 @@ class Game
         {
             this.model.addVirus();
         }
-
-        this.model.handleViruses(this.view.getCanvas());
-        this.view.viruses.setVirusesArray(this.model.getViruses())
+        
 
         if(this.virusWaitCount >= 1000000)
         {
             this.virusWaitCount = 0;
-        }
-        
+        }  
     }
 }

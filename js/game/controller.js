@@ -1,7 +1,7 @@
 class Controller {
 
     //define keys object
-    static keysCodes = {left:37, up:38, right:39, down:40};
+    static keysCodes = {left:37, up:38, right:39, down:40,fire:32};
 
     constructor (modelObj)
     {
@@ -21,6 +21,7 @@ class Controller {
         //attach the listeners
         document.addEventListener('keydown', this.keyDownHandler.bind(this), false);
         document.addEventListener('keyup', this.keyUpHandler.bind(this), false);
+        document.addEventListener('keypress', this.fireHandler.bind(this), false)
     }
 
     getModel()
@@ -108,6 +109,11 @@ class Controller {
 
         //update player idle status
         this.playerModel.setIdle(this.isIdle);
+    }
+    //handle the fire objects
+    fireHandler()
+    {
+       this.model.addSyringe();
     }
 
     moveUp() {
