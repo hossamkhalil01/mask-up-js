@@ -1,19 +1,44 @@
-
 <?php include '../includes/functions.php';?>
 
 <?php 
-	if(!isset($_SESSION['username']))
-			header("Location: ../index.php");
+	if(!isset($_SESSION['username'])){
+		header("Location: ../index.php");
+    }else{
+        $username = $_SESSION['username'];
+        $nickname = $_SESSION['nickname'];
+        $score = $_SESSION['score'];
+        $level = $_SESSION['level'];
+        
+        // Get image data from database
+        $query = "SELECT * FROM `player` WHERE `username` = '$username'"; 
+        $select_img_query = query($query);
+    }
 ?>
 
-<?php 
+<?php
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
+    
+    $password = escape($_POST['password']);
+    $cpassword = escape($_POST['cpassword']);
+    $nickname = escape($_POST['nickname']);
 
-$username = $_SESSION['username'];
-// Get image data from database
-$query = "SELECT * FROM `player` WHERE `username` = '$username'"; 
-$select_img_query = query($query);
+    $errorUpdate = [
+        'password' =>  '',
+        'cpassword' =>  '',
+        'nickname' =>  '',
+    ];
 
+    $errorUpdate = validateUpdate($errorUpdate, $nickname,  $password, $cpassword);
+
+    if (empty($errorUpdate)){
+        if(update_user($_SESSION["username"], $password, $nickname)){
+            $updated = true;
+        }    
+    }
+
+}
 ?>
+
 
 <!Doctype html>
 
@@ -35,12 +60,20 @@ $select_img_query = query($query);
         </nav>
         
         <section id="mainWindow" class="main-window">
-
             <div id="headerSection" class="header-section">
             <?php
             if(mysqli_num_rows($select_img_query) == 1){$row = mysqli_fetch_assoc($select_img_query);?>
                 <img id="avatarImg" class="avatar-img" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['avatar']); ?>"  draggable = false>
                 <?php }?>
+                <div class="progress-data-container">
+                    <h2 id="userNickname" class="nickname"><?php echo $_SESSION["nickname"];?></h2>
+                    <h3 class="progress-data">Score</h3>
+                    <span id="userScore"><?php echo $_SESSION["score"];?> </span>
+                    <h3 class="progress-data">Level</h3>
+                    <span id="userLevel"><?php echo $_SESSION["level"];?> </span>
+                </div>
+                <p id="clear"></p>
+
                 <div>
                     <input type="button" value="back" id="backBtn"   style="display: none;">
                     <h2>Protect Yourself and Mask Up!!</h2>
@@ -87,7 +120,15 @@ $select_img_query = query($query);
 
 
             <div id="selectlevel" style="display: none;" >
-                select your level
+                <h2>Select your level</h2>
+                <div class="start-game">
+                    <div class="option" id="newGame">
+                        <a href="game.html">New Game</a>
+                    </div>
+                    <div  class="option" id="continueGame">
+                        <a href="game.html">Continue last level</a>
+                    </div>
+                </div>
             </div>
 
             <div id="settingsSection" class="settings-section" style="display: none;">
@@ -100,43 +141,40 @@ $select_img_query = query($query);
                     <img class="accountIcon" src="../images/main-menu/account-icon.png" alt="" draggable="false">
                 </div>
                 </div>
-                <div class="accountForm" id="accountForm" style="display: none" >
+
+                <form class="accountForm" id="accountForm" style="display: none"  method="POST">
                     <div class="formGroup">
                     <label class="formElement" >Username</label>
-                    <input class="formElement" disabled  id="userName" type="text" value="Mahmoud">
+                    <input class="formElement" disabled name="username"  id="userName" type="text" value="<?php echo $_SESSION["username"] ?>">
                     </div>
         
         
                     <div class="formGroup">
                         <label class="formElement" >Nickname</label>
-                        <input class="formElement"  id="nickname" type="text" value="">
+                        <input class="formElement" name="nickname"  id="nickname" type="text" value="<?php echo $_SESSION["nickname"] ?>">
                     </div>
         
                     <div class="formGroup">
                         <label class="formElement" >Password</label>
-                        <input class="formElement"  id="password" type="password">
+                        <input class="formElement" value="" name="password"  id="password" type="password">
                     </div>
         
                     <div class="formGroup">
                         <label class="formElement" >Confirm Password</label>
-                        <input class="formElement" id="cPassword" type="password">
+                        <input class="formElement" value="" name="cpassword" id="cPassword" type="password">
                     </div>
                     <div class="parent">
 
                         <div class="formGroup" class="updatebtn">
-                            <input  class="formButton" type="submit" id="update" value="update">
+                            <input  class="formButton" name="update" type="submit" id="update" value="update">
                         </div>
                         <div class="formErrors">
                             <ul class="errors" id="errorMessage" style="display:none">
+
                             </ul>
                      </div>
-            
-
-
                     </div>
-                   
-                    
-                </div>
+                </form>
 
                 <div class="musicForm" id="musicForm">
                     <audio controls  id="theAud" class="musicItem">
@@ -176,15 +214,9 @@ $select_img_query = query($query);
                         Nulla facilisi. Morbi tellus nibh, maximus sit amet erat vel, pulvinar pharetra elit.
                         Mauris porta leo nisi, ac condimentum nulla volutpat ut.
                         Aliquam egestas eget neque eget laoreet. Sed non consequat diam, nec sagittis sem.</p>
-       
-
-                            
-
-
-
                 </div >
     
-    
+
             </div>
             <div id="creditsSection" class="credits-section" style="display: none;">
                 <div id= "credits_s">
@@ -247,6 +279,7 @@ $select_img_query = query($query);
     <script src="../js/main-menu.js"></script>
     <script src="../js/music-settings.js"></script>
     <script src="../js/account-settings.js"></script>
+    <script src="../js/main-menu-local-storage.js" ></script>
 
     </body>
 </html>

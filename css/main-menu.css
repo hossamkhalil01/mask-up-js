@@ -158,12 +158,12 @@ margin-left: 20px;
   background-color: rgb(55, 53, 61);
 }
 
-#logoutOption>a{
+a{
   text-decoration: none;
 }
 
 
-#logoutOption>a:visited{
+a:visited{
   text-decoration: none;
   color: white;
 }
@@ -281,3 +281,43 @@ svg {
   text-align: center;
   font-size: 30px;
 }
+
+
+/* Ahmed stuff */
+
+.progress-data-container{
+  display: inline-block;
+  float: right;
+  margin-right: 5%;
+  margin-top: 20px;
+  text-align: center;
+  font-size: large;
+  color: #09c;
+}
+.progress-data-container h2{
+  color:crimson;
+}
+
+.progress-data{
+  display: inline-block;
+  margin-left: 15px;
+  margin-top: 0px;
+}
+
+#clear{
+  clear: both;
+}
+
+.game-option{
+  display: inline-block;
+  border: none;
+  width: 100%;
+}
+
+#selectlevel h2{
+  color: #09c;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+/* #continueGame{
+  display: none;
+} */

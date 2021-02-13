@@ -5,8 +5,6 @@ const settingsSection = document.getElementById("settingsSection");
 const instructionsSection = document.getElementById("instructionsSection");
 const creditsSection = document.getElementById("creditsSection");
 //-------
-const selectCharactersection = document.getElementById("selectCharactersection");
-
 //define the main menu options
 const playOption = document.getElementById("playOption");
 const settingssOption = document.getElementById("settingsOption");
@@ -46,16 +44,6 @@ creditsOption.addEventListener("click", function(){
 backBtn.addEventListener("click", fromCurrentToPrevious);
 
 
-//eventlistener on selecting the character 
-selectCharactersection.addEventListener("click", function(event){
-    // event.preventDefault() ;
-    if ((event.target.id == "ali") || (event.target.id == "aliaa")  )
-    {
-        alert(event.target.id) ;
-        fromselectCharacterTo (selectlevel) ;
-
-    }
-});
 
 
 
@@ -142,5 +130,7 @@ function fromCurrentToPrevious()
         fromCurrentToMainMenu() ; 
     } 
 }
+
+
 
 
