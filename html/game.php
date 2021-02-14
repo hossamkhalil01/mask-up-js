@@ -1,3 +1,8 @@
+<?php 
+	if(!isset($_SESSION['username'])){
+		header("Location: ../index.php");
+    }
+?>
 <!Doctype html>
 
 <html lang="en">
@@ -14,9 +19,10 @@
 <!--    width: 1900px;-->
 <!--    height: 800px;-->
     <body>
-    <form  id="form1" action="" style="display: none">
-        <input type="text" name="score" id="score">
-        <input type="submit" value="play Again">
+    <form  id="form1" method="post" action= "../includes/updateProgress.php" style="display: none">
+        <input type="text" name="newScore" id="score">
+        <input type="text" name="newLevel" id="Level">
+        <input type="submit" name="updateProgress" value="updateProgress">
     </form>
         <canvas
                 width="1900" height="800"

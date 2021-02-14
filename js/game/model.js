@@ -203,6 +203,20 @@ class Player{
     getScore(){
         return this.score;
     }
+    checkLevel() {
+        if (this.getScore() >5 && this.getScore() <30)
+        {
+            return "level2"
+        }
+        if (this.getScore() >15 && this.getScore() <30)
+        {
+            return "level3"
+        }
+        else
+        {
+            return "level1"
+        }
+    }
 
     moveRight()
     {
