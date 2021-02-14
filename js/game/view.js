@@ -1,5 +1,7 @@
 class View
 {
+    static canvas = document.getElementById("mainCanvas");
+    static context = View.canvas.getContext("2d");
     static charHeight;
     static charWidth;
     static virusHeight;
@@ -8,75 +10,126 @@ class View
     static syringeHeight;
     static score;
 
-    constructor(canvasElement ,player, character, level)
+    constructor(player, character, level)
     {
-
-        this.canvas = canvasElement;
-        this.context = this.canvas.getContext("2d");
-
-        //define canvas dimensions
-        this.canvasWidth = this.canvas.width;
-        this.canvasHeight = this.canvas.height;
-
-        this.player = player;
+        //attach listener to the window resizing
+        window.addEventListener("resize",this.canvasResize.bind(this));
 
         //create character object
-
+        this.player = player;
         this.character = character;
+
         //define character dimensions
-        this.playerHeight = this.canvasHeight*0.15;
-        this.playerWidth = this.canvasWidth*0.1;
-
-        View.charHeight = this.playerHeight;
-        View.charWidth = this.playerWidth;
-
-        this.character.setCharacterWidth(View.charHeight);
-        this.character.setCharacterHeight(View.charWidth);
+        this.updateCharacterDim();
         
         this.character.loadIdleRightState();
 
         this.playerFrameWaitCount = 0;
 
         //create viruses object
-        View.virusHeight = this.canvasHeight*0.07;
-        View.virusWidth = this.canvasWidth*0.05;
-
-        this.viruses = new VirusesHandler(this.canvas,View.virusWidth , View.virusHeight, level);
+        this.viruses = new VirusesHandler(level);
+        this.updateVirusDim();
 
         //create syinge object
-        View.syringeWidth = this.canvasWidth*0.04;
-        View.syringeHeight = this.canvasHeight*0.03;
-
-        this.syringes = new SyringesHandler(this.canvas, View.syringeWidth, View.syringeHeight);
+        this.syringes = new SyringesHandler();
+        this.updateSyringesDim();
     
         //create background object
-        this.BGImg = new Background(this.canvas, level, 0.25);
+        this.BGImg = new Background(level, 0.25);
+
+        //resize canvas
+        this.canvasResize();
     }
 
-    getCanvas() {
-        return canvas.getContext("2d");
+    /*******Static Getters********/
+    static getCanvas() {
+        return View.canvas;
     }
-    setContext(context)
+
+    static getCanvasWidth()
     {
-        this.context =context;
+        return View.canvas.width;
     }
-
-    getPlayerHeight()
+    
+    static getCanvasHeight()
     {
-        return this.playerHeight;
+        return View.canvas.height;
     }
-
-    getPlayerWidth()
+    static getCharWidth()
     {
-        return this.playerWidth;
+        return View.charWidth;
+    }
+    static getCharHeight()
+    {
+        return View.charHeight;
+    }
+    static getVirusHeight()
+    {
+        return View.virusHeight;
+    }
+    static getVirusWidth()
+    {
+        return View.virusWidth;
+    }
+    static getSyringeWidth()
+    {
+        return View.syringeWidth;
+    }
+    static getSyringeHeight()
+    {
+        return View.syringeHeight;
+    }
+    static getScore()
+    {
+        return View.score;
     }
 
+    /*********Setters*************************/
+    static setScore(score)
+    {
+        View.score = score;
+    }
     setPlayer(player)
     {
         this.player = player;
         this.updatePlayerDirection();
     }
 
+    /*********** Game Resizing **************/
+    //function to resize the canvas
+    canvasResize()
+    {
+        View.canvas.setAttribute("width", window.innerWidth*0.95);
+        View.canvas.setAttribute("height",window.innerHeight*0.95);
+
+        //update objects with the new size
+        this.updateCharacterDim();
+        this.updateVirusDim();
+        this.updateSyringesDim();
+    }
+    updateCharacterDim()
+    {
+        View.charHeight = View.canvas.height*0.15;
+        View.charWidth = View.canvas.width*0.05;
+
+        this.character.setDimensions(View.charWidth,View.charHeight);
+    }
+    updateVirusDim()
+    {
+        View.virusHeight = View.canvas.height*0.07;
+        View.virusWidth = View.canvas.width*0.05;
+
+        this.viruses.setDimensions(View.virusWidth,View.virusHeight);
+    }
+    updateSyringesDim()
+    {
+        View.syringeWidth = View.canvas.width*0.04;
+        View.syringeHeight = View.canvas.height*0.03;
+
+        this.syringes.setDimensions(View.syringeWidth , View.syringeHeight);
+    }
+
+    /**********View Updates ********/
     updatePlayerDirection()
     {
 
@@ -126,14 +179,26 @@ class View
         }
     }
 
+    updateViruses(virusesArr)
+    {
+        this.viruses.setVirusesArray(virusesArr);
+    }
+
+    updateSyringes(syringesArr)
+    {
+        this.syringes.setSyringesArray(syringesArr);
+    }
+
+
+    /********** Frame Rendring functions*******/
     render() {
+
         this.clearScreen();
         this.BGImg.update();
         this.drawPlayer();
         this.viruses.draw();
         this.syringes.draw();
         this.drawScore();
-
     }
 
     drawPlayer()
@@ -142,9 +207,15 @@ class View
         this.checkPlayerFrameWaitCount();
     }
     drawScore() {
-        this.character.drawScore();
-    }
 
+        View.context.beginPath();
+        View.context.rect(View.canvas.width*0.05, View.canvas.height*0.03, View.canvas.width*0.15, View.canvas.height*0.1);
+        View.context.stroke();
+        View.context.fillStyle = "red";
+        View.context.font = View.canvas.width*0.015+"px Arial";
+        View.context.fillText(`Your Score:  ${View.score}`, View.canvas.width*0.07, View.canvas.height*0.09);
+
+    }
     checkPlayerFrameWaitCount()
     {
         //check to change the player frame or wait
@@ -159,9 +230,11 @@ class View
     }
     clearScreen()
     {
-        this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        View.context.clearRect(0, 0, View.canvas.width, View.canvas.height);
     }
 }
+
+/************ Helper Classes **************/
 
 // Class to deal with the character's sprite sheets 
 class Character {
@@ -171,21 +244,16 @@ class Character {
      runLeft: "runLeft", jumpLeft:"jumpLeft", jumpRight:"jumpRight",
      deadLeft: "deadLeft", deadRight: "deadRight"};
 
-    constructor(canvas)
+    constructor()
     {
         //load the base path for the images
         this.basePath = "../images/game/characters/";
-
-        //save the canvas object
-        this.canvas = canvas;
-        this.ctx = this.canvas.getContext("2d");
 
         //init the states sheets dimensions
         this.deadSheetDim = {width: 0, height: 0, rows:0 , cols:0};
         this.idleSheetDim = {width: 0, height: 0, rows:0 , cols:0};
         this.jumpSheetDim = {width: 0, height: 0, rows:0 , cols:0};
         this.runSheetDim  = {width: 0, height: 0, rows:0 , cols:0};
-
 
         //init the current state
         this.currState;
@@ -203,13 +271,9 @@ class Character {
 
     }
 
-    setCharacterWidth(width)
+    setDimensions(width ,height)
     {
         this.charWidth = width;
-    }
-
-    setCharacterHeight(height)
-    {
         this.charHeight = height;
     }
 
@@ -226,23 +290,14 @@ class Character {
     setCanvas(canvas)
     {
         this.canvas = canvas;
-        this.ctx = this.canvas.getContext("2d");
+        View.context = this.canvas.getContext("2d");
     }
     
 
     draw(xPos,yPos)
     {
-        this.ctx.drawImage(this.spriteImg, this.currSheetDim.width*this.currXFrame, this.currSheetDim.height*this.currYFrame, 
+        View.context.drawImage(this.spriteImg, this.currSheetDim.width*this.currXFrame, this.currSheetDim.height*this.currYFrame, 
             this.currSheetDim.width,this.currSheetDim.height, xPos,yPos,this.charWidth,this.charHeight); 
-    }
-    drawScore() {
-        
-        this.ctx.beginPath();
-        this.ctx.rect(70, 20, 250, 100);
-        this.ctx.stroke();
-        this.ctx.fillStyle = "red";
-        this.ctx.font = "25px Arial";
-        this.ctx.fillText(`Your score:  ${View.score}`, 110, 70);
     }
   
     loadNextFrame()
@@ -324,9 +379,9 @@ class Character {
 
 class Boy extends Character{
 
-    constructor(canvas)
+    constructor()
     {
-        super(canvas);
+        super();
         this.basePath +="boy";
 
         //set sheets dimensions
@@ -339,9 +394,9 @@ class Boy extends Character{
 
 class Girl extends Character{
 
-    constructor(canvas)
+    constructor()
     {
-        super(canvas);
+        super();
         this.basePath +="girl";
 
         //set sheets dimensions
@@ -358,12 +413,8 @@ class VirusesHandler{
     static frameWidth = 350;
     static frameHeight = 350;
 
-    constructor(canvas,virusWidth,vriusHeight,level)
+    constructor(level,virusWidth,vriusHeight)
     {
-        //define canvas
-        this.canvas = canvas;
-        this.ctx = this.canvas.getContext("2d");
-
         //load the covid image
         this.virusImg = new Image();
         this.virusImg.src = "../images/game/virus/"+level+".png";
@@ -374,8 +425,14 @@ class VirusesHandler{
         this.virusArray= [];
     }
 
+    setDimensions(width, height)
+    {
+        this.virusWidth = width;
+        this.virusHeight = height;
+    }
+
     drawVirus(virus){
-        this.ctx.drawImage(this.virusImg,0,0,VirusesHandler.frameWidth,VirusesHandler.frameHeight,
+        View.context.drawImage(this.virusImg,0,0,VirusesHandler.frameWidth,VirusesHandler.frameHeight,
             virus.getX(),virus.getY(), this.virusWidth,this.virusHeight);
     }
 
@@ -397,12 +454,8 @@ class SyringesHandler
     static frameWidth = 200;
     static frameHeight= 61;
 
-    constructor(canvas,syringeWidth, syringeHeight)
+    constructor(syringeWidth, syringeHeight)
     {
-        //define canvas
-        this.canvas = canvas;
-        this.ctx = this.canvas.getContext("2d");
-
         //load the covid image
         this.syringeRightImg = new Image();
         this.syringeRightImg.src = "../images/game/syringe/right.png";
@@ -416,19 +469,24 @@ class SyringesHandler
         this.syringeArr= [];
     }
 
+    setDimensions(width,height)
+    {
+        this.syringeHeight = height;
+        this.syringeWidth = width;
+    }
+
     drawSyringe(syringe){
         //right direction
         if (syringe.getDirection() == 1)
         {
-            this.ctx.drawImage(this.syringeRightImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
+            View.context.drawImage(this.syringeRightImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
                 ,syringe.getX(),syringe.getY(), this.syringeWidth,this.syringeHeight);
         }
         //left direction
         else{
-            this.ctx.drawImage(this.syringeLeftImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
+            View.context.drawImage(this.syringeLeftImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
                 ,syringe.getX(),syringe.getY(), this.syringeWidth,this.syringeHeight);
         }
-        
     }
 
     setSyringesArray(syringesArr) {
@@ -443,24 +501,28 @@ class SyringesHandler
     }
 }
 
-
 //class infinite background
 class Background
 {
 
-    constructor(canvas, level, speed)
+    constructor(level, speed)
     {
-        this.canvas = canvas;
-        this.ctx = this.canvas.getContext("2d");
-
         this.img = new Image();
         this.img.src = "../images/game/backgrounds/"+level+".jpg";
         this.x1 = 0;
-        this.x2 = this.canvas.width;
+        this.x2 = View.canvas.width;
         this.y = 0;
-        this.width = this.canvas.width;
-        this.height = this.canvas.height;
+        this.width = View.canvas.width;
+        this.height = View.canvas.height;
         this.speed = speed;
+    }
+
+    //function to resize
+    resize()
+    {
+        this.x2 = View.canvas.width;
+        this.width = View.canvas.width;
+        this.height = View.canvas.height;
     }
 
     //update background
@@ -490,9 +552,9 @@ class Background
     draw()
     {
         //draw image 1 
-        this.ctx.drawImage(this.img, this.x1 , this.y , this.width, this.height);
+        View.context.drawImage(this.img, this.x1 , this.y , this.width, this.height);
 
         //draw image 2
-        this.ctx.drawImage(this.img, this.x2 , this.y , this.width, this.height);
+        View.context.drawImage(this.img, this.x2 , this.y , this.width, this.height);
     }
 }

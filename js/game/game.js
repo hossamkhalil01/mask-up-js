@@ -11,6 +11,7 @@ class Game
         //start the game engine
         this.engine = new Engine(20, this);
     }
+
     getGameOver() {
         return this.gameOver;
     }
@@ -52,7 +53,7 @@ class Game
     }
     checkGameOver()
     {
-        this.gameOver = (this.model.isCharHit);
+        this.gameOver = (this.model.getIsCharHit());
     }
 
     updateView()
@@ -61,14 +62,15 @@ class Game
         this.view.setPlayer(this.model.getPlayer());
 
         //update the score
-        View.score = model.getPlayer().getScore();
+        View.setScore(model.getPlayer().getScore());
 
         //update the viruses
-        this.view.viruses.setVirusesArray(this.model.getViruses());
+        this.view.updateViruses(this.model.getViruses())
 
         //update the syignes
-        this.view.syringes.setSyringesArray(this.model.getSyringes());
+        this.view.updateSyringes(this.model.getSyringes());
     }
+
     updateModel()
     {
         //add the particles
