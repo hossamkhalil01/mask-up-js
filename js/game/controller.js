@@ -1,7 +1,7 @@
 class Controller {
 
     //define keys object
-    static keysCodes = {left:37, up:38, right:39, down:40};
+    static keysCodes = {left:37, up:38, right:39, shoot:32};
 
     constructor (modelObj)
     {
@@ -21,36 +21,27 @@ class Controller {
         //attach the listeners
         document.addEventListener('keydown', this.keyDownHandler.bind(this), false);
         document.addEventListener('keyup', this.keyUpHandler.bind(this), false);
-    }
-
-    getModel()
-    {
-        return this.model;
+        document.addEventListener('keypress', this.shootHandler.bind(this), false)
     }
 
     //handle key presses
     keyDownHandler(event){
+        
         switch (event.keyCode)
         {
-            case Controller.keysCodes.right:
+            case Controller.keysCodes.right: case 68:
                 this.isRightPressed = true;
                 break;
 
-            case Controller.keysCodes.left:
+            case Controller.keysCodes.left: case 65:
                 this.isLeftPresed = true;
                 break;
 
-            case Controller.keysCodes.down:
-                this.isDownPressed = true;
-
-                break;
-
-            case Controller.keysCodes.up:
+            case Controller.keysCodes.up: case 87:
                 this.isUpPressed = true;
                 break; 
 
             default:
-                this.isIdle = false;
                 return;
         }
         
@@ -64,21 +55,18 @@ class Controller {
     {
         switch (event.keyCode)
         {
-            case Controller.keysCodes.right:
+            case Controller.keysCodes.right: case 68:
                 this.isRightPressed = false;
                 break;
 
-            case Controller.keysCodes.left:
+            case Controller.keysCodes.left: case 65:
                 this.isLeftPresed = false;
                 break;
 
-            case Controller.keysCodes.down:
-                this.isDownPressed = false;
-                break;
-
-            case Controller.keysCodes.up:
+            case Controller.keysCodes.up: case 87:
                 this.isUpPressed = false;
                 break; 
+
             default:
                 return;
         }
@@ -109,6 +97,16 @@ class Controller {
         //update player idle status
         this.playerModel.setIdle(this.isIdle);
     }
+    
+    //handle the shoot objects
+    shootHandler(event)
+    {
+        //detect space bar
+        if(event.keyCode == Controller.keysCodes.shoot)
+        {
+            this.model.shoot();
+        }
+    }
 
     moveUp() {
         this.playerModel.moveUp();
@@ -118,11 +116,10 @@ class Controller {
     {
         //update the player object in model
         this.playerModel.moveRight();
-
     }
 
     moveLeft()
-     {
+    {
         //update the player object in model
         this.playerModel.moveLeft();
     }

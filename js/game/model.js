@@ -1,114 +1,162 @@
 class Model
 {
-    static xMove = 10;
-    static yMove = 5;
-    static canvasWidtht=1900;
-    static canvasHeight =800;
+    //max syringe  at a time
+    static maxSyringeCount = 5;
+    //define  the kill bonus
+    static killBonus = 5;
 
-    static getCanvasWidth()
-    {
-        return this.canvasWidtht;
-    }
-    static getCanvasHeight()
-    {
-        return this.canvasHeight;
-    }
     constructor(initPlayerX, initPlayerY, maxX )
     {
-        this.virusArray=[];
-        this.virus;
+        //create viruses
+        this.virusArr=[];
+
         //init the player object to hold player data
         this.player = new Player(initPlayerX, initPlayerY ,maxX);
 
+        //detect player hit
         this.isCharHit = false;
+
+        //init syringe object
+        this.syringeArr=[];
     }
 
+    /************Getters *********/
+    getViruses() {
+        return this.virusArr;
+    }
+    getPlayer() {
+        return this.player;
+    }
+    getSyringes()
+    {
+        return this.syringeArr;
+    }
+    getIsCharHit()
+    {
+        return this.isCharHit;
+    }
+
+    /****Controller commands****/
     addVirus() {
- 
-        this.virusArray.push( new Virus());
-    }
-    increasePlayerScore(num) {
-        this.player.setScore(this.player.getScore()+num);
+        this.virusArr.push( new Virus());
     }
 
-    removeFromVirusesArray(virusIndex) {
-
-        if(this.virusArray[virusIndex].x < -View.virusWidth )
+    shoot()
+    {
+        if( this.syringeArr.length < Model.maxSyringeCount)
         {
-
-            this.virusArray.splice(virusIndex,1);
-            this.increasePlayerScore(1);
+            this.syringeArr.push(new Syringe(this.player.getX()+View.getCharWidth()*0.4, this.player.getY() + View.getCharHeight()*0.8,this.player.getDirection()));
         }
     }
-    
+
+    /********Update objects states ******/
+    removeSyringeOnBoundries(index)
+    {
+        //check boundries
+        if(this.syringeArr[index].getX() < -View.getSyringeWidth() || (this.syringeArr[index].getX() > View.getCanvasWidth()))
+        {
+            this.syringeArr.splice(index,1);
+        }
+    }
+    removeVirusOnBoundries(virusIndex) {
+
+        if(this.virusArr[virusIndex].getX() < -View.getVirusWidth())
+        {
+            this.virusArr.splice(virusIndex,1);
+        }
+    }
+    handleSyringes()
+    {
+        for( var index = 0 ; index < this.syringeArr.length; index++)
+        {
+            this.syringeArr[index].updatePos();
+            if(!this.isSyringeViruseHit(index))
+            {
+                this.removeSyringeOnBoundries(index);
+            }
+        }
+    }
+
+    handleViruses() {
+        for( var index = 0 ; index < this.virusArr.length; index++)
+        {
+            this.virusArr[index].updatePos();
+            this.detectVirusesCollision(index);
+            this.removeVirusOnBoundries(index);
+        }
+    }
+
+    /*********Collision detection**********/
+    isSyringeViruseHit(syringeIndx)
+    {
+       //define margins for collision
+        let widthMargin = View.getSyringeWidth()*0.2;
+        let heightMargin = View.getSyringeHeight()*0.2;
+
+        //all measures are relative to the player's position
+        let topSideDistance;
+        let bottomSideDistance;
+        let directionSideDistance;
+
+        //loop through current viruses
+        for (let virusIndx = 0 ; virusIndx < this.virusArr.length ; virusIndx++)
+        {
+            //check collision
+            topSideDistance =  this.syringeArr[syringeIndx].getY() - (this.virusArr[virusIndx].getY() + View.getVirusHeight());
+            bottomSideDistance = this.virusArr[virusIndx].getY() - (this.syringeArr[syringeIndx].getY() + View.getSyringeHeight());
+           
+            //assign the right side for collision
+            if (this.syringeArr[syringeIndx].getDirection() == 1)
+            {   
+                directionSideDistance = this.virusArr[virusIndx].getX() - (this.syringeArr[syringeIndx].getX() + View.getSyringeWidth());
+            }
+            //left direction syringe
+            else{
+                directionSideDistance = this.syringeArr[syringeIndx].getY() - (this.virusArr[virusIndx].getX() + View.getVirusWidth());
+            }
+
+            //check for direction side collision
+            if (!(topSideDistance > -heightMargin || directionSideDistance > -widthMargin || bottomSideDistance > -heightMargin))
+            {
+                this.handleVirusSyringeCollision(syringeIndx,virusIndx);
+                return true;
+            }
+        }
+        return false;
+    }
+    handleVirusSyringeCollision(syringeIndx , virusIndx)
+    {
+        //remove both from the array
+        this.virusArr.splice(virusIndx,1);
+        this.syringeArr.splice(syringeIndx,1);
+
+        //update the score
+        this.increasePlayerScore();
+    }
     detectVirusesCollision(virusIndex)
     {
-       let xDistanceFromPlayer = this.virusArray[virusIndex].x - (this.player.xPos + View.charWidth)
-       this.virusArray[virusIndex].y >= this.player.yPos 
-
        if (this.isCharHit)
        {
            return;
        }
-       if(this.isVirusPlayerCollision(this.virusArray[virusIndex].x, this.virusArray[virusIndex].y 
-                                , this.player.xPos, this.player.yPos))
-                                
+       if(this.isVirusPlayerCollision(this.virusArr[virusIndex].getX(), this.virusArr[virusIndex].getY() 
+                                , this.player.getX(), this.player.getY()))                
         {
             this.isCharHit = true; 
             this.player.setIsDead();               
         }
-    
     }
-
-    calcDistanceBetweenTwoPoints(point1, point2)
-    {
-
-        let tmp = Math.pow((point1.x - point2.x),2) + Math.pow((point1.y - point2.y),2);
-        return Math.sqrt(tmp);
-    }
-
-    getCenterPoint(xPos,yPos,width,height)
-    {
-        return {
-            x: xPos + 0.5 * width,
-            y: yPos + 0.5 * height
-        }
-    }
-
-    // isVirusPlayerCollision(virusXPos, virusYPos, playerXPos, playerYPos)
-    // {
-        
-    //     let playerCenter =this.getCenterPoint(playerXPos,playerYPos,View.charWidth,View.charHeight);
-    //     let virusCenter = this.getCenterPoint(virusXPos,virusYPos,View.virusWidth,View.virusHeight);
-
-    //     let playerHalfDiagonal = this.calcDistanceBetweenTwoPoints(playerCenter,{x:playerXPos,y:playerYPos});
-    //     let virusHalfDiagonal = this.calcDistanceBetweenTwoPoints(virusCenter,{x:virusXPos,y:virusYPos});
-
-    //     let fromPlayerToVirus = this.calcDistanceBetweenTwoPoints(virusCenter,playerCenter);
-        
-
-
-    //     if (fromPlayerToVirus-(playerHalfDiagonal+virusHalfDiagonal) <= -150)
-    //     {
-    //         return true;
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    // }
-
     isVirusPlayerCollision(virusXPos, virusYPos, playerXPos, playerYPos)
     {
         //define margins for collision
-        let widthMargin = View.charWidth*0.6;
-        let heightMargin = View.charHeight*0.2;
-
+        let widthMargin = View.getCharWidth()*0.6;
+        let heightMargin = View.getCharHeight()*0.2;
 
         //all measures are relative to the player's position
-        let topSideDistance  = playerYPos - (virusYPos + View.virusHeight);
-        let rightSideDistance = virusXPos - (playerXPos + View.charWidth);
-        let bottomSideDistance = virusYPos - (playerYPos + View.charHeight);
-        let leftSideDistance = playerXPos - (virusXPos + View.virusWidth);
+        let topSideDistance  = playerYPos - (virusYPos + View.getVirusHeight());
+        let rightSideDistance = virusXPos - (playerXPos + View.getCharWidth());
+        let bottomSideDistance = virusYPos - (playerYPos + View.getCharHeight());
+        let leftSideDistance = playerXPos - (virusXPos + View.getVirusWidth());
 
         if (topSideDistance > -heightMargin || rightSideDistance > -widthMargin || bottomSideDistance > -heightMargin 
             || leftSideDistance > -widthMargin )
@@ -120,35 +168,25 @@ class Model
         }
     }
 
-    handleViruses() {
-        for( var index = 0 ; index < this.virusArray.length; index++)
-        {
-            this.virusArray[index].updateXPos();
-            this.detectVirusesCollision(index);
-            this.removeFromVirusesArray(index);
-        }
+    /***********Update score**************/
+    increasePlayerScore() {
+        this.player.setScore(this.player.getScore()+Model.killBonus);
     }
-
-    getViruses() {
-        return this.virusArray;
-    }
-
-    getPlayer() {
-        return this.player;
-    }
-
 }
+
+/***********Helper Classes*********/
 class Player{
 
     constructor(initPlayerX, initPlayerY , maxX) {
+
         Model.initPlayerY=initPlayerY;
         this.xPos = initPlayerX;
         this.yPos =initPlayerY;
 
         this.dx = 15//speed in x direction
         this.dy = 0 ; // speed
-        this.drag = 0.99; // the drag is 0.01
-        this.grav = 0.1;
+        this.drag = 0.5; // the drag is 0.01
+        this.grav = 0.7;
         this.isFacingRight = true;
         this.isJumping= false;
         this.isDown = false;
@@ -174,6 +212,7 @@ class Player{
         {
             this.xPos = this.xMaxPos;
         }
+        console.log("xPos: ",this.xPos);
 
         this.isFacingRight = true;
     }
@@ -186,20 +225,18 @@ class Player{
         {
             this.xPos = this.xMinPos;
         }
-
+        console.log("xPos: ",this.xPos);
         this.isFacingRight = false;
 
     }
     moveUp()
     {
 
-        if (this.yPos >=480)
+        if (this.yPos >= 480)
         {
             this.isJumping=true;
         }
     }
-
-
     moveDown()
     {
         this.yPos-=1;
@@ -223,21 +260,68 @@ class Player{
     {
         this.isDead = true;
     }
+    getX()
+    {
+        return this.xPos;
+    }
+    getY()
+    {
+        return this.yPos;
+    }
+    getDirection()
+    {
+        if (this.isFacingRight)
+        {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
 
 }
+
+class Syringe
+{
+    constructor(xPos,yPos,direction) {
+
+        this.x = xPos;
+        this.y = yPos;
+        this.direction = direction;
+        this.speed = 2*direction;
+    }
+
+    getX()
+    {
+        return this.x;
+    }
+
+    getY()
+    {
+        return this.y;
+    }
+    updatePos()
+    {
+        this.x += this.speed;
+    }
+    getDirection()
+    {
+        return this.direction;
+    }
+}
+
 class Virus {
 
     constructor() {
-        this.x =Model.getCanvasWidth();
-        this.y = (Math.random()* Model.getCanvasHeight()) + Model.getCanvasHeight()*0.3;
+        this.x =View.getCanvasWidth();
+        this.y = (Math.random()* View.getCanvasHeight()) + View.getCanvasHeight()*0.3;
 
-        if(this.y > Model.getCanvasHeight()*0.7)
+        if(this.y > View.getCanvasHeight()*0.7)
         {
-            this.y = Model.getCanvasHeight()*0.7;
+            this.y = View.getCanvasHeight()*0.7;
         }
         
         this.speed = Math.random()*3+1;
-        this.radius= 50;
         this.distance;
     }
     getX() {
@@ -248,7 +332,7 @@ class Virus {
     getY() {
         return this.y;
     }
-    updateXPos(){
+    updatePos(){
         this.x-=(this.speed) /2;
     }
 }

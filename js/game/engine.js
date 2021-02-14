@@ -3,7 +3,8 @@ class Engine{
     constructor(refreshRate ,gameObj)
     {
         this.renderInterval = 1/refreshRate;
-        this.logicInterval = 5 * this.renderInterval;
+        this.logicInterval = this.renderInterval / 2;
+
         this.game = gameObj;
 
         this.isEngineOn = false;
@@ -12,15 +13,13 @@ class Engine{
     }
     endGame() {
         alert(`game over`);
-        var conf =confirm("play again");
-        if (conf)
+
+        if (confirm("play again"))
         {
             document.getElementById("score").textContent=game.model.getPlayer().getScore();
             document.getElementById("form1").submit();
         }
     }
-
-
     updateFrame()
     {
         if (game.getGameOver())
