@@ -11,23 +11,9 @@ class Engine{
 
         this.startEngine();
     }
-    endGame() {
-        alert(`game over`);
-
-        if (confirm("play again"))
-        {
-            document.getElementById("score").textContent=game.model.getPlayer().getScore();
-            document.getElementById("form1").submit();
-        }
-    }
+    
     updateFrame()
     {
-        if (game.getGameOver())
-        {
-         this.stopEngine();
-          this.endGame();
-        }
-
         //update the game frames
         this.game.updateFrame();
     }

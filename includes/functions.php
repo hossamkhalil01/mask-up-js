@@ -44,13 +44,13 @@ function register_user($username, $password, $nickname){
 
     $fileName = "default-avatar.png";
 
-    empty($_FILES["image"]["name"]) ? $image = "images/main-menu" . $fileName  : $image = $_FILES['image']['tmp_name'];
+    empty($_FILES["image"]["name"]) ? $image = "images/main-menu/" . $fileName  : $image = $_FILES['image']['tmp_name'];
 
     $imgContent = addslashes(file_get_contents($image));
 
     $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
-    $query = "INSERT INTO `player`(`username`, `password`, `nickname`, `score`, `level`, `avatar`, `created_at`) VALUES ('$username', '$password', '$nickname', 0, 0, '$imgContent', NOW())";
+    $query = "INSERT INTO `player`(`username`, `password`, `nickname`, `score`, `level`, `avatar`, `created_at`) VALUES ('$username', '$password', '$nickname',0,0, '$imgContent', NOW())";
 
     $register_user_query = query($query);
     
@@ -58,6 +58,21 @@ function register_user($username, $password, $nickname){
         return true;
     }
     return false;
+}
+
+function update_user($username, $password, $nickname){
+
+    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+    $query = "UPDATE `player` SET `password`='$password',`nickname`='$nickname' WHERE `username`='$username'";
+
+    $update_user_query = query($query);
+    
+    if($update_user_query){
+        updateSession($nickname, $_SESSION['score'], $_SESSION['level']);
+        return true;
+    }
+    return false;
+   
 }
 
 
@@ -152,6 +167,27 @@ function validateRegister($error, $username, $password, $cpassword, $nickname){
     return $error;
 }
 
+function validateUpdate($error, $nickname, $password, $cpassword){
+    if($password === ''){
+        $error['password'] = 'Password cannot be empty';
+    }
+
+    
+    if(strlen($password) < 6){
+        $error['email'] = 'passord should be minimum 6 characters';
+    }
+    
+    if($password !== $cpassword && strlen($password) >= 6){
+        $error['cpassword'] = 'Passwords do not match';
+    }
+    foreach ($error as $key => $value){
+        if (empty($value)){
+            unset($error[$key]);
+        }
+    }
+    return $error;
+}
+
 
 function validateLogin($errorSignIn, $username, $password){
 
@@ -173,6 +209,13 @@ function validateLogin($errorSignIn, $username, $password){
         }
     }
     return $errorSignIn;
-
 }
+
+function updateSession($nickname, $score, $level){
+    $_SESSION['nickname'] = $nickname;
+    $_SESSION['score'] = $score;
+    $_SESSION['level'] = $level;
+}
+
+
 ?>

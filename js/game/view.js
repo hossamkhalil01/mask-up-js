@@ -9,9 +9,11 @@ class View
     static syringeWidth;
     static syringeHeight;
     static score;
+    static Level
 
     constructor(player, character, level)
     {
+        View.Level = level;
         //attach listener to the window resizing
         window.addEventListener("resize",this.canvasResize.bind(this));
 
@@ -35,11 +37,12 @@ class View
         this.updateSyringesDim();
     
         //create background object
-        this.BGImg = new Background(level, 0.25);
+        this.background = new Background(View.level, 0.25);
 
         //resize canvas
         this.canvasResize();
     }
+    
 
     /*******Static Getters********/
     static getCanvas() {
@@ -84,7 +87,18 @@ class View
         return View.score;
     }
 
-    /*********Setters*************************/
+    static getPlayerLevel()
+    {
+        return View.Level;
+    }
+    getLevel()
+    {
+        return this.level;
+    }
+
+
+
+    /******************Setters*************************/
     static setScore(score)
     {
         View.score = score;
@@ -94,40 +108,46 @@ class View
         this.player = player;
         this.updatePlayerDirection();
     }
+    static setPlayerLevel(level){
+        View.Level = level;
+    }
 
     /*********** Game Resizing **************/
     //function to resize the canvas
     canvasResize()
     {
-        View.canvas.setAttribute("width", window.innerWidth*0.95);
-        View.canvas.setAttribute("height",window.innerHeight*0.95);
+        View.canvas.setAttribute("width", this.floatToInt(window.innerWidth*0.95));
+        View.canvas.setAttribute("height",this.floatToInt(window.innerHeight*0.95));
 
         //update objects with the new size
         this.updateCharacterDim();
         this.updateVirusDim();
         this.updateSyringesDim();
+        this.background.resize();
+
     }
     updateCharacterDim()
     {
-        View.charHeight = View.canvas.height*0.15;
-        View.charWidth = View.canvas.width*0.05;
+        View.charHeight = this.floatToInt(View.canvas.height*0.15);
+        View.charWidth = this.floatToInt(View.canvas.width*0.05);
 
         this.character.setDimensions(View.charWidth,View.charHeight);
     }
     updateVirusDim()
     {
-        View.virusHeight = View.canvas.height*0.07;
-        View.virusWidth = View.canvas.width*0.05;
+        View.virusHeight = this.floatToInt(View.canvas.height*0.07);
+        View.virusWidth = this.floatToInt(View.canvas.width*0.05);
 
         this.viruses.setDimensions(View.virusWidth,View.virusHeight);
     }
     updateSyringesDim()
     {
-        View.syringeWidth = View.canvas.width*0.04;
-        View.syringeHeight = View.canvas.height*0.03;
+        View.syringeWidth = this.floatToInt(View.canvas.width*0.04);
+        View.syringeHeight = this.floatToInt(View.canvas.height*0.03);
 
         this.syringes.setDimensions(View.syringeWidth , View.syringeHeight);
     }
+
 
     /**********View Updates ********/
     updatePlayerDirection()
@@ -189,12 +209,21 @@ class View
         this.syringes.setSyringesArray(syringesArr);
     }
 
+    updateLevel(level) {
+        this.level=level;
+        this.viruses.changeLevel(level);
+        this.background.updateLevel(level);
+    }
+
+
+    
+
 
     /********** Frame Rendring functions*******/
     render() {
 
         this.clearScreen();
-        this.BGImg.update();
+        this.background.update();
         this.drawPlayer();
         this.viruses.draw();
         this.syringes.draw();
@@ -209,11 +238,12 @@ class View
     drawScore() {
 
         View.context.beginPath();
-        View.context.rect(View.canvas.width*0.05, View.canvas.height*0.03, View.canvas.width*0.15, View.canvas.height*0.1);
+        View.context.rect(this.floatToInt(View.canvas.width*0.05), this.floatToInt(View.canvas.height*0.03),
+         this.floatToInt(View.canvas.width*0.15), this.floatToInt(View.canvas.height*0.1));
         View.context.stroke();
         View.context.fillStyle = "red";
         View.context.font = View.canvas.width*0.015+"px Arial";
-        View.context.fillText(`Your Score:  ${View.score}`, View.canvas.width*0.07, View.canvas.height*0.09);
+        View.context.fillText(`Your Score:  ${View.score}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.09));
 
     }
     checkPlayerFrameWaitCount()
@@ -231,6 +261,10 @@ class View
     clearScreen()
     {
         View.context.clearRect(0, 0, View.canvas.width, View.canvas.height);
+    }
+
+    floatToInt(num) {
+        return Math.floor(num);
     }
 }
 
@@ -297,7 +331,7 @@ class Character {
     draw(xPos,yPos)
     {
         View.context.drawImage(this.spriteImg, this.currSheetDim.width*this.currXFrame, this.currSheetDim.height*this.currYFrame, 
-            this.currSheetDim.width,this.currSheetDim.height, xPos,yPos,this.charWidth,this.charHeight); 
+            this.currSheetDim.width,this.currSheetDim.height, Math.floor(xPos),Math.floor(yPos),this.charWidth,this.charHeight); 
     }
   
     loadNextFrame()
@@ -424,6 +458,18 @@ class VirusesHandler{
 
         this.virusArray= [];
     }
+    changeLevel(level)
+    {
+        this.virusImg.src = "../images/game/virus/"+level+".png";
+        if (View.getPlayerLevel()!=level)
+        {
+            View.setPlayerLevel(level);
+            this.removeViruses() ;
+        }
+    }
+    removeViruses () {
+            this.virusArray.splice(0);
+    }
 
     setDimensions(width, height)
     {
@@ -516,6 +562,10 @@ class Background
         this.height = View.canvas.height;
         this.speed = speed;
     }
+    updateLevel(level)
+    {
+        this.img.src = "../images/game/backgrounds/"+level+".jpg";
+    }
 
     //function to resize
     resize()
@@ -556,5 +606,7 @@ class Background
 
         //draw image 2
         View.context.drawImage(this.img, this.x2 , this.y , this.width, this.height);
+        
     }
+
 }

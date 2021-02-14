@@ -46,6 +46,7 @@ class Game
 
     updateLogic()
     {
+        this.view.updateLevel(this.checkLevel());
         this.checkGameOver();
         this.updateModel();
         this.updateView();
@@ -54,6 +55,13 @@ class Game
     checkGameOver()
     {
         this.gameOver = (this.model.getIsCharHit());
+        if (this.gameOver) {
+            this.endGame();
+        }
+    }
+    checkLevel()
+    {
+      return   this.model.getPlayer().checkLevel();
     }
 
     updateView()
@@ -86,6 +94,20 @@ class Game
     updateGame()
     {
 
+    }
+
+    endGame() {
+        this.engine.stopEngine();
+        
+        let newScore = game.model.getPlayer().getScore();
+        let newLevel = View.getPlayerLevel();
+
+        let saveScore = document.getElementById("saveButton");
+
+        saveScore.href = `../includes/updateProgress.php?newScore=${newScore}&newLevel=${newLevel}`;
+
+        document.getElementById("endGameContainer").style = "display : inline-block";
+        
     }
 
     addVirus() {
