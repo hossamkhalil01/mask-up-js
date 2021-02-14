@@ -9,8 +9,8 @@ class View
     static syringeWidth;
     static syringeHeight;
     static score;
-    static Level
-
+    static Level;
+    static SyringesRatio;
     constructor(player, character, level)
     {
         View.Level = level;
@@ -206,13 +206,16 @@ class View
 
     updateSyringes(syringesArr)
     {
+
         this.syringes.setSyringesArray(syringesArr);
     }
 
     updateLevel(level) {
+        View.Level=level;
         this.level=level;
-        this.viruses.changeLevel(level);
+        this.syringes.changeLevel(level);
         this.background.updateLevel(level);
+        this.viruses.changeLevel(level);
     }
 
 
@@ -221,13 +224,14 @@ class View
 
     /********** Frame Rendring functions*******/
     render() {
-
         this.clearScreen();
         this.background.update();
         this.drawPlayer();
         this.viruses.draw();
         this.syringes.draw();
         this.drawScore();
+        this.drawSyringes();
+        this.drawLevel();
     }
 
     drawPlayer()
@@ -235,15 +239,27 @@ class View
         this.character.draw(this.player.xPos,this.player.yPos);
         this.checkPlayerFrameWaitCount();
     }
+    drawSyringes(){
+        let syringeRightImg = new Image();
+           syringeRightImg.src = "../images/game/syringe/right.png";
+        View.context.drawImage(syringeRightImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
+            ,this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.11), this.floatToInt(View.canvas.width*0.06),this.floatToInt(View.canvas.height*0.06));
+        View.context.fillText(` :  ${View.SyringesRatio}`, this.floatToInt(View.canvas.width*0.14), this.floatToInt(View.canvas.height*0.15));
+    }
+    drawLevel() {
+        View.context.fillText(`Level         :  ${View.Level}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.20));
+
+    }
     drawScore() {
 
         View.context.beginPath();
-        View.context.rect(this.floatToInt(View.canvas.width*0.05), this.floatToInt(View.canvas.height*0.03),
-         this.floatToInt(View.canvas.width*0.15), this.floatToInt(View.canvas.height*0.1));
+        View.context.rect(this.floatToInt(View.canvas.width*0.05), this.floatToInt(View.canvas.height*0.05),
+         this.floatToInt(View.canvas.width*0.15), this.floatToInt(View.canvas.height*0.17));
         View.context.stroke();
         View.context.fillStyle = "red";
         View.context.font = View.canvas.width*0.015+"px Arial";
         View.context.fillText(`Your Score:  ${View.score}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.09));
+        // View.context.fillText(`Syringes:  ${View.score}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.09));
 
     }
     checkPlayerFrameWaitCount()
@@ -272,7 +288,6 @@ class View
 
 // Class to deal with the character's sprite sheets 
 class Character {
-
     static charState =
     {idleRight:"idleRight", idleLeft: "idleLeft", runRight: "runRight", 
      runLeft: "runLeft", jumpLeft:"jumpLeft", jumpRight:"jumpRight",
@@ -451,7 +466,7 @@ class VirusesHandler{
     {
         //load the covid image
         this.virusImg = new Image();
-        this.virusImg.src = "../images/game/virus/"+level+".png";
+        this.virusImg.src = "../images/game/virus/level"+level+".png";
 
         this.virusWidth = virusWidth;   
         this.virusHeight = vriusHeight;
@@ -460,7 +475,16 @@ class VirusesHandler{
     }
     changeLevel(level)
     {
-        this.virusImg.src = "../images/game/virus/"+level+".png";
+        console.log(level)
+        if (level <4)
+        {
+        this.virusImg.src = "../images/game/virus/level"+level+".png";
+        }
+        else
+        {
+            this.virusImg.src = "../images/game/virus/level"+2+".png";
+
+        }
         if (View.getPlayerLevel()!=level)
         {
             View.setPlayerLevel(level);
@@ -514,7 +538,13 @@ class SyringesHandler
 
         this.syringeArr= [];
     }
-
+    changeLevel(level)
+    {
+        if (View.Level != level)
+        {
+            this.syringeArr.splice(0);
+        }
+    }
     setDimensions(width,height)
     {
         this.syringeHeight = height;
@@ -554,7 +584,7 @@ class Background
     constructor(level, speed)
     {
         this.img = new Image();
-        this.img.src = "../images/game/backgrounds/"+level+".jpg";
+        this.img.src = "../images/game/backgrounds/level"+level+".jpg";
         this.x1 = 0;
         this.x2 = View.canvas.width;
         this.y = 0;
@@ -564,7 +594,16 @@ class Background
     }
     updateLevel(level)
     {
-        this.img.src = "../images/game/backgrounds/"+level+".jpg";
+        if (level>4)
+        {
+            this.img.src = "../images/game/backgrounds/level"+4+".jpg";
+
+        }
+        else
+        {
+        this.img.src = "../images/game/backgrounds/level"+level+".jpg";
+        }
+
     }
 
     //function to resize

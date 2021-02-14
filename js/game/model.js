@@ -204,19 +204,26 @@ class Player{
         return this.score;
     }
     checkLevel() {
-        if (this.getScore() >5 && this.getScore() <30)
-        {
-            return "level2"
-        }
-        if (this.getScore() >15 && this.getScore() <30)
-        {
-            return "level3"
-        }
-        else
-        {
-            return "level1"
-        }
+        // if (this.getScore()%30 ==0 &&this.getScore() !=0)
+        // {
+        //     console.log(this.getScore()/30);
+        console.log((Math.floor(this.getScore() / 30) + 1))
+        return (Math.floor(this.getScore() / 30) + 1);
     }
+        // }
+        // else
+        // {
+        //     return this.getScore()/30+1
+        // }
+        // if (this.getScore() >5 && this.getScore() <30)
+        // {
+        //     return "2"
+        // }
+        // if (this.getScore() >15 && this.getScore() <30)
+        // {
+        //     return "3"
+        // }
+
 
     moveRight()
     {
@@ -226,7 +233,7 @@ class Player{
         {
             this.xPos = this.xMaxPos;
         }
-        console.log("xPos: ",this.xPos);
+        // console.log("xPos: ",this.xPos);
 
         this.isFacingRight = true;
     }
@@ -239,7 +246,7 @@ class Player{
         {
             this.xPos = this.xMinPos;
         }
-        console.log("xPos: ",this.xPos);
+        // console.log("xPos: ",this.xPos);
         this.isFacingRight = false;
 
     }

@@ -10,6 +10,7 @@ class Game
 
         //start the game engine
         this.engine = new Engine(20, this);
+        this.timer=0;
     }
 
     getGameOver() {
@@ -23,7 +24,6 @@ class Game
     }
 
     updatePlayerJump() {
-
         if (this.model.getPlayer().isJumping == false )
         {
             this.model.getPlayer().dy += this.model.getPlayer().grav;
@@ -77,6 +77,8 @@ class Game
 
         //update the syignes
         this.view.updateSyringes(this.model.getSyringes());
+        View.SyringesRatio = `${Model.maxSyringeCount - this.model.getSyringes().length} X`;
+
     }
 
     updateModel()
@@ -112,8 +114,8 @@ class Game
 
     addVirus() {
         this.virusWaitCount ++;
-
-        if (this.virusWaitCount% 250 == 0)
+         this.timer = 270 - View.getPlayerLevel()*50;
+        if (this.virusWaitCount% this.timer  == 0)
         {
             this.model.addVirus();
         }

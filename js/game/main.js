@@ -39,7 +39,7 @@ else if (user.character == "2") {
     character =  new Girl();   
 }
 
-let view = new View(model.getPlayer(), character , `level${user.level}`);
+let view = new View(model.getPlayer(), character , `${user.level}`);
 
 //create controller object
 let controller = new Controller(model);
