@@ -5,7 +5,7 @@ const canvas = document.getElementById("mainCanvas");
 let model = new Model(canvas.width*0.02,canvas.height*0.9, canvas.width*0.85);
 
 //create view object
-let view = new View(model.getPlayer(), new Girl() , "level1");
+let view = new View(model.getPlayer(), new Boy() , "level1");
 
 //create controller object
 let controller = new Controller(model);
