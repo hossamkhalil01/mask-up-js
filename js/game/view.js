@@ -9,13 +9,11 @@ class View
     static syringeWidth;
     static syringeHeight;
     static score;
-    static Level
+    static level
 
-    constructor(player, character, level)
+    constructor(player, character, level = 1)
     {
-        View.Level = level;
-        //attach listener to the window resizing
-        window.addEventListener("resize",this.canvasResize.bind(this));
+        View.level = level;
 
         //create character object
         this.player = player;
@@ -29,7 +27,7 @@ class View
         this.playerFrameWaitCount = 0;
 
         //create viruses object
-        this.viruses = new VirusesHandler(level);
+        this.viruses = new VirusesHandler("level"+View.level);
         this.updateVirusDim();
 
         //create syinge object
@@ -37,10 +35,7 @@ class View
         this.updateSyringesDim();
     
         //create background object
-        this.background = new Background(View.level, 0.25);
-
-        //resize canvas
-        this.canvasResize();
+        this.background = new Background("level"+View.level, 0.25);
     }
     
 
@@ -89,7 +84,7 @@ class View
 
     static getPlayerLevel()
     {
-        return View.Level;
+        return View.level;
     }
     getLevel()
     {
@@ -109,7 +104,7 @@ class View
         this.updatePlayerDirection();
     }
     static setPlayerLevel(level){
-        View.Level = level;
+        View.level = level;
     }
 
     /*********** Game Resizing **************/
@@ -210,14 +205,16 @@ class View
     }
 
     updateLevel(level) {
-        this.level=level;
-        this.viruses.changeLevel(level);
-        this.background.updateLevel(level);
+        View.level = level;
+        //limit the scene levels
+        if (level > 3 )
+        {
+            level = 3;
+        }
+
+        this.viruses.changeLevel("level"+level);
+        this.background.updateLevel("level"+level);
     }
-
-
-    
-
 
     /********** Frame Rendring functions*******/
     render() {
@@ -464,11 +461,14 @@ class VirusesHandler{
         if (View.getPlayerLevel()!=level)
         {
             View.setPlayerLevel(level);
-            this.removeViruses() ;
+            this.removeViruses();
+           
         }
     }
     removeViruses () {
-            this.virusArray.splice(0);
+        this.virusArray = [];
+        console.log("updated view");
+        this.virusArray.splice(0);
     }
 
     setDimensions(width, height)
@@ -560,8 +560,9 @@ class Background
         this.y = 0;
         this.width = View.canvas.width;
         this.height = View.canvas.height;
+
         this.speed = speed;
-    }
+    }   
     updateLevel(level)
     {
         this.img.src = "../images/game/backgrounds/"+level+".jpg";
