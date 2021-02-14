@@ -4,20 +4,36 @@ class Model
     static maxSyringeCount = 5;
     //define  the kill bonus
     static killBonus = 5;
+    //init positions factors
+    static playerMinXFactor = 0.02;
+    static playerMaxXFactor = 0.9;
+    static playerMaxYFactor = 0.7;
+    static playerMinYFactor = 0.4;
+    //init speed factors
+    static syringeSpeedFactor = 0.0015;
 
-    constructor(initPlayerX, initPlayerY, maxX )
+
+    constructor(level = 1)
     {
         //create viruses
-        this.virusArr=[];
+        this.virusArr = [];
 
         //init the player object to hold player data
-        this.player = new Player(initPlayerX, initPlayerY ,maxX);
+        this.player = new Player( Model.playerMinXFactor*View.canvas.width, Model.playerMaxYFactor*View.canvas.height ,
+                                Model.playerMaxXFactor*View.canvas.width);
 
         //detect player hit
         this.isCharHit = false;
 
         //init syringe object
-        this.syringeArr=[];
+        this.syringeArr = [];
+
+        //variable to hold the level
+        this.level = level;
+        //init the score
+        this.score = 0 ;
+        //points needed for this level 
+        this.requiredPoints = 50;
     }
 
     /************Getters *********/
@@ -35,19 +51,34 @@ class Model
     {
         return this.isCharHit;
     }
-
+    getScore()
+    {
+        return this.score;
+    }
+    getLevel()
+    {
+        return this.level;
+    }
     /****Controller commands****/
     addVirus() {
-        this.virusArr.push( new Virus());
+        this.virusArr.push(new Virus(this.level));
     }
-
     shoot()
     {
         if( this.syringeArr.length < Model.maxSyringeCount)
-        {
-            this.syringeArr.push(new Syringe(this.player.getX()+View.getCharWidth()*0.4, this.player.getY() + View.getCharHeight()*0.8,this.player.getDirection()));
+        { 
+            this.syringeArr.push(new Syringe(this.player.getX()+View.getCharWidth()*0.4, this.player.getY() + View.getCharHeight()*0.5, 
+            View.canvas.width*Model.syringeSpeedFactor, this.player.getDirection())) ;
         }
     }
+    updateDimensions()
+    {
+        this.player.setNewBoundries( Model.playerMinXFactor*View.canvas.width, Model.playerMaxYFactor*View.canvas.height ,
+                                    Model.playerMaxXFactor*View.canvas.width);
+
+        this.player.updateSpeeds();
+    }
+
 
     /********Update objects states ******/
     removeSyringeOnBoundries(index)
@@ -76,8 +107,8 @@ class Model
             }
         }
     }
-
     handleViruses() {
+
         for( var index = 0 ; index < this.virusArr.length; index++)
         {
             this.virusArr[index].updatePos();
@@ -170,52 +201,79 @@ class Model
 
     /***********Update score**************/
     increasePlayerScore() {
-        this.player.setScore(this.player.getScore()+Model.killBonus);
+        //update the score
+        this.score += Model.killBonus;
+        //check for the level 
+        if (this.score >= this.requiredPoints)
+        {
+            this.levelUp();
+        }
+    }
+
+    levelUp()
+    {
+        this.level += 1;
+        this.score = 0;
+
+        //increase required points for the new level
+        this.requiredPoints += Math.floor(this.requiredPoints*0.3);
     }
 }
 
 /***********Helper Classes*********/
 class Player{
 
-    constructor(initPlayerX, initPlayerY , maxX) {
+    static speedXFactor = 0.01;
+    static speedYFactor = 0.01;
 
-        Model.initPlayerY=initPlayerY;
+    constructor(initPlayerX, initPlayerY , maxPlayerX) {
+
         this.xPos = initPlayerX;
         this.yPos =initPlayerY;
 
-        this.dx = 15//speed in x direction
-        this.dy = 0 ; // speed
-        this.drag = 0.5; // the drag is 0.01
+        //speed in x direction
+        //speed in y direction
+        this.updateSpeeds();
+
+        this.drag = 0.5;
         this.grav = 0.7;
         this.isFacingRight = true;
         this.isJumping= false;
         this.isDown = false;
         this.isDead = false;
-        this.xMaxPos = maxX;
+        this.xMaxPos = maxPlayerX;
         this.xMinPos = initPlayerX;
         this.isIdle = true;
         this.onGround = false;
         this.score = 0;
     }
+    setInitPlayerX(xPos)
+    {
+        this.xMinPos = xPos;
+    }
+    setInitPlayerY(yPos)
+    {
+        this.yPos = yPos;
+    }
+    setMaxPlayerX(xPos)
+    {
+        this.xMaxPos = xPos;
+    }
+    updateSpeeds()
+    {
+        this.dx = Player.speedXFactor * View.canvas.width;
+        this.dy = Player.speedYFactor * View.canvas.height;
+    }
+
+    setNewBoundries(initPlayerX,initPlayerY,maxPlayerX)
+    {
+        this.xMinPos = initPlayerX;
+        this.yPos = initPlayerY;
+        this.xMaxPos = maxPlayerX;
+    }
+
     setScore(score) {
         this.score = score;
-    }
-    getScore(){
-        return this.score;
-    }
-    checkLevel() {
-        if (this.getScore() >5 && this.getScore() <30)
-        {
-            return "level2"
-        }
-        if (this.getScore() >15 && this.getScore() <30)
-        {
-            return "level3"
-        }
-        else
-        {
-            return "level1"
-        }
     }
 
     moveRight()
@@ -226,38 +284,26 @@ class Player{
         {
             this.xPos = this.xMaxPos;
         }
-        console.log("xPos: ",this.xPos);
 
         this.isFacingRight = true;
     }
     moveLeft()
     {
         this.xPos -= this.dx;
-
         //check the boundires
         if (this.xPos < this.xMinPos)
         {
             this.xPos = this.xMinPos;
         }
-        console.log("xPos: ",this.xPos);
         this.isFacingRight = false;
-
     }
     moveUp()
     {
-
-        if (this.yPos >= 480)
+        if (this.yPos >=  Model.playerMaxYFactor*View.canvas.height)
         {
             this.isJumping=true;
         }
     }
-    moveDown()
-    {
-        this.yPos-=1;
-        this.isDown = true;
-        this.isJumping = false;
-    }
-    
     setIdle(idleStatus)
     {
         this.isIdle = idleStatus;
@@ -292,24 +338,22 @@ class Player{
             return -1;
         }
     }
-
 }
 
 class Syringe
 {
-    constructor(xPos,yPos,direction) {
+    constructor(xPos,yPos,speed,direction) {
 
         this.x = xPos;
         this.y = yPos;
         this.direction = direction;
-        this.speed = 2*direction;
+        this.speed = speed*direction;
     }
 
     getX()
     {
         return this.x;
     }
-
     getY()
     {
         return this.y;
@@ -326,20 +370,20 @@ class Syringe
 
 class Virus {
 
-    constructor() {
-        this.x =View.getCanvasWidth();
-        this.y = (Math.random()* View.getCanvasHeight()) + View.getCanvasHeight()*0.3;
+    constructor(level) {
 
-        if(this.y > View.getCanvasHeight()*0.7)
+        this.x =View.canvas.width;
+        this.y = Math.floor((Math.random()* View.canvas.height) + View.canvas.height*0.4);
+        if(this.y > View.canvas.height*0.75)
         {
-            this.y = View.getCanvasHeight()*0.7;
+            this.y =  Math.floor(View.canvas.height*0.75);
         }
         
-        this.speed = Math.random()*3+1;
+        this.speed = Math.floor((Math.random()*level*2*Math.floor(Model.syringeSpeedFactor*View.canvas.width))+1);
         this.distance;
     }
+    
     getX() {
-
         return this.x;
     }
 
@@ -347,6 +391,6 @@ class Virus {
         return this.y;
     }
     updatePos(){
-        this.x-=(this.speed) /2;
+        this.x-=(this.speed)/2;
     }
 }
