@@ -99,13 +99,15 @@ class Game
     endGame() {
         this.engine.stopEngine();
         
-        if (confirm("play again"))
-        {
-            document.getElementById("score").val=game.model.getPlayer().getScore();
-            document.getElementById("Level").val=View.getPlayerLevel();
+        let newScore = game.model.getPlayer().getScore();
+        let newLevel = View.getPlayerLevel();
 
-            // document.getElementById("form1").submit();
-        }
+        let saveScore = document.getElementById("saveButton");
+
+        saveScore.href = `../includes/updateProgress.php?newScore=${newScore}&newLevel=${newLevel}`;
+
+        document.getElementById("endGameContainer").style = "display : inline-block";
+        
     }
 
     addVirus() {

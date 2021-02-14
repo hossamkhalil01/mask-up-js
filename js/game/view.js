@@ -37,7 +37,7 @@ class View
         this.updateSyringesDim();
     
         //create background object
-        this.BGImg = new Background(View.level, 0.25);
+        this.background = new Background(View.level, 0.25);
 
         //resize canvas
         this.canvasResize();
@@ -123,6 +123,8 @@ class View
         this.updateCharacterDim();
         this.updateVirusDim();
         this.updateSyringesDim();
+        this.background.resize();
+
     }
     updateCharacterDim()
     {
@@ -145,6 +147,7 @@ class View
 
         this.syringes.setDimensions(View.syringeWidth , View.syringeHeight);
     }
+
 
     /**********View Updates ********/
     updatePlayerDirection()
@@ -209,8 +212,10 @@ class View
     updateLevel(level) {
         this.level=level;
         this.viruses.changeLevel(level);
-        this.BGImg.updateLevel(level);
+        this.background.updateLevel(level);
     }
+
+
     
 
 
@@ -218,7 +223,7 @@ class View
     render() {
 
         this.clearScreen();
-        this.BGImg.update();
+        this.background.update();
         this.drawPlayer();
         this.viruses.draw();
         this.syringes.draw();
@@ -601,5 +606,7 @@ class Background
 
         //draw image 2
         View.context.drawImage(this.img, this.x2 , this.y , this.width, this.height);
+        
     }
+
 }

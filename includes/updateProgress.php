@@ -1,12 +1,13 @@
-<?php 'functions.php';?>
+<?php include 'functions.php';?>
 <?php
 
-if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['updateProgress'])){
+if($_SERVER['REQUEST_METHOD'] == "GET"){
     
     $username = $_SESSION['username'];
     $nickname = $_SESSION['nickname'];
-    $level = escape($_POST['level']);
-    $score = escape($_POST['score']);
+
+    $level = escape($_GET['newLevel']);
+    $score = escape($_GET['newScore']);
 
     $query = "UPDATE `player` SET `score`='$score',`level`='$level' WHERE `username`='$username'";
 
@@ -19,6 +20,4 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['updateProgress'])){
         redirect("../index.php");
     }
 }
-?>
-
 ?>

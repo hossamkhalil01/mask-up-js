@@ -1,3 +1,5 @@
+
+<?php session_start() ?>
 <?php 
 	if(!isset($_SESSION['username'])){
 		header("Location: ../index.php");
@@ -16,14 +18,13 @@
         <link rel="stylesheet" href="../css/game-styles.css">
 
     </head>
-<!--    width: 1900px;-->
-<!--    height: 800px;-->
     <body>
-    <form  id="form1" method="post" action= "../includes/updateProgress.php" style="display: none">
-        <input type="text" name="newScore" id="score">
-        <input type="text" name="newLevel" id="Level">
-        <input type="submit" name="updateProgress" value="updateProgress">
-    </form>
+    <img src="../images/game/mute.png" id="mute" width="50px" height="50px"></img>
+
+        <div id="endGameContainer" class="form-container">
+            <button><a href="game.php">Try Again</a></button>
+            <button><a id="saveButton"  href="">Back to Main Menu</a></button>
+        </div>
         <canvas
                 width="1900" height="800"
                 id="mainCanvas" class="main-canvas"></canvas>

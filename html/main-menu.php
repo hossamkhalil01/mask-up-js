@@ -123,10 +123,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
                 <h2>Select your level</h2>
                 <div class="start-game">
                     <div class="option" id="newGame">
-                        <a href="game.html">New Game</a>
+                        <a href="game.php">New Game</a>
                     </div>
                     <div  class="option" id="continueGame">
-                        <a href="game.html">Continue last level</a>
+                        <a href="game.php">Continue last level</a>
                     </div>
                 </div>
             </div>
