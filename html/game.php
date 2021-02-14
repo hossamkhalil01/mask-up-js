@@ -21,10 +21,18 @@
     <body>
     <img src="../images/game/mute.png" id="mute" width="50px" height="50px"></img>
 
-        <div id="endGameContainer" class="form-container">
-            <button><a href="game.php">Try Again</a></button>
-            <button><a id="saveButton"  href="">Back to Main Menu</a></button>
+
+    <div class="overlay" id="endGameContainer">
+        <div class="popup">
+            <h3>The virus got you &#9785;, we hope you get well soon, remember to isolate yourself</h3>
+            <img src="../images/game/game-over-icon.jpg" alt="GameOver">
+            <div class="text-right">
+                <a href="game.php" class="btn btn-try-again"> Try Again</a>
+                <a href=""  id="saveButton" name="saveButton" class="btn btn-back-menu"> Back to Main Menu</a>
+            </div>
         </div>
+    </div>
+
         <canvas
                 width="1900" height="800"
                 id="mainCanvas" class="main-canvas"></canvas>

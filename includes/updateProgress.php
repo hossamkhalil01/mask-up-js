@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
     $level = escape($_GET['newLevel']);
     $score = escape($_GET['newScore']);
-
+    
     $query = "UPDATE `player` SET `score`='$score',`level`='$level' WHERE `username`='$username'";
 
     $update_user_query = query($query);
