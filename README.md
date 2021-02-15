@@ -69,7 +69,7 @@ The game is developed using html, css, javascript, php and mysql in order to app
 ## 💻 How To Use
 
 Just type the url of our game and start registration and playing.
-[here](https://stormy-badlands-36127.herokuapp.com)
+[here](https://maskup21.herokuapp.com)
 
 
 
