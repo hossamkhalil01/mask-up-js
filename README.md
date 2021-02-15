@@ -5,37 +5,42 @@
 [![forthebadge](https://forthebadge.com/images/badges/makes-people-smile.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
 
-
 # **Mask-up**
 
+![demo gf](https://github.com/hossamkhalil01/mask-up-js/tree/main/demo/demo.gif)
+
 Covid-19 affected our daily life dramatically.
-Our game gives some instructions in order to get higher scores in addition to higher levels by avoiding covid-19 viruses and shooting them with the cure.
+Our game gives you the chance to fight back and kill all viruses using the antivirus syringesin in order to get a higher score in addition to higher levels by shooting covid-19 viruses with the cure.
 
 ---
 ## Overview
 
 This project is a game developed as the final project for JavaScript course.
-The game is developed using html, css, javascript, php and mysql in order to apply the scenario of registration, login starting the game and more.
+utilizing the following technologies:
+
+- Fornt-End: HTML5 , CSS3 and JavaScript (ES6).
+- Back-End: PHP and MySQL.
+
+in order to apply the scenario of registration, login starting the game and more.
 
 ---
 ## Table of Contents
 
 <!-- TOC -->
-- [Main Features](https://github.com/hossamkhalil01/mask-up-js/blob/main/README.md#%EF%B8%8F-main-features)
-- [Game Features](https://github.com/ahmedmumdouh/TicTacToe-Java-Project/blob/main/README.md#-game-features)
-- [Demo](https://github.com/ahmedmumdouh/TicTacToe-Java-Project/blob/main/README.md#-demo)
-- [How To Use](https://github.com/hossamkhalil01/mask-up-js/blob/main/README.md#-how-to-use)
+- [Main Features](#main-features)
+- [Game Features](#game-features)
+- [How To Use](#how-to-use)
 - [Database Setup](#database-setup)
 - [Dependencies](#dependencies)
 - [Limitations](#limitations)
 - [Possible Improvements](#possible-improvements)
-- [About Us](https://github.com/hossamkhalil01/mask-up-js/blob/main/README.md#-about-us)
+- [About Us](#about-us)
 <!-- /TOC -->
 
 
 
 ---
-## 🕹️ Main Features
+## Main Features
 
 ### Back-end
 
@@ -55,21 +60,18 @@ The game is developed using html, css, javascript, php and mysql in order to app
 - The user can start playing after the registration process is completed
 
 ---
-## 💡 Game Features
+## Game Features
 
 - Saving the user's highest score and level in database.
-- Both score and level increase whenever the user avoids collision with viruses or kills a virus using a synergy.
+- Both score and level increase whenever the user avoids collision with viruses or kills a virus using the antivirus syringes.
 - listining to a music track while playing is one of the features.
 
----
-## 🎮 Demo
-
 
 ---
-## 💻 How To Use
+## How To Use
 
-Just type the url of our game and start registration and playing.
-[here](https://maskup21.herokuapp.com)
+Just type the url of our game and start registration and playing
+[here](https://maskup21.herokuapp.com).
 
 
 
@@ -79,28 +81,28 @@ Just type the url of our game and start registration and playing.
 
 
 ---
-## 📋 Dependencies
+## Dependencies
 
 * [PHP](https://www.php.net/)
 
 
 ---
-## 🚫 Limitations
+## Limitations
 
-- A potential shortcoming could appear when the database goes down while the server is running.
-- The reliability of the Client-Server communication is about 90%; sometimes the requests from the client are not caught by the server.
+- A potential shortcoming could appear when the game is still not full loaded so that the frames could become a little bit laggy.
 
 ---
-## 📈 Possible Improvements
+## Possible Improvements
 
-- Implement a notification system to notify players about others signning in/out.
-- To allow the player to share his game result on his social media accounts.
+- Improve the UI design of the main menu.
+- Allow the player to choose which level to play instead of only the highest level.
+
 ---
-## 👨‍💻 About Us
+## About Us
 
 We are a team of software enginnering students at ITI intake 41, Smart Village branch, Open-source application track.
 
-### 📞 Contacts
+### Contacts
 
 You can find us on:
 
