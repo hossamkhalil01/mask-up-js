@@ -67,10 +67,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
                 <?php }?>
                 <div class="progress-data-container">
                     <h2 id="userNickname" class="nickname"><?php echo $_SESSION["nickname"];?></h2>
-                    <h3 class="progress-data">Score</h3>
-                    <span id="userScore"><?php echo $_SESSION["score"];?> </span>
-                    <h3 class="progress-data">Level</h3>
-                    <span id="userLevel"><?php echo $_SESSION["level"];?> </span>
+                    <h3 class="progress-data">Highst Score:</h3>
+                    <span id="userScore" style="color: white;"><?php echo $_SESSION["score"];?> </span>
+                    <br>
+                    <h3 class="progress-data">Highst Level:</h3>
+                    <span id="userLevel" style="color: white;"><?php echo $_SESSION["level"];?> </span>
+                    
                 </div>
                 <p id="clear"></p>
 
@@ -126,7 +128,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
                         <a href="game.php">New Game</a>
                     </div>
                     <div  class="option" id="continueGame">
-                        <a href="game.php">Continue last level</a>
+                        <a href="game.php">Continue From Highest Level</a>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ var userScore = document.getElementById("userScore");
 var userLevel = document.getElementById("userLevel");
 const selectCharactersection = document.getElementById("selectCharactersection");
 
+
 let userData = {
     nickname : userNickname.innerText,
     score : userScore.innerText,
@@ -57,3 +58,11 @@ if (userLevel.innerText == 1  ) {
 }else{
     continueGameButt.style = "display: block;";
 }
+
+
+newGamebutt = document.getElementById("newGame");
+
+newGamebutt.addEventListener("click", function () {
+  userData.level = "1";
+  updateLocalStorage(userData);
+});
