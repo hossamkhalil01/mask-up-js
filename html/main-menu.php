@@ -1,6 +1,6 @@
 <?php include '../includes/functions.php';?>
 
-<?php 
+<?php
 	if(!isset($_SESSION['username'])){
 		header("Location: ../index.php");
     }else{
@@ -8,16 +8,16 @@
         $nickname = $_SESSION['nickname'];
         $score = $_SESSION['score'];
         $level = $_SESSION['level'];
-        
+
         // Get image data from database
-        $query = "SELECT * FROM `player` WHERE `username` = '$username'"; 
+        $query = "SELECT * FROM `player` WHERE `username` = '$username'";
         $select_img_query = query($query);
     }
 ?>
 
 <?php
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
-    
+
     $password = escape($_POST['password']);
     $cpassword = escape($_POST['cpassword']);
     $nickname = escape($_POST['nickname']);
@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
     if (empty($errorUpdate)){
         if(update_user($_SESSION["username"], $password, $nickname)){
             $updated = true;
-        }    
+        }
     }
 
 }

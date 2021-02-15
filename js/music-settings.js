@@ -1,8 +1,12 @@
 class MusicSetting{
     static  audio = document.getElementById("theAud");
     static currentSong = document.getElementById("currentSong");
+    static currentMode = "play"
     static getAudio() {
         return this.audio;
+    }
+    static getCurrentMode() {
+        return this.currentMode;
     }
 
     static getCurrentSong() {
@@ -26,7 +30,7 @@ class MusicSetting{
         this.repeat.addEventListener("click",this.repeatSong);
         this.shuffle.addEventListener("click",this.shuffleSong)
         this.music.addEventListener("click",this.musicClicked);
-        this.audio.addEventListener("ended",this.chooseSong);
+       // this.audio.addEventListener("ended",this.chooseSong);
         this.pauseResume.addEventListener("click",this.pauseOrResume);
         document.addEventListener("DOMContentLoaded", this.initializeSongs);
 
@@ -49,16 +53,17 @@ class MusicSetting{
      chooseSong() {
         if(this.buttonType == "play")
         {
-
+            MusicSetting.currentMode="play";
             Album.playSong();
         }
         else if (this.buttonType == "repeat")
         {
-
+            MusicSetting.currentMode="repeat";
             Album.repeatSong();
         }
         else if (this.buttonType == "shuffle")
         {
+            MusicSetting.currentMode="shffle";
             Album.shuffleSong();
         }
     }
@@ -103,7 +108,23 @@ class MusicSetting{
 class Album {
     static songs=[];
     static index ;
-    static audio_var;
+    static audio_var =new Audio();
+    static handleAudioEnd(){
+        this.audio_var.addEventListener("ended",function (){
+             Album.audio_var.currentTime = 0;
+            if (MusicSetting.getCurrentMode() == "play")
+           {
+               Album.playSong();
+           }
+           else if (MusicSetting.getCurrentMode() == "repeat") {
+               Album.repeatSong();
+           }
+
+           else if (MusicSetting.getCurrentMode() == "shuffle") {
+               Album.shuffleSong();
+           }
+        })
+    }
 
     static getSongs() {
         return this.songs;
@@ -131,7 +152,7 @@ class Album {
             {
                 this.index=0;
             }
-            this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+            this.audio_var.src=`../audio/${Album.getSongs()[this.index]}`;
             this.audio_var.play();
         }
     }
@@ -151,7 +172,7 @@ class Album {
         {
             this.audio_var.pause();
         }
-        this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+        this.audio_var.src=`../audio/${Album.getSongs()[this.index]}`;
         this.audio_var.play();
     }
     static shuffleSong() {
@@ -165,7 +186,7 @@ class Album {
         {
             this.audio_var.pause();
         }
-        this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+        this.audio_var.src=`../audio/${Album.getSongs()[this.index]}`;
         this.audio_var.play();
 
 
@@ -192,9 +213,10 @@ class Album {
         {
             this.audio_var.pause();
         }
-        this.audio_var = new Audio(`../audio/${Album.getSongs()[this.index]}`);
+        this.audio_var.src=`../audio/${Album.getSongs()[this.index]}`;
         this.audio_var.play();
     }
 }
 var music = new MusicSetting();
 music.addEventListeners();
+Album.handleAudioEnd();

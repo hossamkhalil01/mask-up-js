@@ -9,12 +9,12 @@ class View
     static syringeWidth;
     static syringeHeight;
     static score;
-    static level
+    static level;
 
     constructor(player, character, level = 1)
     {
         View.level = level;
-
+        
         //create character object
         this.player = player;
         this.character = character;
@@ -27,7 +27,7 @@ class View
         this.playerFrameWaitCount = 0;
 
         //create viruses object
-        this.viruses = new VirusesHandler("level"+View.level);
+        this.viruses = new VirusesHandler(View.level);
         this.updateVirusDim();
 
         //create syinge object
@@ -35,7 +35,16 @@ class View
         this.updateSyringesDim();
     
         //create background object
-        this.background = new Background("level"+View.level, 0.25);
+        this.background = new Background(View.level, 0.25);
+
+        //define syringe image for the score
+        this.syringeRightImg = new Image();
+        this.syringeRightImg.src = "../images/game/syringe/right.png";
+
+        //values to display
+        this.syringeRation = 0;
+        this.maxSyringe = 0;
+        this.maxScore = 0;
     }
     
 
@@ -84,27 +93,31 @@ class View
 
     static getPlayerLevel()
     {
-        return View.level;
+        return View.Level;
     }
     getLevel()
     {
-        return this.level;
+        return View.level;
     }
 
 
 
     /******************Setters*************************/
-    static setScore(score)
+    setScore(score, maxScore)
     {
         View.score = score;
+        this.maxScore = maxScore;
     }
     setPlayer(player)
     {
         this.player = player;
         this.updatePlayerDirection();
     }
-    static setPlayerLevel(level){
-        View.level = level;
+
+    setSyringeRatio(ratio, maxSyringe)
+    {
+        this.SyringesRatio = ratio;
+        this.maxSyringe = maxSyringe;
     }
 
     /*********** Game Resizing **************/
@@ -205,16 +218,23 @@ class View
     }
 
     updateLevel(level) {
+
         View.level = level;
         //limit the scene levels
-        if (level > 3 )
+        if(level > 6)
         {
-            level = 3;
+            this.viruses.changeLevel((3));
+            this.background.updateLevel((3));
         }
 
-        this.viruses.changeLevel("level"+level);
-        this.background.updateLevel("level"+level);
+        else if (level % 2 == 0)
+        {
+
+            this.viruses.changeLevel((level/2+1));
+            this.background.updateLevel((level/2+1));
+        }
     }
+
 
     /********** Frame Rendring functions*******/
     render() {
@@ -225,6 +245,8 @@ class View
         this.viruses.draw();
         this.syringes.draw();
         this.drawScore();
+        this.drawSyringes();
+        this.drawLevel();
     }
 
     drawPlayer()
@@ -232,15 +254,34 @@ class View
         this.character.draw(this.player.xPos,this.player.yPos);
         this.checkPlayerFrameWaitCount();
     }
+    drawSyringes(){
+
+        View.context.drawImage(this.syringeRightImg,0,0,SyringesHandler.frameWidth,SyringesHandler.frameHeight
+            ,this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.11), this.floatToInt(View.canvas.width*0.05),this.floatToInt(View.canvas.height*0.06));
+        
+        View.context.fillText(` :  ${this.SyringesRatio} / ${this.maxSyringe}`, this.floatToInt(View.canvas.width*0.14), this.floatToInt(View.canvas.height*0.15));
+    }
+
+    drawLevel() {
+        View.context.fillText(`Level         :  ${View.level}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.20));
+
+    }
     drawScore() {
 
         View.context.beginPath();
-        View.context.rect(this.floatToInt(View.canvas.width*0.05), this.floatToInt(View.canvas.height*0.03),
-         this.floatToInt(View.canvas.width*0.15), this.floatToInt(View.canvas.height*0.1));
+        View.context.rect(this.floatToInt(View.canvas.width*0.05), this.floatToInt(View.canvas.height*0.05),
+         this.floatToInt(View.canvas.width*0.18), this.floatToInt(View.canvas.height*0.17));
         View.context.stroke();
-        View.context.fillStyle = "red";
+
+        View.context.fillStyle = "#307D7E";
+
+        View.context.fillRect(this.floatToInt(View.canvas.width*0.05), this.floatToInt(View.canvas.height*0.05),
+        this.floatToInt(View.canvas.width*0.18), this.floatToInt(View.canvas.height*0.17));
+
+        View.context.fillStyle = "#E5E4E2";
+
         View.context.font = View.canvas.width*0.015+"px Arial";
-        View.context.fillText(`Your Score:  ${View.score}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.09));
+        View.context.fillText(`Your Score:  ${View.score} / ${this.maxScore}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.09));
 
     }
     checkPlayerFrameWaitCount()
@@ -448,7 +489,7 @@ class VirusesHandler{
     {
         //load the covid image
         this.virusImg = new Image();
-        this.virusImg.src = "../images/game/virus/"+level+".png";
+        this.virusImg.src = "../images/game/virus/level"+level+".png";
 
         this.virusWidth = virusWidth;   
         this.virusHeight = vriusHeight;
@@ -457,18 +498,7 @@ class VirusesHandler{
     }
     changeLevel(level)
     {
-        this.virusImg.src = "../images/game/virus/"+level+".png";
-        if (View.getPlayerLevel()!=level)
-        {
-            View.setPlayerLevel(level);
-            this.removeViruses();
-           
-        }
-    }
-    removeViruses () {
-        this.virusArray = [];
-        console.log("updated view");
-        this.virusArray.splice(0);
+        this.virusImg.src = "../images/game/virus/level"+level+".png";
     }
 
     setDimensions(width, height)
@@ -554,7 +584,7 @@ class Background
     constructor(level, speed)
     {
         this.img = new Image();
-        this.img.src = "../images/game/backgrounds/"+level+".jpg";
+        this.img.src = "../images/game/backgrounds/level"+level+".jpg";
         this.x1 = 0;
         this.x2 = View.canvas.width;
         this.y = 0;
@@ -562,10 +592,10 @@ class Background
         this.height = View.canvas.height;
 
         this.speed = speed;
-    }   
+    }
     updateLevel(level)
     {
-        this.img.src = "../images/game/backgrounds/"+level+".jpg";
+        this.img.src = "../images/game/backgrounds/level"+level+".jpg";
     }
 
     //function to resize
@@ -609,5 +639,4 @@ class Background
         View.context.drawImage(this.img, this.x2 , this.y , this.width, this.height);
         
     }
-
 }

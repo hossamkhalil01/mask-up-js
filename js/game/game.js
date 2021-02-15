@@ -44,6 +44,7 @@ class Game
                 this.model.getPlayer().isJumping=false;
             }
         }
+
         if (this.model.getPlayer().yPos > Model.playerMaxYFactor*View.canvas.height) {
             this.model.getPlayer().yPos = Model.playerMaxYFactor*View.canvas.height;
             this.model.getPlayer().dy = 0;
@@ -67,24 +68,22 @@ class Game
         }
     }
 
-    checkLevel()
-    {
-      return this.model.getLevel();
-    }
-
     updateView()
     {
         //update the player state
         this.view.setPlayer(this.model.getPlayer());
 
         //update the score
-        View.setScore(model.getScore());
+        this.view.setScore(this.model.getScore(), this.model.getMaxScore());
 
         //update the viruses
         this.view.updateViruses(this.model.getViruses())
-        
+
         //update the syignes
         this.view.updateSyringes(this.model.getSyringes());
+
+        //update syringes ratio
+        this.view.setSyringeRatio (Model.maxSyringeCount - this.model.getSyringes().length , this.model.getMaxSyringeCount());
     }
 
     updateModel()
@@ -108,15 +107,16 @@ class Game
 
         this.engine.stopEngine();
         let saveScore = document.getElementById("saveButton");
+
         saveScore.href = `../includes/updateProgress.php?newScore=${this.model.getScore()}&newLevel=${this.model.getLevel()}`;
         document.getElementById("endGameContainer").style = "display : inline-block";
     }
 
     addVirus() {
-        
+
         this.virusWaitCount ++;
 
-        if (this.virusWaitCount %  (250 - this.model.getLevel()*50) == 0)
+        if (this.virusWaitCount >= (200 - this.model.getLevel()*30))
         {
             this.model.addVirus();
             this.virusWaitCount = 0;

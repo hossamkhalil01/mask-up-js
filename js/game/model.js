@@ -12,7 +12,6 @@ class Model
     //init speed factors
     static syringeSpeedFactor = 0.0015;
 
-
     constructor(level = 1)
     {
         //create viruses
@@ -20,7 +19,7 @@ class Model
 
         //init the player object to hold player data
         this.player = new Player( Model.playerMinXFactor*View.canvas.width, Model.playerMaxYFactor*View.canvas.height ,
-                                Model.playerMaxXFactor*View.canvas.width);
+            Model.playerMaxXFactor*View.canvas.width);
 
         //detect player hit
         this.isCharHit = false;
@@ -29,11 +28,11 @@ class Model
         this.syringeArr = [];
 
         //variable to hold the level
-        this.level = level;
+        this.level = parseInt(level);
         //init the score
         this.score = 0 ;
         //points needed for this level 
-        this.requiredPoints = 50;
+        this.requiredPoints = 70;
     }
 
     /************Getters *********/
@@ -59,18 +58,29 @@ class Model
     {
         return this.level;
     }
+    getMaxSyringeCount()
+    {
+        return Model.maxSyringeCount;
+    }
+    getMaxScore()
+    {
+        return this.requiredPoints;
+    }
+    
     /****Controller commands****/
     addVirus() {
         this.virusArr.push(new Virus(this.level));
     }
+
     shoot()
     {
         if( this.syringeArr.length < Model.maxSyringeCount)
-        { 
+        {
             this.syringeArr.push(new Syringe(this.player.getX()+View.getCharWidth()*0.4, this.player.getY() + View.getCharHeight()*0.5, 
-            View.canvas.width*Model.syringeSpeedFactor, this.player.getDirection())) ;
+            View.canvas.width*Model.syringeSpeedFactor, this.player.getDirection())) ;   
         }
     }
+
     updateDimensions()
     {
         this.player.setNewBoundries( Model.playerMinXFactor*View.canvas.width, Model.playerMaxYFactor*View.canvas.height ,
@@ -78,7 +88,6 @@ class Model
 
         this.player.updateSpeeds();
     }
-
 
     /********Update objects states ******/
     removeSyringeOnBoundries(index)
@@ -107,8 +116,8 @@ class Model
             }
         }
     }
-    handleViruses() {
 
+    handleViruses() {
         for( var index = 0 ; index < this.virusArr.length; index++)
         {
             this.virusArr[index].updatePos();
@@ -201,6 +210,7 @@ class Model
 
     /***********Update score**************/
     increasePlayerScore() {
+
         //update the score
         this.score += Model.killBonus;
         //check for the level 
@@ -217,6 +227,15 @@ class Model
 
         //increase required points for the new level
         this.requiredPoints += Math.floor(this.requiredPoints*0.3);
+
+        //increase syringes every 2 levels (limit at 15)
+        if (this.level %2 == 0)
+        {
+            if (Model.maxSyringeCount < 15)
+            {
+                Model.maxSyringeCount += 1;
+            }
+        }
     }
 }
 
@@ -231,10 +250,8 @@ class Player{
         this.xPos = initPlayerX;
         this.yPos =initPlayerY;
 
-        //speed in x direction
-        //speed in y direction
+        //speeds in x direction
         this.updateSpeeds();
-
         this.drag = 0.5;
         this.grav = 0.7;
         this.isFacingRight = true;
@@ -290,6 +307,7 @@ class Player{
     moveLeft()
     {
         this.xPos -= this.dx;
+
         //check the boundires
         if (this.xPos < this.xMinPos)
         {
@@ -299,11 +317,13 @@ class Player{
     }
     moveUp()
     {
+
         if (this.yPos >=  Model.playerMaxYFactor*View.canvas.height)
         {
-            this.isJumping=true;
+            this.isJumping = true;
         }
     }
+
     setIdle(idleStatus)
     {
         this.isIdle = idleStatus;
@@ -338,6 +358,7 @@ class Player{
             return -1;
         }
     }
+
 }
 
 class Syringe
@@ -373,16 +394,11 @@ class Virus {
     constructor(level) {
 
         this.x =View.canvas.width;
-        this.y = Math.floor((Math.random()* View.canvas.height) + View.canvas.height*0.4);
-        if(this.y > View.canvas.height*0.75)
-        {
-            this.y =  Math.floor(View.canvas.height*0.75);
-        }
+        this.y = Math.floor((Math.random() * (View.canvas.height*0.75 - View.canvas.height*0.4) + View.canvas.height*0.4));
         
-        this.speed = Math.floor((Math.random()*level*2*Math.floor(Model.syringeSpeedFactor*View.canvas.width))+1);
+        this.speed = Math.floor((Math.random()*level*1.5*Math.floor(Model.syringeSpeedFactor*View.canvas.width))+1);
         this.distance;
     }
-    
     getX() {
         return this.x;
     }
@@ -391,6 +407,6 @@ class Virus {
         return this.y;
     }
     updatePos(){
-        this.x-=(this.speed)/2;
+        this.x-=(this.speed) /2;
     }
 }

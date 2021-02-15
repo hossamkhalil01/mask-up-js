@@ -1,10 +1,3 @@
-var user;
-let userData = {
-    nickname : "mahmoud",
-    score : "500",
-    level: "1",
-    character: "1"
-}
 function updateLocalStorage(data) {
     localStorage.setItem('userData', JSON.stringify(data));
 }
@@ -24,12 +17,12 @@ function getFromLocalStorage() {
     }
 }
 
-// updateLocalStorage(userData);
+//load data from local storage
 getFromLocalStorage();
 
-
-//create view object
+//load the character
 let character;
+
 if (user.character != "2" ){
     character = new Boy();
 }
@@ -38,20 +31,23 @@ else{
 }
 
 //create model object
-let model = new Model(`level${user.level}`);
-
-let view = new View(model.getPlayer(), character , `level${user.level}`);
-
+let model = new Model(`${user.level}`);
+//create view object
+let view = new View(model.getPlayer(), character , `${user.level}`);
 //create controller object
 let controller = new Controller(model);
-
 //create game object 
 let game = new Game(model, view);
 
-var mute= document.getElementById("mute")
-var isMuted =true;
+
+//handle music
+let isMuted =true;
+
+const mute= document.getElementById("mute");
+
 mute.addEventListener("click",playOrMute)
-var  audio= new Audio(`../audio/01_AlbyEtmannah.mp3`);
+
+let  audio= new Audio(`../audio/01_AlbyEtmannah.mp3`);
 audio.addEventListener("ended",function (){
         audio.currentTime = 0;
         audio.play();
