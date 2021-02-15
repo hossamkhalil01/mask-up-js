@@ -52,7 +52,7 @@ let continueGameButt = document.getElementById("continueGame");
 
 getFromLocalStorage();
 
-if (userLevel.innerText == 0) {
+if (userLevel.innerText == 1  ) {
     continueGameButt.style = "display: none;";
 }else{
     continueGameButt.style = "display: block;";

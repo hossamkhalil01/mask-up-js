@@ -50,7 +50,7 @@ function register_user($username, $password, $nickname){
 
     $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
-    $query = "INSERT INTO `player`(`username`, `password`, `nickname`, `score`, `level`, `avatar`, `created_at`) VALUES ('$username', '$password', '$nickname',0,0, '$imgContent', NOW())";
+    $query = "INSERT INTO `player`(`username`, `password`, `nickname`, `score`, `level`, `avatar`, `created_at`) VALUES ('$username', '$password', '$nickname',0,1, '$imgContent', NOW())";
 
     $register_user_query = query($query);
     

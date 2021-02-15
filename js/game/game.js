@@ -10,7 +10,16 @@ class Game
 
         //start the game engine
         this.engine = new Engine(20, this);
+<<<<<<< HEAD
         this.timer=0;
+=======
+
+        //define window resize event
+        window.addEventListener("resize",this.windowResizeEvent.bind(this));
+
+        //update the current sizing
+        this.windowResizeEvent();
+>>>>>>> newBranch
     }
 
     getGameOver() {
@@ -33,25 +42,26 @@ class Game
         else
         {
             this.model.getPlayer().yPos -= 2;
-            if(this.model.getPlayer().yPos <= 250)
+            if(this.model.getPlayer().yPos <= Model.playerMinYFactor*View.canvas.height)
             {
                 this.model.getPlayer().isJumping=false;
             }
         }
-        if (this.model.getPlayer().yPos > 480) {
-            this.model.getPlayer().yPos = 480;
+        if (this.model.getPlayer().yPos > Model.playerMaxYFactor*View.canvas.height) {
+            this.model.getPlayer().yPos = Model.playerMaxYFactor*View.canvas.height;
             this.model.getPlayer().dy = 0;
         }
     }
 
     updateLogic()
     {
-        this.view.updateLevel(this.checkLevel());
+        this.view.updateLevel(parseInt(this.checkLevel()));
         this.checkGameOver();
         this.updateModel();
         this.updateView();
         this.updatePlayerJump();
     }
+
     checkGameOver()
     {
         this.gameOver = (this.model.getIsCharHit());
@@ -59,9 +69,10 @@ class Game
             this.endGame();
         }
     }
+
     checkLevel()
     {
-      return   this.model.getPlayer().checkLevel();
+      return this.model.checkLevel();
     }
 
     updateView()
@@ -70,11 +81,11 @@ class Game
         this.view.setPlayer(this.model.getPlayer());
 
         //update the score
-        View.setScore(model.getPlayer().getScore());
+        View.setScore(model.getScore());
 
         //update the viruses
         this.view.updateViruses(this.model.getViruses())
-
+        
         //update the syignes
         this.view.updateSyringes(this.model.getSyringes());
         View.SyringesRatio = `${Model.maxSyringeCount - this.model.getSyringes().length} X`;
@@ -88,42 +99,43 @@ class Game
 
         //update the viruses state
         this.model.handleViruses();
-
         //update the syringes state
         this.model.handleSyringes()
     }
 
     updateGame()
     {
-
     }
 
     endGame() {
         this.engine.stopEngine();
-        
-        let newScore = game.model.getPlayer().getScore();
-        let newLevel = View.getPlayerLevel();
-
         let saveScore = document.getElementById("saveButton");
-
-        saveScore.href = `../includes/updateProgress.php?newScore=${newScore}&newLevel=${newLevel}`;
-
+        saveScore.href = `../includes/updateProgress.php?newScore=${this.model.getScore()}&newLevel=${this.model.getLevel()}`;
         document.getElementById("endGameContainer").style = "display : inline-block";
-        
     }
 
     addVirus() {
+        
         this.virusWaitCount ++;
+<<<<<<< HEAD
          this.timer = 270 - View.getPlayerLevel()*50;
         if (this.virusWaitCount% this.timer  == 0)
+=======
+
+        if (this.virusWaitCount %  (250 - this.model.getLevel()*50) == 0)
+>>>>>>> newBranch
         {
             this.model.addVirus();
-        }
-        
-
-        if(this.virusWaitCount >= 1000000)
-        {
             this.virusWaitCount = 0;
-        }  
+        }
+    }
+
+    windowResizeEvent()
+    {
+        //update sizes on the view
+        this.view.canvasResize();
+
+        //update model dimensions
+        this.model.updateDimensions();
     }
 }

@@ -9,14 +9,17 @@ class View
     static syringeWidth;
     static syringeHeight;
     static score;
+<<<<<<< HEAD
     static Level;
     static SyringesRatio;
     constructor(player, character, level)
+=======
+    static level;
+    static SyringesRatio;
+    constructor(player, character, level=1)
+>>>>>>> newBranch
     {
-        View.Level = level;
-        //attach listener to the window resizing
-        window.addEventListener("resize",this.canvasResize.bind(this));
-
+        View.level = level;
         //create character object
         this.player = player;
         this.character = character;
@@ -29,7 +32,7 @@ class View
         this.playerFrameWaitCount = 0;
 
         //create viruses object
-        this.viruses = new VirusesHandler(level);
+        this.viruses = new VirusesHandler("level"+View.level);
         this.updateVirusDim();
 
         //create syinge object
@@ -37,10 +40,7 @@ class View
         this.updateSyringesDim();
     
         //create background object
-        this.background = new Background(View.level, 0.25);
-
-        //resize canvas
-        this.canvasResize();
+        this.background = new Background("level"+View.level, 0.25);
     }
     
 
@@ -89,7 +89,7 @@ class View
 
     static getPlayerLevel()
     {
-        return View.Level;
+        return View.level;
     }
     getLevel()
     {
@@ -109,7 +109,7 @@ class View
         this.updatePlayerDirection();
     }
     static setPlayerLevel(level){
-        View.Level = level;
+        View.level = level;
     }
 
     /*********** Game Resizing **************/
@@ -211,16 +211,18 @@ class View
     }
 
     updateLevel(level) {
+<<<<<<< HEAD
         View.Level=level;
+=======
+        console.log("this.level"+level);
+        console.log("view.level"+View.level);
+        View.level = parseInt(level);
+>>>>>>> newBranch
         this.level=level;
         this.syringes.changeLevel(level);
         this.background.updateLevel(level);
         this.viruses.changeLevel(level);
     }
-
-
-    
-
 
     /********** Frame Rendring functions*******/
     render() {
@@ -247,7 +249,11 @@ class View
         View.context.fillText(` :  ${View.SyringesRatio}`, this.floatToInt(View.canvas.width*0.14), this.floatToInt(View.canvas.height*0.15));
     }
     drawLevel() {
+<<<<<<< HEAD
         View.context.fillText(`Level         :  ${View.Level}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.20));
+=======
+        View.context.fillText(`Level         :  ${View.level}`, this.floatToInt(View.canvas.width*0.07), this.floatToInt(View.canvas.height*0.20));
+>>>>>>> newBranch
 
     }
     drawScore() {
@@ -476,23 +482,32 @@ class VirusesHandler{
     changeLevel(level)
     {
         console.log(level)
+<<<<<<< HEAD
         if (level <4)
+=======
+        if (level <3)
+>>>>>>> newBranch
         {
         this.virusImg.src = "../images/game/virus/level"+level+".png";
         }
         else
         {
+<<<<<<< HEAD
             this.virusImg.src = "../images/game/virus/level"+2+".png";
 
+=======
+            this.virusImg.src = "../images/game/virus/level"+3+".png";
+>>>>>>> newBranch
         }
         if (View.getPlayerLevel()!=level)
         {
             View.setPlayerLevel(level);
-            this.removeViruses() ;
+            this.removeViruses();           
         }
     }
     removeViruses () {
-            this.virusArray.splice(0);
+        this.virusArray = [];
+        this.virusArray.splice(0);
     }
 
     setDimensions(width, height)
@@ -540,9 +555,15 @@ class SyringesHandler
     }
     changeLevel(level)
     {
+<<<<<<< HEAD
         if (View.Level != level)
         {
             this.syringeArr.splice(0);
+=======
+        if (View.level != level)
+        {
+            //this.syringeArr.splice(0);
+>>>>>>> newBranch
         }
     }
     setDimensions(width,height)
@@ -590,14 +611,23 @@ class Background
         this.y = 0;
         this.width = View.canvas.width;
         this.height = View.canvas.height;
+
         this.speed = speed;
-    }
+    }   
     updateLevel(level)
     {
+<<<<<<< HEAD
         if (level>4)
         {
             this.img.src = "../images/game/backgrounds/level"+4+".jpg";
 
+=======
+        
+        console.log("backgroundLevel"+level);
+        if (level>4)
+        {
+            this.img.src = "../images/game/backgrounds/level"+4+".jpg";
+>>>>>>> newBranch
         }
         else
         {
@@ -644,8 +674,6 @@ class Background
         View.context.drawImage(this.img, this.x1 , this.y , this.width, this.height);
 
         //draw image 2
-        View.context.drawImage(this.img, this.x2 , this.y , this.width, this.height);
-        
+        View.context.drawImage(this.img, this.x2 , this.y , this.width, this.height);   
     }
-
 }
