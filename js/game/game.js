@@ -10,16 +10,12 @@ class Game
 
         //start the game engine
         this.engine = new Engine(20, this);
-<<<<<<< HEAD
-        this.timer=0;
-=======
 
         //define window resize event
         window.addEventListener("resize",this.windowResizeEvent.bind(this));
 
         //update the current sizing
         this.windowResizeEvent();
->>>>>>> newBranch
     }
 
     getGameOver() {
@@ -117,13 +113,8 @@ class Game
     addVirus() {
         
         this.virusWaitCount ++;
-<<<<<<< HEAD
-         this.timer = 270 - View.getPlayerLevel()*50;
-        if (this.virusWaitCount% this.timer  == 0)
-=======
 
         if (this.virusWaitCount %  (250 - this.model.getLevel()*50) == 0)
->>>>>>> newBranch
         {
             this.model.addVirus();
             this.virusWaitCount = 0;

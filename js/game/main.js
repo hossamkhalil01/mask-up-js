@@ -37,12 +37,9 @@ else{
     character =  new Girl();   
 }
 
-<<<<<<< HEAD
-=======
 //create model object
 let model = new Model(`${user.level}`);
 
->>>>>>> newBranch
 let view = new View(model.getPlayer(), character , `${user.level}`);
 
 //create controller object
