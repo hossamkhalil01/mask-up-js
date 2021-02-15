@@ -43,6 +43,17 @@ creditsOption.addEventListener("click", function(){
 // backBtn.addEventListener("click", backToMainMenu);
 backBtn.addEventListener("click", fromCurrentToPrevious);
 
+//eventlistener on selecting the character 
+selectCharactersection.addEventListener("click", function(event){
+    event.preventDefault() ;
+    if ((event.target.id == "ali") || (event.target.id == "aliaa")  )
+    {
+        alert(event.target.id) ;
+        fromselectCharacterTo (selectlevel) ;
+
+    }
+});
+
 
 
 
