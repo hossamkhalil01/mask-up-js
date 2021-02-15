@@ -30,7 +30,6 @@ class MusicSetting{
         this.repeat.addEventListener("click",this.repeatSong);
         this.shuffle.addEventListener("click",this.shuffleSong)
         this.music.addEventListener("click",this.musicClicked);
-       // this.audio.addEventListener("ended",this.chooseSong);
         this.pauseResume.addEventListener("click",this.pauseOrResume);
         document.addEventListener("DOMContentLoaded", this.initializeSongs);
 
@@ -70,15 +69,18 @@ class MusicSetting{
      musicClicked(e) {
          document.getElementById("accountForm").style.display="none"
          document.getElementById("musicForm").style.display=""
+         document.querySelector(".fifth").style.backgroundColor = "" ;
+        document.querySelector(".fourth").style.backgroundColor = "red" ;
 
     }
 
 
-        initializeSongs() {
-        Album.addSong("01_AlbyEtmannah.mp3");
-        Album.addSong("02_AmarEah.mp3");
-        Album.addSong("03_AhHabibi.mp3");
-        Album.addSong("04_Awelkolhaga.mp3");
+        initializeSongs() { 
+       
+        Album.addSong("track1.mp3");
+        Album.addSong("track2.mp3");
+        Album.addSong("track3.mp3");
+        Album.addSong("track4.mp3");
             if(Album.getSongs().length >0 )
             {
                 var li = "";
@@ -102,13 +104,13 @@ class MusicSetting{
      shuffleSong() {
         this.buttonType = "shuffle";
         Album.shuffleSong();
-
     }
 }
+
 class Album {
     static songs=[];
     static index ;
-    static audio_var =new Audio();
+    static audio_var = new Audio();
     static handleAudioEnd(){
         this.audio_var.addEventListener("ended",function (){
              Album.audio_var.currentTime = 0;

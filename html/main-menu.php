@@ -90,31 +90,23 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
 
             </div>
 
-            <div id="playSection" class="play-section" style="display: none;">
+            <div id="playSection" class="play-section" style="display: none;"></div>
 
-
-                
-            </div>
-    <div id="selectCharactersection" class="selectCharacter-section"  style="display: none;">
-
-
-        
-                            <br>
-
+            <div id="selectCharactersection" class="selectCharacter-section"  style="display: none;">
+                <br>
                 <h1  class="selectchartext">select you character</h1>
 
-            <div id="aliaadiv"  class=""  draggable = false>
-                <img src="../images/main-menu/girl.png" class="character" id="aliaa" draggable = false >
+                <div id="aliaadiv"  class=""  draggable = false>
+                    <img src="../images/main-menu/girl.png" class="character" id="aliaa" draggable = false >
 
+                </div>
+                <div id="alidiv"   class="" draggable = false >
+                    <img src="../images/main-menu/boy.png" class="character" id="ali" draggable = false >
+                </div>
             </div>
-            <div id="alidiv"   class="" draggable = false >
-                <img src="../images/main-menu/boy.png" class="character" id="ali" draggable = false >
-            </div>
-    </div>
 
 
             <div id="selectlevel" style="display: none;" >
-                <!-- <h2>Select your level</h2>
                 <div class="start-game">
                     <div class="option" id="newGame">
                         <a href="game.php">New Game</a>
@@ -122,17 +114,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
                     <div  class="option" id="continueGame">
                         <a href="game.php">Continue From Highest Level</a>
                     </div>
-                </div>  -->
+                </div>
             </div>
 
             <div id="settingsSection" class="settings-section" style="display: none;">
 
                 <div class="iconsContainer">
                 <div class="musicContainer" id="music">
-                    <img class="musicIcon" src="../images/main-menu/music-icon.png" alt="" draggable="false">
+                    <button class="btn fourth">MP3 MUSIC</button>
                 </div>
                 <div class="accountContainer" id="accunt">
-                    <img class="accountIcon" src="../images/main-menu/account-icon.png" alt="" draggable="false">
+                <button class="btn fifth">Settings</button>
+
                 </div>
                 </div>
 
@@ -185,61 +178,58 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
                         <ul id="musicAlbum">
                         </ul>
                     </div>
-                    <div>
-                    </div>
                 </div>
-                
             </div>
 
-    <div id="instructionsSection" class="instructions-section" style="display: none;">
-        <div id= "instructions_s">  
-    
-                    <div class="textanime">
-                        <p style= "font-size:30px">our instructions for a long life</p> 
-                        <br>
-                        <br>
-                        <p> <tab>  when you start  the game you need to avoid coronavirous and    <br>
-                        stay alive as  long as possible , <br> <tab>  you will  get  masks to protect you  and serngat that will kill it  <br> 
-                        as you kill virus or at least avoid them, your score will  <br>   increase and your level  also <br> 
-                        <tab>  you can play as long as you want just stay safe and stay alive  <br> 
-                        <tab> when you reach 50 point your level will increase and alse  <br> 
-                        the death around you will become closer so you should be foucus  
-                    
-                        </p> 
-
-                            
+            <div id="instructionsSection" class="instructions-section" style="display: none;">
+                <div id= "instructions_s">
+                    <h1 >instructions for playing </h1>
+                    <h2>You are in a real danger, viruses are everywhere , you have to survive.</h2>
+                    <div class="instructionsContainer">
+                        <div style="display: inline-block">
+                            <img src="../images/main-menu/controllers/wasd-keys.png" alt="" width="60" height="80">
+                            <br>
+                            <img class="arrows" src="../images/main-menu/controllers/arrows.png" alt="" width="90" height="150">
+                        </div>
+                        <div style="display: inline">
+                            <img src="../images/main-menu/controllers/space-button.png" width="60" height="80" alt="">
+                        </div>
+                        <div style="display: inline-block">
+                            <span>to jump &nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;	&nbsp;	press on arrow  up or W</span>
+                            <br>
+                            <br>
+                            <span>to run right &nbsp;&nbsp; &nbsp;&nbsp;press on arrow right or D</span>
+                            <br>
+                            <br>
+                            <span>to run left &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;	 press on arrow left or A</span>
+                            <br>
+                            <br>
+                            <span>to kill viruses &nbsp; press on space</span>
+                        </div>
                     </div>
-        </div >
+                </div>
+                <h2>please care there are many waves for corona </h2>
+            </div>
 
-
-    </div>
-    `<div id="creditsSection" class="credits-section" style="display: none;">
-
-
-        <div id="fly-in">  
-                <div><span>mask up  </span>Credits</div>
-                    <div><span>developed by </span>OSAD </div>
-                    <!-- <div>Ahmed Mamdouh<span>also our graphic designer</span></div> -->
-                    <div>Ahmed Mamdouh<span>Do not give up, the beginning is always the hardest</span></div>
-                    <div>Hossam Hassan <span>The journey of thousands miles begins with a step</span></div>
-                    <div> Mahmoud Atef<span>Don’t hurry,And be sure to smell the flowers along the way</span></div>
-                    <div>Mohamed Kaoud<span>a person who never made mistakes, never tried anything</span></div>
-                     <div>Thanks for your time  <span></span></div>
-
-        </div>
-        
-
-    </div> 
+            <div id="creditsSection" class="credits-section" style="display: none;">
+                <div id="fly-in">  
+                    <div><span>mask up  </span>Credits</div>
+                        <div><span>developed by </span>OSAD </div>
+                        <div>Ahmed Mamdouh<span>Do not give up, the beginning is always the hardest</span></div>
+                        <div>Hossam Hassan <span>The journey of thousands miles begins with a step</span></div>
+                        <div> Mahmoud Atef<span>Don’t hurry,And be sure to smell the flowers along the way</span></div>
+                        <div>Mohamed Kaoud<span>a person who never made mistakes, never tried anything</span></div>
+                        <div>Thanks for your time  <span></span></div>
+                    </div >
+                </div>
+            </div> 
     
             <div id="mainMenuSection" class="main-menu-section">
 
 				<div id="playOption" class="option">
 					Play
                 </div>
-                <div id="settingsOption" class="option">
-					Settings
-                </div>
-
+                
                 <div id="instructionsOption" class="option">
 					Instructions
                 </div>
@@ -247,15 +237,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
                 <div id="creditsOption" class="option">
 					Credits
                 </div>
-
+                <div id="settingsOption" class="option">
+					Settings
+                </div>
                 <div id="logoutOption" class="option">
                     <a href="../includes/logout.php">Logout</a>
 				</div>
 
-
             </div>
             
-
         </section>
 
         <footer >

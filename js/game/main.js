@@ -4,6 +4,7 @@ function updateLocalStorage(data) {
 
 function getFromLocalStorage() {
     const reference = localStorage.getItem('userData');
+    
     if (reference) {
         user = JSON.parse(reference);
     }
@@ -47,7 +48,8 @@ const mute= document.getElementById("mute");
 
 mute.addEventListener("click",playOrMute)
 
-let  audio= new Audio(`../audio/01_AlbyEtmannah.mp3`);
+var  audio= new Audio(`../audio/track1.mp3`);
+
 audio.addEventListener("ended",function (){
         audio.currentTime = 0;
         audio.play();
