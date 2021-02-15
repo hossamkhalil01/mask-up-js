@@ -24,7 +24,7 @@ function getFromLocalStorage() {
     }
 }
 
-// updateLocalStorage(userData);
+ //updateLocalStorage(userData);
 getFromLocalStorage();
 
 
@@ -38,9 +38,9 @@ else{
 }
 
 //create model object
-let model = new Model(`level${user.level}`);
+let model = new Model(`${user.level}`);
 
-let view = new View(model.getPlayer(), character , `level${user.level}`);
+let view = new View(model.getPlayer(), character , `${user.level}`);
 
 //create controller object
 let controller = new Controller(model);

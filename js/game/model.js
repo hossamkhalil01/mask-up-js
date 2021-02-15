@@ -35,6 +35,22 @@ class Model
         //points needed for this level 
         this.requiredPoints = 50;
     }
+    getScore()
+    {
+        return this.score;
+    }
+
+    checkLevel() {
+        console.log("what fffff"+this.getLevel());
+
+        if(this.getScore() >= this.requiredPoints  ){
+        this.level += parseInt(1);
+        this.score = 0;
+    //     //increase required points for the new level
+        this.requiredPoints += Math.floor(this.requiredPoints*0.3);
+     }
+        return this.getLevel();
+    }
 
     /************Getters *********/
     getViruses() {
@@ -210,14 +226,13 @@ class Model
         }
     }
 
-    levelUp()
-    {
-        this.level += 1;
-        this.score = 0;
-
-        //increase required points for the new level
-        this.requiredPoints += Math.floor(this.requiredPoints*0.3);
-    }
+    // levelUp()
+    // {
+    //     this.level += 1;
+    //     this.score = 0;
+    //     //increase required points for the new level
+    //     this.requiredPoints += Math.floor(this.requiredPoints*0.3);
+    // }
 }
 
 /***********Helper Classes*********/
@@ -275,6 +290,9 @@ class Player{
     setScore(score) {
         this.score = score;
     }
+   
+       
+
 
     moveRight()
     {

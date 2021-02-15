@@ -29,7 +29,6 @@ class Game
     }
 
     updatePlayerJump() {
-
         if (this.model.getPlayer().isJumping == false )
         {
             this.model.getPlayer().dy += this.model.getPlayer().grav;
@@ -52,7 +51,7 @@ class Game
 
     updateLogic()
     {
-        this.view.updateLevel(this.model.getLevel());
+        this.view.updateLevel(parseInt(this.checkLevel()));
         this.checkGameOver();
         this.updateModel();
         this.updateView();
@@ -69,7 +68,7 @@ class Game
 
     checkLevel()
     {
-      return this.model.getLevel();
+      return this.model.checkLevel();
     }
 
     updateView()
@@ -85,6 +84,8 @@ class Game
         
         //update the syignes
         this.view.updateSyringes(this.model.getSyringes());
+        View.SyringesRatio = `${Model.maxSyringeCount - this.model.getSyringes().length} X`;
+
     }
 
     updateModel()
@@ -94,18 +95,15 @@ class Game
 
         //update the viruses state
         this.model.handleViruses();
-
         //update the syringes state
         this.model.handleSyringes()
     }
 
     updateGame()
     {
-
     }
 
     endGame() {
-
         this.engine.stopEngine();
         let saveScore = document.getElementById("saveButton");
         saveScore.href = `../includes/updateProgress.php?newScore=${this.model.getScore()}&newLevel=${this.model.getLevel()}`;
