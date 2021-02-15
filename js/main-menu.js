@@ -5,6 +5,8 @@ const settingsSection = document.getElementById("settingsSection");
 const instructionsSection = document.getElementById("instructionsSection");
 const creditsSection = document.getElementById("creditsSection");
 //-------
+const selectCharactersection = document.getElementById("selectCharactersection");
+
 //define the main menu options
 const playOption = document.getElementById("playOption");
 const settingssOption = document.getElementById("settingsOption");
@@ -17,8 +19,6 @@ const selectCharacterOtion = document.getElementById("selectCharacterOtion");
 const selectlevel = document.getElementById("selectlevel");
 
 
-
-
 //define the back to home button
 const backBtn = document.getElementById("backBtn");
 
@@ -29,6 +29,8 @@ playOption.addEventListener("click", function (){
 
 settingssOption.addEventListener("click", function(){
     fromMainMenuTo(settingsSection);
+    document.querySelector(".fourth").style.backgroundColor = "red" ;
+
 });
 
 instructionsOption.addEventListener("click", function(){
@@ -44,6 +46,16 @@ creditsOption.addEventListener("click", function(){
 backBtn.addEventListener("click", fromCurrentToPrevious);
 
 
+//eventlistener on selecting the character 
+selectCharactersection.addEventListener("click", function(event){
+     event.preventDefault() ;
+    if ((event.target.id == "ali") || (event.target.id == "aliaa")  )
+    {
+        alert(event.target.id) ;
+        fromselectCharacterTo (selectlevel) ;
+
+    }
+});
 
 
 
@@ -128,9 +140,9 @@ function fromCurrentToPrevious()
     else
     {
         fromCurrentToMainMenu() ; 
+        document.querySelector(".fifth").style.backgroundColor = "" ;
+        document.querySelector(".fourth").style.backgroundColor = "red" ;
     } 
 }
-
-
 
 

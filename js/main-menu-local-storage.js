@@ -1,9 +1,11 @@
-// Ahmed Stuff
+// Ahmed Stuff 
 
 var userNickname = document.getElementById("userNickname");
 var userScore = document.getElementById("userScore");
 var userLevel = document.getElementById("userLevel");
-const selectCharactersection = document.getElementById("selectCharactersection");
+ const selectCharactersection1 = document.getElementById("selectCharactersection");
+//  selectCharactersection = document.getElementById("selectCharactersection");
+
 
 let userData = {
     nickname : userNickname.innerText,
@@ -34,8 +36,8 @@ function getFromLocalStorage() {
 updateLocalStorage(userData);
 
 //eventlistener on selecting the character 
-selectCharactersection.addEventListener("click", function(event){
-    // event.preventDefault() ;
+selectCharactersection1.addEventListener("click", function(event){
+    //  event.preventDefault() ;
     if ((event.target.id == "ali"))
     {
         userData.character = "1";
@@ -44,7 +46,7 @@ selectCharactersection.addEventListener("click", function(event){
         userData.character = "2";
     }
     updateLocalStorage(userData);
-    fromselectCharacterTo (selectlevel) ;
+    // fromselectCharacterTo (selectlevel) ;
 });
 
 

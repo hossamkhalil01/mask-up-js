@@ -22,7 +22,12 @@ class AccountSetting {
       accountClicked(e)
     {
         document.getElementById("musicForm").style.display="none"
-        document.getElementById("accountForm").style.display=""
+        document.getElementById("accountForm").style.display="" ;
+        // document.getElementById("accountForm").style.backgroundColor ;
+
+        document.querySelector(".fifth").style.backgroundColor = "red" ;
+        document.querySelector(".fourth").style.backgroundColor = "" ;
+
     }
      resetRegestirationErrors() {
         errorMessages.innerHTML="";
@@ -50,7 +55,7 @@ class AccountSetting {
         }
         if  ( document.getElementById("cPassword").value != document.getElementById("password").value )
         {
-            formErrors.cPassword = " confirm password must be exact to password"
+            formErrors.cPassword = " confirm passowrd wrong "
         }
         if (Object.keys(formErrors).length != 0 )
         {

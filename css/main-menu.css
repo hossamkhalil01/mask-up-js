@@ -117,7 +117,7 @@ h2{
   text-shadow: 0px 1px 2px #000;
 }
 
-#credits_s,#instructions_s{
+#credits_s{
   border:3px   solid black;
   width: 860px; 
   height: 400px;
@@ -321,3 +321,150 @@ svg {
 /* #continueGame{
   display: none;
 } */
+
+
+/* credits section css  */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700');
+
+
+
+#creditsSection {
+  background-color: #111;
+  background-image: radial-gradient(#333, #111);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #fff;
+  text-align: center;
+  /* width: 100vw; */
+  height: 452px;
+  font-weight: 700;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#fly-in {
+  font-size: 4em;
+  margin: 20vh auto;
+  height: 19vh;  
+  text-transform: uppercase;
+}
+
+
+#fly-in span {
+  display: block;
+  font-size: .4em;
+  opacity: .8;
+}
+
+#fly-in div {
+  position: fixed;  
+  margin: 2vh 0;
+  opacity: 0;
+  left: 10vw;
+  width: 80vw;
+  animation: switch 28s linear infinite;
+}
+
+#fly-in div:nth-child(2) { animation-delay: 4s}
+#fly-in div:nth-child(3) { animation-delay: 8s}
+#fly-in div:nth-child(4) { animation-delay: 12s}
+#fly-in div:nth-child(5) { animation-delay: 16s}
+#fly-in div:nth-child(6) { animation-delay: 20s}
+#fly-in div:nth-child(7) { animation-delay: 24s}
+/* #fly-in div:nth-child(8) { animation-delay: 28s} */
+
+@keyframes switch {
+    0% { opacity: 0;filter: blur(20px); transform:scale(12)}
+    3% { opacity: 1;filter: blur(0); transform:scale(1)}
+    10% { opacity: 1;filter: blur(0); transform:scale(.9)}
+    13% { opacity: 0;filter: blur(10px); transform:scale(.1)}
+    80% { opacity: 0}
+    100% { opacity: 0}
+}
+/* *********************************************** */
+
+/* select your character */
+
+.selectchartext {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 20px;
+  font-weight: 900;
+  text-decoration: none;
+  color: white;
+  /* display: inline-block; */
+  background-size: 120% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -ms-background-clip: text;
+  -ms-text-fill-color: transparent;
+  background-clip: text;
+  /* text-fill-color: transparent; */
+  background-image: linear-gradient(45deg, 
+                    #7794ff, 
+                    #44107A,
+                    #FF1361,
+                    #FFF800);
+  animation: .2s shake infinite alternate;
+}
+
+@keyframes shake {
+  0% { transform: skewX(-15deg); }
+  5% { transform: skewX(15deg); }
+  10% { transform: skewX(-15deg); }
+  15% { transform: skewX(15deg); }
+  20% { transform: skewX(0deg); }
+  100% { transform: skewX(0deg); }  
+}
+
+
+/********************************  */
+
+
+
+#instructions_s{
+  border:3px   solid rgb(27, 134, 148);
+  background-color: rgb(10, 9, 9);
+  border-radius: 2%;
+  width: 860px; 
+  height: 440px;
+  margin-left: 10px;
+  margin-top: 50px ;
+
+}
+
+.textanime p {
+  color: #fff;
+  font-size: 15px;
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 10px auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .25em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange }
+}
+
+
+
+
+
+

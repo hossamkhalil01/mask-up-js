@@ -53,7 +53,8 @@ let game = new Game(model, view);
 var mute= document.getElementById("mute")
 var isMuted =true;
 mute.addEventListener("click",playOrMute)
-var  audio= new Audio(`../audio/01_AlbyEtmannah.mp3`);
+var  audio= new Audio(`../audio/1.mp3`);
+
 audio.addEventListener("ended",function (){
         audio.currentTime = 0;
         audio.play();
