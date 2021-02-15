@@ -4,7 +4,7 @@ const playSection = document.getElementById("playSection");
 const settingsSection = document.getElementById("settingsSection");
 const instructionsSection = document.getElementById("instructionsSection");
 const creditsSection = document.getElementById("creditsSection");
-//-------
+
 //define the main menu options
 const playOption = document.getElementById("playOption");
 const settingssOption = document.getElementById("settingsOption");
@@ -14,9 +14,7 @@ const creditsOption = document.getElementById("creditsOption");
 //define the  options inside play option 
 const newGameOption = document.getElementById("newGameOption");
 const selectCharacterOtion = document.getElementById("selectCharacterOtion");
-const selectlevel = document.getElementById("selectlevel");
-
-
+let selectlevel = document.getElementById("selectlevel");
 
 
 //define the back to home button
@@ -29,6 +27,16 @@ playOption.addEventListener("click", function (){
 
 settingssOption.addEventListener("click", function(){
     fromMainMenuTo(settingsSection);
+    document.querySelector(".fourth").style.backgroundColor = "red" ;
+
+});
+
+selectCharactersection.addEventListener("click", function(event){
+    event.preventDefault() ;
+   if ((event.target.id == "ali") || (event.target.id == "aliaa")  )
+   {
+       fromselectCharacterTo (selectlevel) ;
+   }
 });
 
 instructionsOption.addEventListener("click", function(){
@@ -39,31 +47,13 @@ creditsOption.addEventListener("click", function(){
     fromMainMenuTo(creditsSection);
 });
 
-
-// backBtn.addEventListener("click", backToMainMenu);
 backBtn.addEventListener("click", fromCurrentToPrevious);
-
-//eventlistener on selecting the character 
-selectCharactersection.addEventListener("click", function(event){
-    event.preventDefault() ;
-    if ((event.target.id == "ali") || (event.target.id == "aliaa")  )
-    {
-        alert(event.target.id) ;
-        fromselectCharacterTo (selectlevel) ;
-
-    }
-});
-
-
-
 
 
 //variable to keep track of the current window
 let currWindow = mainMenuSection;
-// let previousWindow  ; 
 const stage1 = mainMenuSection ; 
 const stage2 =  selectCharactersection ; 
-
 const stage3 = selectlevel ;  
 
 
@@ -113,7 +103,6 @@ function fromCurrentToMainMenu()
 function fromCurrentToPrevious()
 {
     //hide the current menu
-    // previousWindow = currWindow ; 
     if (currWindow == stage2 ) 
     {
         currWindow.style.display = "none";
@@ -122,9 +111,7 @@ function fromCurrentToPrevious()
         mainMenuSection.style.display = "block";
     
         currWindow = mainMenuSection;
-             backBtn.style.display = "none";
-
-
+        backBtn.style.display = "none";
 
     }
     else if (currWindow == stage3)
@@ -132,16 +119,14 @@ function fromCurrentToPrevious()
         currWindow.style.display = "none"; 
         stage2.style.display = "block" ; 
         currWindow = stage2 ; 
-
-
     }
     
     else
     {
         fromCurrentToMainMenu() ; 
+        document.querySelector(".fifth").style.backgroundColor = "" ;
+        document.querySelector(".fourth").style.backgroundColor = "red" ;
     } 
 }
-
-
 
 

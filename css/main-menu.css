@@ -427,43 +427,42 @@ svg {
 
 
 #instructions_s{
-  border:3px   solid rgb(27, 134, 148);
-  background-color: rgb(10, 9, 9);
+  border:3px solid rgb(0, 0, 0);
   border-radius: 2%;
   width: 860px; 
   height: 440px;
   margin-left: 10px;
   margin-top: 50px ;
+}
+
+.instructions-section h2{
+  color: #a5de5b;
+  font-size: 1.6em;
+}
+
+.instructions-section h1{
+  font-size: 1.8em;
+  color: whitesmoke;
 
 }
 
-.textanime p {
-  color: #fff;
-  font-size: 15px;
-  font-family: monospace;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 10px auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .25em; /* Adjust as needed */
-  animation: 
-    typing 3.5s steps(30, end),
-    blink-caret .5s step-end infinite;
+.instructions-section span{
+  font-size: 1.3em;
+  color: whitesmoke;
+  margin-left: 60px;
+
 }
 
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+.instructions-section img{
+  margin-left: 25px;
 }
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange }
+.instructions-section img .arrows{
+  width: 80px;
+  height: 100px;
 }
-
-
+.instructionsContainer{
+  display: flex;
+}
 
 
 
