@@ -7,7 +7,7 @@
 
 # **Mask-up**
 
-![demo gf](https://github.com/hossamkhalil01/mask-up-js/tree/main/demo/demo.gif)
+![demo gif](https://github.com/hossamkhalil01/mask-up-js/blob/main/demo/demo.gif?raw=true)
 
 Covid-19 affected our daily life dramatically.
 Our game gives you the chance to fight back and kill all viruses using the antivirus syringesin in order to get a higher score in addition to higher levels by shooting covid-19 viruses with the cure.
