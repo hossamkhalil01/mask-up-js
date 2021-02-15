@@ -1,0 +1,199 @@
+.container{
+
+    margin: auto;
+    margin-top: 5px;
+}
+.iconsContainer{
+
+    border: 1px solid black;
+    margin:auto;
+    background: lightgray;
+    width: 604px;
+    height: 50px;
+    border-radius: 2%;
+}
+.musicContainer{
+    border:  none;
+    border-radius: 1px;
+    display: inline-block;
+    width: 300px;
+    height: 50px;
+    background: rgb(75, 82, 74);
+}
+.accountContainer{
+    border:  none;
+    border-radius: 1px;
+    display: inline-block;
+    width: 300px;
+    height: 50px;
+    background: rgb(75, 82, 74);
+}
+
+.musicIcon, .accountIcon {
+
+    width: 300px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.accountForm{
+
+    border: 2px solid black;
+    padding-bottom: 20px;
+    margin:auto;
+    background: rgb(63, 51, 51);
+    width: 604px;
+    height : 350px ;
+    border-radius: 3%;
+}
+.musicForm{
+
+    border: 2px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin:auto;
+    background:rgb(63, 51, 51);
+    width: 604px;
+    border-radius: 3%;
+
+}
+.musicItem{
+
+    margin-left: 90px;
+    width: 400px;
+}
+.musicButtonsContainer{
+
+    padding-left: 25px;
+}
+.musicButtons{
+    font-size: 18px;
+    margin-top: 20px;
+    border: 1px solid ;
+    border-radius: 1%;
+    height: 50px;
+    width: 134px;
+    cursor: pointer;
+}
+.musicButtons:hover{
+
+   background-color: rgb(66, 65, 63);
+   color: white;
+   font-size: 25px;
+}
+.formElement{
+
+    margin-top: 10px;
+    font-size: 30px;
+    padding-left: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    width: 280px;
+    height: 50px;
+}
+.formButton{
+
+    margin-top: 20px;
+    margin-left: 5px;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 25px;
+    display: inline-block ; 
+    background-color: rgb(15, 15, 15);
+    color: white;
+   font-family: Monospace ; 
+}
+.formButton:hover {
+        background-image:linear-gradient(45deg, #fd2a05 100%, transparent 50%); ; 
+
+}
+
+audio{
+
+    display: none;
+}
+.musicLi{
+
+    margin-top: 20px;
+}
+.musicLi span{
+
+    font-size: 30px;
+    display: inline-block;
+    width: 460px;
+}
+.musicLi img{
+
+    margin-left: 20px;
+    margin-top: 10px;
+    display: inline-block;
+    width: 50px;
+}
+.errors{
+
+    background:pink;
+    border:1px solid red;
+    width: 280px;
+}
+.formErrors {
+
+    padding: 0px;
+    font-size: 25px;
+    width: 400px;
+    margin-left: 20px;
+    display: inline;
+}
+#musicAlbum{
+
+    font : 10px ; 
+}
+
+.parent{
+    display: flex;
+}
+
+
+
+
+.btn {
+    width: 300px;
+    height: 50px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    background-color: transparent;
+    border: 2px solid #e74c3c;
+    border-radius: 0.6em;
+    color: #e74c3c;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1;
+   
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+  }
+  .btn:hover, .btn:focus {
+    color: #fff;
+    outline: 0;
+  }
+
+
+  .fourth,.fifth {
+    border-color: #11100b;
+    color: #fff;
+    background-image: linear-gradient(45deg, #ff0b0b 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 400%;
+    transition: background 200ms ease-in-out;
+  }
+  .fourth:hover,.fifth:hover  {
+    background-position: 0;
+  }

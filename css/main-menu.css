@@ -1,0 +1,469 @@
+body{
+  margin: unset;
+  padding: unset;
+  background: url("../images/main-menu/main-bg.jpeg");
+  background-size: cover;  
+}
+
+nav , footer{
+
+  position:absolute;
+  width:100%;
+  height: 4%;
+  padding-top: 0.5%;
+  background:rgba(47, 55, 63, 0.842);
+  text-align: center;
+  color: cornsilk;
+  font-size: larger;
+}
+
+nav{
+  top:0;
+}
+
+footer{
+  display:none  ;
+  bottom:0;
+}
+
+.main-window{
+
+  margin: auto;
+  width: 900px;
+  height: 700px;
+  margin-top: 7%;
+  border: solid 3px white;
+  background-color:rgba(75, 75, 75, 0.44);
+}
+.avatar-img{
+
+  width: 12%;
+  height: 13%;
+  margin-top: 2%;
+  margin-left: 2%;
+  border: 3px solid rgb(73, 11, 9);
+  cursor: pointer;
+  margin-bottom: 2%;
+  display: inline;
+}
+
+
+.option{
+
+  text-align: center;
+  background-color:rgb(62, 206, 138,0.4);
+  padding: 2%;
+  margin-top: 3%;
+  font-size: larger;
+  font-family:sans-serif;
+  color: white;
+  font-style: italic;
+  cursor: pointer;
+  user-select: none;
+}
+.option:hover{
+
+  background-color:rgba(24, 11, 98, 0.8);
+}
+
+/* CoronaVirus Animation
+Default speed is: 10s
+MoveUpDown is a keyFrames that define the position*/
+
+.covid-icon{
+  width: 100px;
+  height:100px ;
+}
+.animatediv{
+
+  animation: MoveUpDown 5s linear infinite;
+  position: absolute;
+  right: 40%;
+}
+
+/* position of corona animation */
+@keyframes MoveUpDown {
+  0%, 100% {
+    top: 20%;
+  }
+  50% {
+    top: 30%;
+  }
+}
+  
+.animatediv2{
+
+  animation: MoveUpDown 3s linear infinite;
+  position: absolute;
+  right: 60%;
+}
+
+/* position of corona animation */
+@keyframes MoveUpDown {
+  0%, 100% {
+    top: 15%;
+  }
+  50% {
+    top: 25%;
+  }
+}
+
+h2{
+  text-align:center;
+  font-size: xx-large;
+  margin-top: unset;
+  padding-top: unset;
+  color:#fff;
+  text-shadow: 0px 1px 2px #000;
+}
+
+#credits_s{
+  border:3px   solid black;
+  width: 860px; 
+  height: 400px;
+  margin-left: 10px;
+  margin-top: 50px ;
+
+}
+#credits_s h1,#instructions_s h1 {
+  text-align: center;
+
+}
+#credits_s p ,#instructions_s p {
+  padding-left: 4px;
+
+}
+  #backBtn{
+ 
+margin-left: 20px;
+
+  width: 100px ;
+  border-radius: 30%;
+  font-family: helvetica, sans-serif;
+
+  color: #888; 
+
+  margin-left: 30px;
+  font-size:15px;
+  border: 1px solid #bcbcbc;
+  text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
+  background-color: rgba(239,239,239,1);
+
+
+
+  }
+#backBtn:hover {
+
+  color: hsl(210, 100%, 40%); 
+  background-color: rgb(55, 53, 61);
+}
+
+a{
+  text-decoration: none;
+}
+
+
+a:visited{
+  text-decoration: none;
+  color: white;
+}
+
+.insideGame{
+  text-align: center;
+  background-color:rgb(62, 206, 138,0.4);
+  padding: 2%;
+  margin-top: 3%;
+  font-size: larger;
+  font-family:sans-serif;
+  color: white;
+  font-style: italic;
+  cursor: pointer;
+  user-select: none;
+}
+.insideGame:hover{
+  background-color:rgba(24, 11, 98, 0.8);
+}
+.selectCharacter-section {text-align: center;
+  width: 80%;
+  font-size: 100%;
+  font-family: 'Lora', serif;
+  color: white;
+  background-size: 150px;
+  padding-left: 10%;
+}
+  
+.selectCharacter-section div {
+  display: inline;
+}
+
+svg {
+  display: block;
+  font: 100px  'Choose Your Character';
+  width: 720px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.text-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 6% 29%;
+  stroke-width: 5px;
+  stroke-dashoffset: 0%;
+  animation: stroke-offset 5.5s infinite linear;
+}
+
+.text-copy:nth-child(1){
+	stroke: #1b1616;
+	animation-delay: -1;
+}
+
+.text-copy:nth-child(2){
+	stroke: #220c0e;
+	animation-delay: -2s;
+}
+
+.text-copy:nth-child(3){
+	stroke: #a71338;
+	animation-delay: -3s;
+}
+
+.text-copy:nth-child(4){
+	stroke: #1e1f22;
+	animation-delay: -4s;
+}
+
+.text-copy:nth-child(5){
+	stroke: #cc861c;
+	animation-delay: -5s;
+}
+
+@keyframes stroke-offset{
+	100% {stroke-dashoffset: -35%;}
+}
+
+
+#ali {
+  width: 26%;
+  height: 25%;
+  margin-left: 15%;
+  margin-top: 20%;  
+  padding-bottom: 90px;
+
+  transition:transform 0.25s ease;
+}
+
+#aliaa {
+  width: 20%;
+  height: 21%;
+  margin-left: 10%;
+  margin-top: 17%;
+  padding-bottom: 100px;
+  transition:transform 0.25s ease;
+}
+
+#ali:hover{
+    
+  -webkit-transform:scale(1.5); /* or some other value */
+  transform:scale(1.5);
+  cursor: pointer ;
+
+}
+#aliaa:hover{
+    
+  -webkit-transform:scale(1.5); /* or some other value */
+  transform:scale(1.5);
+  cursor: pointer ;
+}
+
+#selectlevel{
+
+  text-align: center;
+  font-size: 30px;
+}
+
+
+/* Ahmed stuff */
+
+.progress-data-container{
+  display: inline-block;
+  float: right;
+  margin-right: 5%;
+  margin-top: 20px;
+  text-align: center;
+  font-size: large;
+  color: #09c;
+}
+.progress-data-container h2{
+  color:crimson;
+}
+
+.progress-data{
+  display: inline-block;
+  margin-left: 15px;
+  margin-top: 0px;
+}
+
+#clear{
+  clear: both;
+}
+
+.game-option{
+  display: inline-block;
+  border: none;
+  width: 100%;
+}
+
+#selectlevel h2{
+  color: #09c;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+/* #continueGame{
+  display: none;
+} */
+
+
+/* credits section css  */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700');
+
+
+
+#creditsSection {
+  background-color: #111;
+  background-image: radial-gradient(#333, #111);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #fff;
+  text-align: center;
+  /* width: 100vw; */
+  height: 452px;
+  font-weight: 700;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#fly-in {
+  font-size: 4em;
+  margin: 20vh auto;
+  height: 19vh;  
+  text-transform: uppercase;
+}
+
+
+#fly-in span {
+  display: block;
+  font-size: .4em;
+  opacity: .8;
+}
+
+#fly-in div {
+  position: fixed;  
+  margin: 2vh 0;
+  opacity: 0;
+  left: 10vw;
+  width: 80vw;
+  animation: switch 28s linear infinite;
+}
+
+#fly-in div:nth-child(2) { animation-delay: 4s}
+#fly-in div:nth-child(3) { animation-delay: 8s}
+#fly-in div:nth-child(4) { animation-delay: 12s}
+#fly-in div:nth-child(5) { animation-delay: 16s}
+#fly-in div:nth-child(6) { animation-delay: 20s}
+#fly-in div:nth-child(7) { animation-delay: 24s}
+/* #fly-in div:nth-child(8) { animation-delay: 28s} */
+
+@keyframes switch {
+    0% { opacity: 0;filter: blur(20px); transform:scale(12)}
+    3% { opacity: 1;filter: blur(0); transform:scale(1)}
+    10% { opacity: 1;filter: blur(0); transform:scale(.9)}
+    13% { opacity: 0;filter: blur(10px); transform:scale(.1)}
+    80% { opacity: 0}
+    100% { opacity: 0}
+}
+/* *********************************************** */
+
+/* select your character */
+
+.selectchartext {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 20px;
+  font-weight: 900;
+  text-decoration: none;
+  color: white;
+  /* display: inline-block; */
+  background-size: 120% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -ms-background-clip: text;
+  -ms-text-fill-color: transparent;
+  background-clip: text;
+  /* text-fill-color: transparent; */
+  background-image: linear-gradient(45deg, 
+                    #7794ff, 
+                    #44107A,
+                    #FF1361,
+                    #FFF800);
+  animation: .2s shake infinite alternate;
+}
+
+@keyframes shake {
+  0% { transform: skewX(-15deg); }
+  5% { transform: skewX(15deg); }
+  10% { transform: skewX(-15deg); }
+  15% { transform: skewX(15deg); }
+  20% { transform: skewX(0deg); }
+  100% { transform: skewX(0deg); }  
+}
+
+
+/********************************  */
+
+
+
+#instructions_s{
+  border:3px solid rgb(0, 0, 0);
+  border-radius: 2%;
+  width: 860px; 
+  height: 440px;
+  margin-left: 10px;
+  margin-top: 50px ;
+}
+
+.instructions-section h2{
+  color: #a5de5b;
+  font-size: 1.6em;
+}
+
+.instructions-section h1{
+  font-size: 1.8em;
+  color: whitesmoke;
+
+}
+
+.instructions-section span{
+  font-size: 1.3em;
+  color: whitesmoke;
+  margin-left: 60px;
+
+}
+
+.instructions-section img{
+  margin-left: 25px;
+}
+.instructions-section img .arrows{
+  width: 80px;
+  height: 100px;
+}
+.instructionsContainer{
+  display: flex;
+}
+
+
+
+

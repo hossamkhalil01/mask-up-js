@@ -1,0 +1,90 @@
+.main-canvas{
+
+    padding: 0;
+    margin: auto;
+    display: block;
+    overflow:hidden;
+    border: 1px solid black;
+    image-rendering: pixelated;
+    background: grey;
+}
+
+#mute{
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    cursor: pointer;
+}
+
+
+.popup a{
+    text-decoration: none;
+}
+
+.popup {
+    width: 33.333333%;
+    padding: 15px;
+    left: 0;
+    margin-left: 33.333333%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: white;
+    position: absolute;
+    top: 15%;
+    box-shadow: 5px 5px 5px #000;
+    z-index: 10001;
+    text-align: center;
+}
+
+.popup img {
+    width: 20%;
+}
+
+.overlay{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.85);
+    z-index: 10000;
+    display: none;
+}
+
+.btn{
+    width: 30%;
+    border: none;
+    border-radius: 30%;
+    padding: 2%;
+    cursor: pointer;
+    color: white;
+}
+.btn-try-again{
+    background-color: #09c;
+    float: left;
+}
+
+.btn-back-menu{
+    background-color: darkorchid;
+    float: right;
+}
+
+  @media (min-width: 768px) {
+    .popup {
+      width: 66.66666666%;
+      margin-left: 16.666666%;
+    }
+  }
+  @media (min-width: 992px) {
+    .popup {
+      width: 50%;
+      margin-left: 25%;
+    }
+  }
+  @media (min-width: 1200px) {
+    .popup {
+      width: 33.33333%;
+      margin-left: 33.33333%;
+    }
+  }
