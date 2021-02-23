@@ -32,7 +32,7 @@ class Model
         //init the score
         this.score = 0 ;
         //points needed for this level 
-        this.requiredPoints = 70;
+        this.requiredPoints = 100;
     }
 
     /************Getters *********/
@@ -226,15 +226,12 @@ class Model
         this.score = 0;
 
         //increase required points for the new level
-        this.requiredPoints += Math.floor(this.requiredPoints*0.3);
+        this.requiredPoints += Math.floor(this.requiredPoints*0.15);
 
-        //increase syringes every 2 levels (limit at 15)
-        if (this.level %2 == 0)
+        //increase syringes every level (limit at 15)
+        if (Model.maxSyringeCount < 15)
         {
-            if (Model.maxSyringeCount < 15)
-            {
-                Model.maxSyringeCount += 1;
-            }
+            Model.maxSyringeCount += 2;
         }
     }
 }
@@ -394,9 +391,9 @@ class Virus {
     constructor(level) {
 
         this.x =View.canvas.width;
-        this.y = Math.floor((Math.random() * (View.canvas.height*0.75 - View.canvas.height*0.4) + View.canvas.height*0.4));
+        this.y = Math.floor((Math.random() * (View.canvas.height*0.75 - View.canvas.height*0.45) + View.canvas.height*0.45));
         
-        this.speed = Math.floor((Math.random()*level*1.5*Math.floor(Model.syringeSpeedFactor*View.canvas.width))+1);
+        this.speed = Math.floor((Math.random()*level*Math.floor(Model.syringeSpeedFactor*View.canvas.width))+1);
         this.distance;
     }
     getX() {
