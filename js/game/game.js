@@ -9,7 +9,7 @@ class Game
         this.gameOver = false;
 
         //start the game engine
-        this.engine = new Engine(20, this);
+        this.engine = new Engine(60, this);
 
         //define window resize event
         window.addEventListener("resize",this.windowResizeEvent.bind(this));
@@ -116,7 +116,7 @@ class Game
 
         this.virusWaitCount ++;
 
-        if (this.virusWaitCount >= (200 - this.model.getLevel()*30))
+        if (this.virusWaitCount >= (250 - this.model.getLevel()*20))
         {
             this.model.addVirus();
             this.virusWaitCount = 0;

@@ -1,5 +1,5 @@
 
- <?php //session_start() ?>
+ <?php session_start() ?>
 <?php
 	if(!isset($_SESSION['username'])){
 		header("Location: ../index.php");
@@ -20,8 +20,9 @@
     </head>
     <body>
     <img src="../images/game/mute.png" id="mute" width="50px" height="50px"></img>
-
-
+    <div class="loading-overlay" id="loadingGameContainer">
+        <div class="loader"></div>
+    </div>
     <div class="overlay" id="endGameContainer">
         <div class="popup">
             <h3>The virus got you &#9785;, we hope you get well soon, remember to isolate yourself</h3>
