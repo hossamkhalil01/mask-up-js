@@ -47,7 +47,7 @@ in order to apply the scenario of registration, login starting the game and more
 - Validate User's data upon forms submission.
 - Add users to database.
 - Checks if a user already registered on the system.
-- sign in user with correct usernames and passwords.
+- Sign in user with correct usernames and passwords.
 
 ### Front-end
 
@@ -57,27 +57,26 @@ in order to apply the scenario of registration, login starting the game and more
 - Save the game to continue playing it later.
 - Support the user with a section to update his nickname and password whenever he desires.
 - Shows the user the instructions to play the game and the game credits.
-- The user can start playing after the registration process is completed
 
 ---
 ## Game Features
 
 - Saving the user's highest score and level in database.
-- Both score and level increase whenever the user avoids collision with viruses or kills a virus using the antivirus syringes.
-- listining to a music track while playing is one of the features.
+- Both score and level increase whenever the user kills a virus using the antivirus syringes.
+- Listining to a music track while playing is one of the features.
 
 
 ---
 ## How To Use
 
-Just type the url of our game and start registration and playing
-[here](https://maskup21.herokuapp.com).
+Just type the url of our game and start playing through the deployment link
+[here](https://maskup21.herokuapp.com/index.php).
 
 
 
 ### Database Setup
 
-- Import SQL schema file in any MySQL Server ( <u>Recommended: phpMyAdmin</u> ) or implement SQl statements manually in mySQL Shell as described in mask-up.sql in [DBSchema directory.](https://github.com/hossamkhalil01/mask-up-js/database/mask-up.sql)
+- Import the SQL schema file in any MySQL Server ( <u>Recommended: phpMyAdmin</u> ) or implement SQl statements manually in mySQL Shell as described in mask-up.sql in [database](https://github.com/hossamkhalil01/mask-up-js/blob/main/database/) directory.
 
 
 ---
@@ -89,7 +88,7 @@ Just type the url of our game and start registration and playing
 ---
 ## Limitations
 
-- A potential shortcoming could appear when the game is still not full loaded so that the frames could become a little bit laggy.
+- A potential shortcoming could be the inability to control the music inside the game.
 
 ---
 ## Possible Improvements
