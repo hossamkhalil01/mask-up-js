@@ -56,7 +56,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update'])){
 
     <body>
         <nav>
-            Here's our nav bar
         </nav>
         
         <section id="mainWindow" class="main-window">

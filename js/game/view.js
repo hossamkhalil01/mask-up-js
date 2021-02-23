@@ -35,7 +35,7 @@ class View
         this.updateSyringesDim();
     
         //create background object
-        this.background = new Background(View.level, 0.25);
+        this.background = new Background(View.level, 0.2);
 
         //define syringe image for the score
         this.syringeRightImg = new Image();
@@ -221,18 +221,12 @@ class View
 
         View.level = level;
         //limit the scene levels
-        if(level > 6)
+        if (level > 3)
         {
-            this.viruses.changeLevel((3));
-            this.background.updateLevel((3));
+            level = 3;
         }
-
-        else if (level % 2 == 0)
-        {
-
-            this.viruses.changeLevel((level/2+1));
-            this.background.updateLevel((level/2+1));
-        }
+        this.viruses.changeLevel(level);
+        this.background.updateLevel(level);
     }
 
 
@@ -287,7 +281,7 @@ class View
     checkPlayerFrameWaitCount()
     {
         //check to change the player frame or wait
-        if(this.playerFrameWaitCount > 10)
+        if(this.playerFrameWaitCount > 8)
         {
             this.character.loadNextFrame();
             this.playerFrameWaitCount = 0;
@@ -499,6 +493,15 @@ class VirusesHandler{
     changeLevel(level)
     {
         this.virusImg.src = "../images/game/virus/level"+level+".png";
+
+        //assign the new width and height
+        if (level == 3){
+            VirusesHandler.frameHeight = VirusesHandler.frameWidth =  512;
+        }
+        else{
+            VirusesHandler.frameHeight = VirusesHandler.frameWidth =  350;
+        }
+
     }
 
     setDimensions(width, height)
@@ -595,7 +598,7 @@ class Background
     }
     updateLevel(level)
     {
-        this.img.src = "../images/game/backgrounds/level"+level+".jpg";
+        this.img.src = "../images/game/backgrounds/level"+level+".jpg";    
     }
 
     //function to resize
@@ -612,7 +615,7 @@ class Background
         //handle boundries for image 1 
         if (this.x1 <= - this.width)
         {
-            this.x1 = this.width;
+            this.x1 = this.width*0.9;
         }
         else 
         {
@@ -622,7 +625,7 @@ class Background
         //handle boundries for image 2
         if (this.x2 <= -this.width)
         {
-            this.x2 = this.width;
+            this.x2 = this.width*0.9;
         }
         else
         {
