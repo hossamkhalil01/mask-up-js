@@ -9,13 +9,7 @@ class Game
         this.gameOver = false;
 
         //start the game engine
-<<<<<<< HEAD
-        this.engine = new Engine(30, this);
-||||||| 4c6ab4b
-        this.engine = new Engine(20, this);
-=======
         this.engine = new Engine(60, this);
->>>>>>> cfb3c0b899dc410fa03dc051671e963f968a3617
 
         //define window resize event
         window.addEventListener("resize",this.windowResizeEvent.bind(this));
@@ -102,11 +96,6 @@ class Game
 
         //update the syringes state
         this.model.handleSyringes()
-    }
-
-    updateGame()
-    {
-
     }
 
     endGame() {
